@@ -1,4 +1,4 @@
-# Codeigniter 3 Tutorial - Simple Authentication and Authorization
+# Congreso Ciencia 2017
 
-This is final code for tutorial **Codeigniter 3 Tutorial - Simple Authentication and Authorization**
+Código proporcionado por la **Secretaría de Innovación, Ciencia y Desarrollo Tecnológico (Morelia)**
 
