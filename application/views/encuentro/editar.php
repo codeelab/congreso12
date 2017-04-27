@@ -40,8 +40,10 @@
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
+<form action="" method="post">
 <?php foreach ($editar as $row):?>
-<?php echo form_open('encuentro/edit_evaluacion'); ?>
+
+<?php  $total = $row->calificacion_1+$row->calificacion_2+$row->calificacion_3+$row->calificacion_4+$row->calificacion_5+$row->calificacion_6+$row->calificacion_7+$row->calificacion_8; ?>
 
 <table class="table">
 <tbody">
@@ -84,14 +86,13 @@
     </tr>
     <tr>
         <td ><b>TOTAL FINAL</b></td>
-        <td style="font-size:20px;"><span id="promedio" name="promedio" class='form-control' readonly></span></td>
+        <td style="font-size:20px;"><?php echo $total; ?></td>
     </tr>
 
 </tbody>
 </table>
-
-<?php echo form_submit(array('id' => 'submit', 'name' => 'submit', 'value' => 'Guardar', 'class' => 'btn btn-primary btn-lg btn-block')); ?>
-<?php echo form_close(); ?><br/>
+ <button type="submit" name="submit" value="Evaluar" class="btn btn-default">Guardar</button>
+</form>
 <?php endforeach;?>
 </div>
 
