@@ -83,7 +83,7 @@ if($ponencias !== FALSE) {
                 $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
-            if ($row->status === 'Enviado' || $row->c_jovenes === 1 || $row->archivo_resumen == NULL) {
+            if ($row->status === 'Enviado') {
                echo "<tr>
                <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span><h4></td>
                <td>$estado</td>

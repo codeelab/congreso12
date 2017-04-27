@@ -44,7 +44,7 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-6">
-SERETARÍA DE INNOVACIÓN, CIENCIA Y DESARROLLO TECNOLÓGICO | 2015 - <?php echo date("Y") ?>
+SECRETARÍA DE INNOVACIÓN, CIENCIA Y DESARROLLO TECNOLÓGICO | 2015 - <?php echo date("Y") ?>
 <!-- Programado por Joel Álvarez | CODEELAB.COM -->
 </div>
 <div class="col-sm-6">

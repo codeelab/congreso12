@@ -3,6 +3,7 @@
   $nombre = $this->session->userdata('nombre');
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
+
 ?>
 
 <section id="title" class="emerald">
@@ -32,41 +33,66 @@
 
 <section id="career" class="container">
 <div class="center">
-<h2>Listado de Trabajos Presentados</h2>
+<h2>Evaluación del Participante</h2>
 </div>
 <hr>
+
 <div class="row">
 <div class="col-md-12">
-<?php
-//Si existen las sesiones flasdata que se muestren
-if($this->session->flashdata('correcto'))
-  echo '<div class="alert alert-success" role="alert">';
-   echo $this->session->flashdata('correcto');
-  echo '</div>';
-
-if($this->session->flashdata('incorrecto'))
-  echo '<div class="alert alert-danger" role="alert">';
-   echo $this->session->flashdata('incorrecto');
-  echo '</div>';
-?>
-<form action="" method="post">
+<div class="table-responsive">
 <?php foreach ($editar as $row):?>
-  <div class="form-group">
-    <label for="">Elija el Estado del proyecto</label>
-    <select class="form-control" id="status_id" name="status_id">
-<option value="0">------</option>
-<option value="3">No aceptado</option>
-</select>
-</div>
-  <button type="submit" name="submit" value="Evaluar" class="btn btn-default">Enviar</button>
+<?php echo form_open('encuentro/edit_evaluacion'); ?>
+
+<table class="table">
+<tbody">
+<tr>
+<td colspan="2" style="font-size:14px;color:#fff;background-color:#29bdbe;">EN UNA ESCALA DE 0 A 10 (DONDE 0 ES EL MÍNIMO Y 10 ES EL MÁXIMO) CALIFIQUE LOS SIGUIENTES ASPECTOS:</td>
+  <td></td>
+</tr>
+
+    <tr>
+        <td ><b>La investigación y sus resultados son innovadores.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_1', 'name' => 'calificacion_1', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_1)); ?></th>
+    </tr>
+    <tr>
+        <td ><b>La investigación se ubica en un campo específico de interés y actualidad.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_2', 'name' => 'calificacion_2', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_2)); ?></td>
+    </tr>
+    <tr>
+        <td ><b>La investigación contribuye significativamente al enrequecimiento de un campo específico.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_3', 'name' => 'calificacion_3', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_3)); ?></td>
+    </tr>
+    <tr>
+        <td ><b>Los resultados de la investigación contribuyen a erradicar una problemática en el estado.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_4', 'name' => 'calificacion_4', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_4)); ?></td>
+    </tr>
+    <tr>
+        <td ><b>La investigación es lógica y coherente.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_5', 'name' => 'calificacion_5', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_5)); ?></td>
+    </tr>
+    <tr>
+        <td ><b>La investigación tiene argumentos claros y pertinentes.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_6', 'name' => 'calificacion_6', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_6)); ?></td>
+    </tr>
+    <tr>
+        <td ><b>Las fuentes de información utilizadas en esta investigación son suficientes, actuales y pertinentes.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_7', 'name' => 'calificacion_7', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_7)); ?></td>
+    </tr>
+    <tr>
+        <td ><b>La redacción es correcta ortográfica y gramaticalmente.</b></td>
+        <td><?php echo form_input(array('id' => 'calificacion_8', 'name' => 'calificacion_8', 'type' => 'number', 'class' => 'form-control', 'value' => $row->calificacion_8)); ?></td>
+    </tr>
+    <tr>
+        <td ><b>TOTAL FINAL</b></td>
+        <td style="font-size:20px;"><span id="promedio" name="promedio" class='form-control' readonly></span></td>
+    </tr>
+
+</tbody>
+</table>
+
+<?php echo form_submit(array('id' => 'submit', 'name' => 'submit', 'value' => 'Guardar', 'class' => 'btn btn-primary btn-lg btn-block')); ?>
+<?php echo form_close(); ?><br/>
 <?php endforeach;?>
-</form>
-<hr>
-<br>
-<a href="<?php echo base_url(); ?>encuentro/listado"><button type="button" class="btn btn-primary btn-lg btn-block">Regresar al listado</button></a>
-
-</div>
 </div>
 
-</div>
 </section>

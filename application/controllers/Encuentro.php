@@ -10,10 +10,8 @@ class Encuentro extends MY_Controller {
     {
         parent::__construct();
         $this->load->model('Encuentro_model');
-        $this->load->library("session");
+        $this->load->library('session','pagination');
         $this->load->helper('url','form');
-        /* Se cargan la libreria pagination */
-        $this->load->library('pagination');
     }
 
     public function index()
@@ -115,17 +113,23 @@ class Encuentro extends MY_Controller {
     //le paso por la url un parametro
     public function editar($id_ponencias){
         if(is_numeric($id_ponencias)){
-          $datos["editar"]=$this->Encuentro_model->editar($id_ponencias);
-          $datos["estado"]=$this->Encuentro_model->get_status_id();
+          $data["editar"]=$this->Encuentro_model->editar($id_ponencias);
           $this->load->view("header");
           $this->load->view("menu");
-          $this->load->view("encuentro/editar",$datos);
+          $this->load->view("encuentro/editar",$data);
           $this->load->view("footer");
           if($this->input->post("submit")){
                 $editar=$this->Encuentro_model->editar(
                         $id_ponencias,
                         $this->input->post("submit"),
-                        $this->input->post("status_id")
+                        $this->input->post("calificacion_1"),
+                        $this->input->post("calificacion_2"),
+                        $this->input->post("calificacion_3"),
+                        $this->input->post("calificacion_4"),
+                        $this->input->post("calificacion_5"),
+                        $this->input->post("calificacion_6"),
+                        $this->input->post("calificacion_7"),
+                        $this->input->post("calificacion_8")
                         );
                 if($editar==true){
                     //Sesion de una sola ejecución
@@ -161,34 +165,35 @@ class Encuentro extends MY_Controller {
 
       public function add_evaluacion()
       {
-        $this->load->model('Encuentro_model');
-         $id = $this->uri->segment(3);
-         $data = array(
-            'evaluador_id'   => $this->input->post('evaluador_id'),
-            'ponencia_id'    => $this->input->post('ponencia_id'),
-            'ponente'        => $this->input->post('ponente'),
-            'correo'         => $this->input->post('correo'),
-            'nivel'          => $this->input->post('nivel'),
-            'titulo'         => $this->input->post('titulo'),
-            'modalidad'      => $this->input->post('modalidad'),
-            'mesa'           => $this->input->post('mesa'),
-            'status'         => $this->input->post('status'),
-            'calificacion_1' => $this->input->post('calificacion_1'),
-            'calificacion_2' => $this->input->post('calificacion_2'),
-            'calificacion_3' => $this->input->post('calificacion_3'),
-            'calificacion_4' => $this->input->post('calificacion_4'),
-            'calificacion_5' => $this->input->post('calificacion_5'),
-            'calificacion_6' => $this->input->post('calificacion_6'),
-            'calificacion_7' => $this->input->post('calificacion_7'),
-            'calificacion_8' => $this->input->post('calificacion_8'),
-            'status_id'      => $this->input->post('status_id')
-         );
-        $this->Encuentro_model->inserta_evaluacion($data);
-        $query = $this->db->get("evaluaciones");
-        $this->load->view("header");
-        $this->load->view("menu");
-        $this->load->view("encuentro/index",$data);
-        $this->load->view("footer");;
+
+         $datos = $this->input->post();
+
+         if (isset($datos)) {
+            $evaluador_id   = $datos['evaluador_id'];
+            $ponencia_id    = $datos['ponencia_id'];
+            $ponente        = $datos['ponente'];
+            $correo         = $datos['correo'];
+            $nivel          = $datos['nivel'];
+            $titulo         = $datos['titulo'];
+            $modalidad      = $datos['modalidad'];
+            $mesa           = $datos['mesa'];
+            $status         = $datos['status'];
+            $calificacion_1 = $datos['calificacion_1'];
+            $calificacion_2 = $datos['calificacion_2'];
+            $calificacion_3 = $datos['calificacion_3'];
+            $calificacion_4 = $datos['calificacion_4'];
+            $calificacion_5 = $datos['calificacion_5'];
+            $calificacion_6 = $datos['calificacion_6'];
+            $calificacion_7 = $datos['calificacion_7'];
+            $calificacion_8 = $datos['calificacion_8'];
+            $status_id      = $datos['status_id'];
+
+            $this->Encuentro_model->inserta_evaluacion($evaluador_id,$ponencia_id,$ponente,$correo,$nivel,$titulo,$modalidad,$mesa,$status,$calificacion_1,$calificacion_2,$calificacion_3,$calificacion_4,$calificacion_5,$calificacion_6,$calificacion_7,$calificacion_8,$status_id);
+
+            redirect("encuentro/aprobado");
+
+         }
+
       }
 
 

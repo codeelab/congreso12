@@ -34,6 +34,7 @@ class Encuentro_model extends CI_Model {
    $this->db->join('area_tematica a', 'p.mesa_id = a.id_tematica');
    $this->db->join('nivel_academico n', 'u.nivel = n.id_academico');
    $this->db->where('c_jovenes = 1');
+
    $this->db->where('p.mesa_id',$id_ponencias);
     $consulta = $this->db->get();
         if($consulta->num_rows() > 0 )
@@ -62,13 +63,13 @@ class Encuentro_model extends CI_Model {
 
 
 
-    public function editar($id_ponencias,$editar="NULL",$status_id="NULL"){
+    public function editar($id_ponencias,$editar="NULL",$calificacion_1="NULL",$calificacion_2="NULL",$calificacion_3="NULL",$calificacion_4="NULL",$calificacion_5="NULL",$calificacion_6="NULL",$calificacion_7="NULL",$calificacion_8="NULL"){
         if($editar=="NULL"){
-            $consulta=$this->db->query("SELECT id_ponencias, status_id FROM ponencias WHERE id_ponencias=$id_ponencias");
+            $consulta=$this->db->query("SELECT calificacion_1, calificacion_2, calificacion_3, calificacion_4, calificacion_5, calificacion_6, calificacion_7, calificacion_8 FROM evaluaciones WHERE ponencia_id=$id_ponencias");
             return $consulta->result();
         }else{
           $consulta=$this->db->query("
-              UPDATE ponencias SET status_id='$status_id' WHERE id_ponencias=$id_ponencias;
+              UPDATE evaluaciones SET calificacion_1='$calificacion_1', calificacion_2='$calificacion_2', calificacion_3='$calificacion_3', calificacion_4='$calificacion_4', calificacion_5='$calificacion_5', calificacion_6='$calificacion_6', calificacion_7='$calificacion_7', calificacion_8='$calificacion_8' WHERE ponencia_id=$id_ponencias;
                   ");
           if($consulta==true){
               return true;
@@ -146,27 +147,50 @@ htmlspecialchars($row->status, ENT_QUOTES);
         }
     }
 
-  function inserta_evaluacion($data){
-         if ($this->db->insert("evaluaciones", $data)) {
-            return true;
-         }
-      }
+  function inserta_evaluacion($evaluador_id,$ponencia_id,$ponente,$correo,$nivel,$titulo,$modalidad,$mesa,$status,$calificacion_1,$calificacion_2,$calificacion_3,$calificacion_4,$calificacion_5,$calificacion_6,$calificacion_7,$calificacion_8,$status_id)
+  {
+         $data = array(
+            'evaluador_id'   => $evaluador_id,
+            'ponencia_id'    => $ponencia_id,
+            'ponente'        => $ponente,
+            'correo'         => $correo,
+            'nivel'          => $nivel,
+            'titulo'         => $titulo,
+            'modalidad'      => $modalidad,
+            'mesa'           => $mesa,
+            'status'         => $status,
+            'calificacion_1' => $calificacion_1,
+            'calificacion_2' => $calificacion_2,
+            'calificacion_3' => $calificacion_3,
+            'calificacion_4' => $calificacion_4,
+            'calificacion_5' => $calificacion_5,
+            'calificacion_6' => $calificacion_6,
+            'calificacion_7' => $calificacion_7,
+            'calificacion_8' => $calificacion_8,
+            'status_id'      => $status_id
+         );
 
 
-    public function list_promedio($id_ponencias = true)
-    {
-        $this->db->select('e.id_evaluacion, e.evaluador_id, e.ponencia_id, e.ponente, e.modalidad, e.mesa, e.titulo, e.status, e.calificacion_1, e.calificacion_2, e.calificacion_3, e.calificacion_4, e.calificacion_5, e.calificacion_6, e.calificacion_7, e.calificacion_8, s.status');
-       $this->db->from('evaluaciones e');
-       $this->db->join('status s', 'p.status_id = s.id_status');
-       $this->db->where('ponencia_id',$id_ponencias);
-        $consulta = $this->db->get();
-          if($consulta->num_rows() > 0 )
-          {
-            return $consulta->result();
-          }else{
-            return FALSE;
-          }
-    }
+         $this->db->insert('evaluaciones',$data);
+         $this->db->query("UPDATE ponencias SET status_id='5' WHERE id_ponencias=$ponencia_id;");
+  }
+
+
+  function list_evaluados($id_ponencias = true)
+  {
+
+    // armamos la consulta
+    $query = $this->db-> query('SELECT * FROM evaluaciones');
+    // si hay resultados
+    if ($query->num_rows() > 0) {
+        // almacenamos en una matriz bidimensional
+        foreach($query->result() as $row)
+           $arrDatos[htmlspecialchars($row->id_evaluacion, ENT_QUOTES)] = htmlspecialchars($row->ponente, ENT_QUOTES);
+
+        $query->free_result();
+        return $arrDatos;
+     }
+  }
 
 
 
