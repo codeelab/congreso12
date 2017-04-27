@@ -16,10 +16,10 @@ class Encuentro extends MY_Controller {
 
     public function index()
     {
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("encuentro/index");
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     public function listado()
@@ -39,10 +39,10 @@ class Encuentro extends MY_Controller {
         $this->pagination->initialize($config); //inicializamos la paginación
         /* Se obtienen los registros a mostrar*/
         $data['ponencias'] = $this->Encuentro_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("encuentro/listado_trabajos",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     //le paso por la url un parametro
@@ -64,10 +64,10 @@ class Encuentro extends MY_Controller {
           $datos['ponencias'] = $this->Encuentro_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
           $datos["evaluar"] = $this->Encuentro_model->evaluar($id_ponencias);
           $this->load->helper('form');
-          $this->load->view("header");
-          $this->load->view("menu");
+          $this->load->view("theme/header");
+          $this->load->view("theme/menu");
           $this->load->view("encuentro/evaluar",$datos);
-          $this->load->view("footer");
+          $this->load->view("theme/footer");
           if($this->input->post("submit")){
                 $evaluar=$this->Encuentro_model->evaluar(
                         $id_ponencias,
@@ -104,10 +104,10 @@ class Encuentro extends MY_Controller {
         $this->pagination->initialize($config); //inicializamos la paginación
         /* Se obtienen los registros a mostrar*/
         $data['ponencias'] = $this->Encuentro_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("encuentro/listado_aprobados",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     //le paso por la url un parametro
@@ -148,10 +148,10 @@ class Encuentro extends MY_Controller {
     {
         /* Se obtienen los registros a mostrar*/
         $data['pdf'] = $this->Encuentro_model->list_encuentro_pdf(1);
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("encuentro/constancia",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     public function constancias()

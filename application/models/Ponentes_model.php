@@ -132,4 +132,22 @@ htmlspecialchars($row->nombre_tem, ENT_QUOTES);
     }
 
 
+    public function list_ponentes($id_usuarios = false)
+    {
+            $this->db->select('u.username,u.nombre,u.a_paterno,u.a_materno,p.id_ponencias,p.titulo,p.autor,p.coautores,p.asesor,p.titulo, status_id, p.archivo_resumen, p.archivo_extenso');
+            $this->db->from('usuarios u');
+            $this->db->join('ponencias p', 'u.id_usuarios = p.usuario_id');
+            $this->db->where('u.id_usuarios',$id_usuarios);
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0 )
+        {
+            return $query->result();
+        }else{
+          return FALSE;
+        }
+    }
+
+
+
 }

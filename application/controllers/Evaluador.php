@@ -18,10 +18,10 @@ class Evaluador extends MY_Controller {
 
     public function index()
     {
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("evaluador/index");
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     public function listado()
@@ -41,10 +41,10 @@ class Evaluador extends MY_Controller {
         $this->pagination->initialize($config); //inicializamos la paginación
         /* Se obtienen los registros a mostrar*/
         $data['ponencias'] = $this->Evaluador_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("evaluador/listado_trabajos",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     //le paso por la url un parametro
@@ -52,10 +52,10 @@ class Evaluador extends MY_Controller {
         if(is_numeric($id_ponencias)){
           $datos["evaluar"]=$this->Evaluador_model->evaluar($id_ponencias);
           $datos["estado"]=$this->Evaluador_model->get_status_id();
-          $this->load->view("header");
-          $this->load->view("menu");
+          $this->load->view("theme/header");
+          $this->load->view("theme/menu");
           $this->load->view("evaluador/evaluar",$datos);
-          $this->load->view("footer");
+          $this->load->view("theme/footer");
           if($this->input->post("submit")){
                 $evaluar=$this->Evaluador_model->evaluar(
                         $id_ponencias,
@@ -92,10 +92,10 @@ class Evaluador extends MY_Controller {
         $this->pagination->initialize($config); //inicializamos la paginación
         /* Se obtienen los registros a mostrar*/
         $data['ponencias'] = $this->Evaluador_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("evaluador/listado_aprobados",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     //le paso por la url un parametro
@@ -103,10 +103,10 @@ class Evaluador extends MY_Controller {
         if(is_numeric($id_ponencias)){
           $datos["editar"]=$this->Evaluador_model->editar($id_ponencias);
           $datos["estado"]=$this->Evaluador_model->get_status_id();
-          $this->load->view("header");
-          $this->load->view("menu");
+          $this->load->view("theme/header");
+          $this->load->view("theme/menu");
           $this->load->view("evaluador/editar",$datos);
-          $this->load->view("footer");
+          $this->load->view("theme/footer");
           if($this->input->post("submit")){
                 $editar=$this->Evaluador_model->editar(
                         $id_ponencias,
@@ -130,10 +130,10 @@ class Evaluador extends MY_Controller {
     {
         /* Se obtienen los registros a mostrar*/
         $data['pdf'] = $this->Evaluador_model->list_evaluador_pdf(1);
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("evaluador/constancia",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     public function constancias()

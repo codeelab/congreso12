@@ -10,10 +10,10 @@ class Admin extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->view("header");
-        $this->load->view("menu");
+		$this->load->view("theme/header");
+        $this->load->view("theme/menu");
 		$this->load->view("admin");
-		$this->load->view("footer");
+		$this->load->view("ftheme/ooter");
 	}
 
 }

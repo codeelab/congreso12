@@ -20,10 +20,11 @@ class Ponente extends MY_Controller {
 
 	public function index()
 	{
-		$this->load->view("header");
-        $this->load->view("menu");
-		$this->load->view("ponente/index");
-		$this->load->view("footer");
+        $data['ponentes'] = $this->Ponentes_model->list_ponentes(1,$this->uri->segment(3));
+		$this->load->view("theme/header");
+        $this->load->view("theme/menu");
+		$this->load->view("ponente/index",$data);
+		$this->load->view("theme/footer");
 	}
 
     public function trabajo()
@@ -32,10 +33,19 @@ class Ponente extends MY_Controller {
         $datos['tipo'] = $this->Ponentes_model->get_tipo_trabajo();
         $datos['area'] = $this->Ponentes_model->get_area_tematica();
         // cargamos  la interfaz y le enviamos los datos
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("ponente/registro_trabajo",$datos);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
+    }
+
+    public function extenso()
+    {
+        // cargamos  la interfaz y le enviamos los datos
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view("ponente/registro_extenso");
+        $this->load->view("theme/footer");
     }
 
     public function listado()
@@ -55,10 +65,10 @@ class Ponente extends MY_Controller {
         $this->pagination->initialize($config); //inicializamos la paginación
         /* Se obtienen los registros a mostrar*/
         $data['ponencias'] = $this->Ponentes_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("ponente/listado_trabajos",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     public function registro_trabajo() {
@@ -100,15 +110,52 @@ class Ponente extends MY_Controller {
         }
     }
 
+    public function registro_extenso() {
+
+        $id = $_POST['usuario_id'];
+        $fecha = $_POST['fecha_extenso'] = date("Y/m/d");
+        $base = base_url();
+        $config['id_upload'] = "$id";
+        $config['upload_path'] = 'upload_ext/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size'] = '5000';
+        $config['field_name'] = "userfile";
+        $config['overwrite'] = TRUE;
+        $this->load->library('upload', $config);
+        $this->upload->do_upload();
+        $file_info = $this->upload->data();
+
+        if (!$this->upload->do_upload()) {
+            echo "Error al subir el archivo, verifique que el tamaño del mismo sea menor a 5M";
+            echo "" . $this->upload->display_errors();
+        } else {
+            $ponencias = $this->db->query("SELECT id_ponencias, fecha_extenso, archivo_extenso FROM ponencias WHERE id_ponencias=$id");
+            $row = $ponencias->row();
+            $fuente = $file_info['full_path'];
+            $ext = $file_info['file_ext'];
+            $nombre_final_archivo = "$id-extenso$ext";
+            $destino = "mesas_ext/mesa{$row->mesa_id}/$nombre_final_archivo";
+            $destino_db = "mesas_ext/mesa{$row->mesa_id}/$nombre_final_archivo";
+            if (!copy($fuente, $destino)) {
+                echo "Fallo al copiar a la ubicación $destino\n";
+            } else {
+                $data['archivo_extenso'] = $destino_db;
+            }
+
+            $query = $this->db->query("UPDATE ponencias SET fecha_extenso='{$fecha}', archivo_extenso='{$destino_db}'  WHERE id_ponencias = '{$id}' ");
+            echo "<html> <script>alert(\"El Extenso se ha guardado exitosamente\"); window.location='" . base_url() . "ponente/trabajos/';</script></html>";
+        }
+    }
+
     //controlador para modificar al que
     //le paso por la url un parametro
     public function mod($id_ponencias){
         if(is_numeric($id_ponencias)){
           $datos["mod"]=$this->Ponentes_model->mod($id_ponencias);
-          $this->load->view("header");
-          $this->load->view("menu");
+          $this->load->view("theme/header");
+          $this->load->view("theme/menu");
           $this->load->view("ponente/editar",$datos);
-          $this->load->view("footer");
+          $this->load->view("theme/footer");
           if($this->input->post("submit")){
                 $mod=$this->Ponentes_model->mod(
                         $id_ponencias,
@@ -150,10 +197,10 @@ class Ponente extends MY_Controller {
     {
         /* Se obtienen los registros a mostrar*/
         $data['pdf'] = $this->Ponentes_model->list_ponencia_pdf(1);
-        $this->load->view("header");
-        $this->load->view("menu");
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
         $this->load->view("ponente/constancias",$data);
-        $this->load->view("footer");
+        $this->load->view("theme/footer");
     }
 
     public function constancia_autor()

@@ -22,10 +22,10 @@ class Login extends CI_Controller
 		switch ($this->session->userdata('puesto')) {
 			case '':
 				$data['token'] = $this->token();
-				$this->load->view("header");
-		        $this->load->view("menu");
+				$this->load->view("theme/header");
+		        $this->load->view("theme/menu");
 		        $this->load->view('login',$data);
-		        $this->load->view("footer");
+		        $this->load->view("theme/footer");
 				break;
 			case 'administrador':
 				redirect(base_url().'ad/index');
@@ -52,10 +52,10 @@ class Login extends CI_Controller
 				redirect(base_url().'asistente/index');
 				break;
 			default:
-			    $this->load->view("header");
-		        $this->load->view("menu");
+			    $this->load->view("theme/header");
+		        $this->load->view("theme/menu");
 		        $this->load->view('login');
-		        $this->load->view("footer");
+		        $this->load->view("theme/footer");
 				break;
 		}
 	}
