@@ -34,7 +34,7 @@
 
 <section id="career" class="container">
 <div class="center">
-<h2>Listado de Trabajos Aprobados</h2>
+<h2>Listado de Trabajos Evaluados</h2>
 </div>
 <hr>
 <div class="row">

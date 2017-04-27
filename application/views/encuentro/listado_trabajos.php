@@ -98,7 +98,7 @@ if($ponencias !== FALSE) {
                <td><a href='" . base_url() . "encuentro/evaluar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
 
               }else{
-                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4>Actualmente no hay proyectos disponibles</h4></div></td>';
+                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4><i class="fa fa-id-card-o" aria-hidden="true"></i>      Actualmente no hay proyectos disponibles</h4></div></td>';
               }
            }
 }

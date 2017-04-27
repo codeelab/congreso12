@@ -193,7 +193,33 @@ htmlspecialchars($row->status, ENT_QUOTES);
   }
 
 
-
+    //obtenemos las entradas de todos o un usuario, dependiendo
+    // si le pasamos el id como argument o no
+    public function list_encuentro_pdf($id_usuarios = false)
+    {
+        if($id_usuarios === false)
+        {
+            $this->db->select('u.id_usuarios, u.username, u.nombre, u.a_paterno, u.a_materno, a.nombre_tem, i.nombre_ins, f.nombre_fac');
+            $this->db->from('usuarios u');
+            $this->db->join('area_tematica a', 'u.mesa = a.id_tematica');
+            $this->db->join('institucion i', 'u.institucion = i.id_institucion');
+            $this->db->join('facultad f', 'u.institucion = f.id_facultad');
+        }else{
+            $this->db->select('u.id_usuarios, u.username, u.nombre, u.a_paterno, u.a_materno, a.nombre_tem, i.nombre_ins, f.nombre_fac');
+            $this->db->from('usuarios u');
+            $this->db->join('area_tematica a', 'u.mesa = a.id_tematica');
+            $this->db->join('institucion i', 'u.institucion = i.id_institucion');
+            $this->db->join('facultad f', 'u.institucion = f.id_facultad');
+            $this->db->where('u.id_usuarios',$id_usuarios);
+        }
+        $query = $this->db->get();
+        if($query->num_rows() > 0 )
+          {
+              return $query->result();
+          }else{
+            return FALSE;
+          }
+    }
 
 
 

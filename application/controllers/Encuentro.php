@@ -147,7 +147,7 @@ class Encuentro extends MY_Controller {
     public function constancia()
     {
         /* Se obtienen los registros a mostrar*/
-        $data['pdf'] = $this->Encuentro_model->list_encentro_pdf(1);
+        $data['pdf'] = $this->Encuentro_model->list_encuentro_pdf(1);
         $this->load->view("header");
         $this->load->view("menu");
         $this->load->view("encuentro/constancia",$data);
