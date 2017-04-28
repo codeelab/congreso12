@@ -42,9 +42,10 @@ class Ponente extends MY_Controller {
     public function extenso()
     {
         // cargamos  la interfaz y le enviamos los datos
+        $data['lista'] = $this->Ponentes_model->list_extenso(1,$this->uri->segment(3));
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view("ponente/registro_extenso");
+        $this->load->view("ponente/registro_extenso",$data);
         $this->load->view("theme/footer");
     }
 
@@ -111,8 +112,7 @@ class Ponente extends MY_Controller {
     }
 
     public function registro_extenso() {
-
-        $id = $_POST['usuario_id'];
+        $id = $this->uri->segment(3);
         $fecha = $_POST['fecha_extenso'] = date("Y/m/d");
         $base = base_url();
         $config['id_upload'] = "$id";
@@ -129,7 +129,7 @@ class Ponente extends MY_Controller {
             echo "Error al subir el archivo, verifique que el tamaño del mismo sea menor a 5M";
             echo "" . $this->upload->display_errors();
         } else {
-            $ponencias = $this->db->query("SELECT id_ponencias, fecha_extenso, archivo_extenso FROM ponencias WHERE id_ponencias=$id");
+            $ponencias = $this->db->query("SELECT id_ponencias, fecha_extenso, archivo_extenso, mesa_id FROM ponencias WHERE id_ponencias=$id");
             $row = $ponencias->row();
             $fuente = $file_info['full_path'];
             $ext = $file_info['file_ext'];
@@ -143,7 +143,7 @@ class Ponente extends MY_Controller {
             }
 
             $query = $this->db->query("UPDATE ponencias SET fecha_extenso='{$fecha}', archivo_extenso='{$destino_db}'  WHERE id_ponencias = '{$id}' ");
-            echo "<html> <script>alert(\"El Extenso se ha guardado exitosamente\"); window.location='" . base_url() . "ponente/trabajos/';</script></html>";
+            echo "<html> <script>alert(\"El Extenso se ha guardado exitosamente\"); window.location='" . base_url() . "ponente/listado/';</script></html>";
         }
     }
 

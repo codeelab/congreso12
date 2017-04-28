@@ -65,7 +65,7 @@ if ($row->autor === $row->autor) {
                <td>$row->titulo</td>
                <td>$row->nombre_trabajo</td>
                <td>$row->nombre_tem</td>
-               <td><a href='" . base_url() . "ponente/constancia_autor/$row->id_ponencias' target='_blank'><button type='button' class='btn btn-danger'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td>";
+               <td><a href='" . base_url() . "ponente/constancia_autor/$row->id_ponencias' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a> <a href='" . base_url() . "ponente/constancias/$row->id_ponencias' download='AUTOR-$row->autor'><button type='button' class='btn btn-info' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-cloud-download' aria-hidden='true'></i></button></a></td></td>";
            }else{
             echo '<div class="alert alert-danger" role="alert">No existe un autor registrado en el sistema</div>';
            }
@@ -78,7 +78,7 @@ if ($row->coautores === $row->coautores) {
                <td>$row->titulo</td>
                <td>$row->nombre_trabajo</td>
                <td>$row->nombre_tem</td>
-               <td><a href='" . base_url() . "ponente/constancia_coautor/$row->id_ponencias' target='_blank'><button type='button' class='btn btn-danger'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td>";
+               <td><a href='" . base_url() . "ponente/constancia_coautor/$row->id_ponencias' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->coautores'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>  <a href='" . base_url() . "ponente/constancias/$row->id_ponencias' download='COAUTORES-$row->coautores'><button type='button' class='btn btn-info' data-toggle='tooltip' data-placement='bottom' title='$row->coautores'><i class='fa fa-cloud-download' aria-hidden='true'></i></button></a></td></td>";
            }else{
             echo '<div class="alert alert-danger" role="alert">No existe un Coautor registrado en el sistema</div>';
            }
@@ -91,7 +91,7 @@ if ($row->asesor === $row->asesor) {
                <td>$row->titulo</td>
                <td>$row->nombre_trabajo</td>
                <td>$row->nombre_tem</td>
-               <td><a href='" . base_url() . "ponente/constancia_asesor/$row->id_ponencias' target='_blank'><button type='button' class='btn btn-danger'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td>";
+               <td><a href='" . base_url() . "ponente/constancia_asesor/$row->id_ponencias' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->asesor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>   <a href='" . base_url() . "ponente/constancias/$row->id_ponencias' download='ASESOR-$row->asesor'><button type='button' class='btn btn-info' data-toggle='tooltip' data-placement='bottom' title='$row->asesor'><i class='fa fa-cloud-download' aria-hidden='true'></i></button></a></td></td>";
            }else{
             echo '<div class="alert alert-danger" role="alert">No existe un Asesor registrado en el sistema</div>';
            }

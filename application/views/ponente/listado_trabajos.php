@@ -72,16 +72,16 @@ if($ponencias !== FALSE) {
                    $estado = "<h4><span class='label label-default'>Cancelado</span></h4>";
              }
 
-            if ($row->archivo_resumen == "NULL") {
-                $resumen = " ";
+            if ($row->archivo_resumen > 0) {
+                $resumen = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
-                $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
+                $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
-            if ($row->archivo_extenso == "NULL") {
-                $extenso = " ";
+            if ($row->archivo_extenso > 0) {
+                $extenso = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
-                $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
+                $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
                echo "<tr>

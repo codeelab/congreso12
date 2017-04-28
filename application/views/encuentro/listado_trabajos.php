@@ -71,17 +71,18 @@ if($ponencias !== FALSE) {
                    $estado = "<h4><span class='label label-default'>Cancelado</span></h4>";
              }
 
-            if ($row->archivo_resumen == "NULL") {
-                $resumen = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No contiene documentación'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
+            if (file_exists($row->archivo_resumen) !=" ") {
+                $resumen = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
                 $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
-            if ($row->archivo_extenso == "NULL") {
-                $extenso = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No contiene documentación'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
+            if (file_exists($row->archivo_extenso) !=" ") {
+                $extenso = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
                 $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
+
 
             if ($row->status === 'Enviado') {
                echo "<tr>
@@ -95,10 +96,7 @@ if($ponencias !== FALSE) {
                <td>$row->nombre_tem</td>
                <td>$resumen</td>
                <td>$extenso</td>
-               <td><a href='" . base_url() . "encuentro/evaluar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
-
-              }else{
-                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4><i class="fa fa-id-card-o" aria-hidden="true"></i>      Actualmente no hay proyectos disponibles</h4></div></td>';
+               <td><a href='" . base_url() . "evaluador/evaluar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
               }
            }
 }

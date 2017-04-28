@@ -3,6 +3,10 @@
   $nombre = $this->session->userdata('nombre');
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
+
+foreach ($lista as $row) {
+  $id = $row->id_ponencias;
+}
  ?>
 
 <section id="title" class="emerald">
@@ -41,13 +45,12 @@
 
 <div class="col-md-10">
 
-<form action="<?php echo base_url(); ?>ponente/registro_extenso" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url(); ?>ponente/registro_extenso/<?php echo $id;?>" method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="">Carga tu archivo Extenso</label>
     <input type="file" id="userfile" name="userfile">
     <p class="help-block">Sólo esta permitido archivos en formato PDF</p>
   </div>
-  <input type="hidden" id="usuario_id" name="usuario_id" value="<?php echo $user;?>">
   <button type="submit" class="btn btn-info btn-md">Enviar</button>
 </form>
 

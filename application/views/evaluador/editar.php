@@ -63,7 +63,7 @@ if($this->session->flashdata('incorrecto'))
 </form>
 <hr>
 <br>
-<a href="<?php echo base_url(); ?>evaluador/listado"><button type="button" class="btn btn-primary btn-lg btn-block">Regresar al listado</button></a>
+<a href="<?php echo base_url(); ?>evaluador/aprobado"><button type="button" class="btn btn-primary btn-lg btn-block">Regresar al listado</button></a>
 
 </div>
 </div>

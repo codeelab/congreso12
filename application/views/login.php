@@ -27,6 +27,14 @@
                 <div class="panel-heading">
                         <strong>12 CONGRESO ESTATAL DE CIENCIA, TECNOLOGÍA E INNOVACIÓN</strong>
                 </div>
+                    <?php
+                    if($this->session->flashdata('usuario_incorrecto'))
+                    {
+                    ?>
+                    <div class="alert alert-danger" role="alert"><h4><?=$this->session->flashdata('usuario_incorrecto')?></h4></div>
+                    <?php
+                    }
+                    ?>
                 <div class="panel-body">
                     <?=form_open(base_url().'login/new_user')?>
                         <div class="form-group">
@@ -50,14 +58,7 @@
                         <input type="submit" value="Login" class="btn btn-primary">
                         <?=form_hidden('token',$token)?>
                         <?php echo form_close(); ?>
-                    <?php 
-                    if($this->session->flashdata('usuario_incorrecto'))
-                    {
-                    ?>
-                    <p><?=$this->session->flashdata('usuario_incorrecto')?></p>
-                    <?php
-                    }
-                    ?>
+
                 </div>
         </div>
 

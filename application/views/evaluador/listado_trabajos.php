@@ -74,19 +74,23 @@ if($ponencias !== FALSE) {
                    $estado = "<h4><span class='label label-default'>Cancelado</span></h4>";
              }
 
-            if ($row->archivo_resumen == "NULL") {
+            if (file_exists($row->archivo_resumen) !=" ") {
                 $resumen = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
                 $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
-            if ($row->archivo_extenso == "NULL") {
+            if (file_exists($row->archivo_extenso) !=" ") {
                 $extenso = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
                 $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
+
             if ($row->status === 'Enviado') {
+                if ($row->archivo_resumen != " ") {
+                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>      Actualmente no hay proyectos asignados</h4></div></td>';
+                }else{
                echo "<tr>
                <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span><h4></td>
                <td>$estado</td>
@@ -99,6 +103,7 @@ if($ponencias !== FALSE) {
                <td>$resumen</td>
                <td>$extenso</td>
                <td><a href='" . base_url() . "evaluador/evaluar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
+               }
 
               }
            }
