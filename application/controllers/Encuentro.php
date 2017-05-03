@@ -114,10 +114,10 @@ class Encuentro extends MY_Controller {
     public function editar($id_ponencias){
         if(is_numeric($id_ponencias)){
           $data["editar"]=$this->Encuentro_model->editar($id_ponencias);
-          $this->load->view("header");
-          $this->load->view("menu");
+          $this->load->view("theme/header");
+          $this->load->view("theme/menu");
           $this->load->view("encuentro/editar",$data);
-          $this->load->view("footer");
+          $this->load->view("theme/footer");
           if($this->input->post("submit")){
                 $editar=$this->Encuentro_model->editar(
                         $id_ponencias,

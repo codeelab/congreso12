@@ -61,7 +61,7 @@
                <td>$row->nombre_ins</td>
                <td>$row->nombre_fac</td>
                <td>$row->nombre_tem</td>
-               <td><a href='" . base_url() . "evaluador/constancias/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$nombres'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>   <a href='" . base_url() . "evaluador/constancias/$row->id_usuarios' download='EVALUADOR-$nombres'><button type='button' class='btn btn-info' data-toggle='tooltip' data-placement='bottom' title='$nombres'><i class='fa fa-cloud-download' aria-hidden='true'></i></button></a></td>";
+               <td><a href='" . base_url() . "evaluador/constancias/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$nombres'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td>";
            }
 ?>
  </tbody>

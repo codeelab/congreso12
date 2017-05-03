@@ -227,4 +227,6 @@ class Ponente extends MY_Controller {
         $this->load->view("ponente/constancia_asesor",$data);
     }
 
+
+
 }
