@@ -95,6 +95,7 @@ class Login extends CI_Controller
 	                'a_paterno'		=>		$check_user->a_paterno,
 	                'a_materno'		=>		$check_user->a_materno,
 	                'mesa' 		=> 		$check_user->mesa,
+	                'area_id' 		=> 		$check_user->area_id,
 	                'username' 		=> 		$check_user->username,
 	                'password' 		=> 		$check_user->password
             		);

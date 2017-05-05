@@ -15,7 +15,7 @@
 <br>
 <br>
 <br>
-<h1>Relator: <?php echo $nombre .' '.$a_paterno .' '.$a_materno ?></h1>
+<h1>Apoyo Logistico: <?php echo $nombre .' '.$a_paterno .' '.$a_materno ?></h1>
 </div>
 <div class="col-sm-6">
 <br>
@@ -23,8 +23,8 @@
 <br>
 <br>
 <ul class="breadcrumb pull-right lead">
-    <li><a href="<?php echo site_url('relator/index') ?>">Inicio</a></li>
-    <li class="active"><a href="<?php echo site_url('relator/listado') ?>">Trabajos</a></li>
+    <li><a href="<?php echo site_url('logistico/index') ?>">Inicio</a></li>
+    <li class="active"><a href="<?php echo site_url('logistico/listado') ?>">Trabajos</a></li>
     <li><a href="<?php echo site_url("login/salir") ?>">Salir</a></li>
 </ul>
 </div>
@@ -57,16 +57,16 @@
 
 if ($row->id_usuarios === $user) {
 
-$relator = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
+$moderador = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
 
 
                echo "<tr>
                <td><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-RE-$row->id_usuarios</span></td>
-               <td>Relator</td>
-               <td>$relator</td>
+               <td>Apoyo Logistico</td>
+               <td>$moderador</td>
                <td>$row->nombre_sala</td>
                <td>$row->nombre_mesa</td>
-               <td><a href='" . base_url() . "relator/constancia/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$relator'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td></td>";
+               <td><a href='" . base_url() . "moderador/constancia/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$moderador'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td></td>";
            }else{
                 echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>      No cuenta con un registro valido en el sistema</h4></div></td>';
               }

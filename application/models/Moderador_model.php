@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Relator_model extends CI_Model {
+class Moderador_model extends CI_Model {
 
 
     //obtenemos las entradas de todos o un usuario, dependiendo
@@ -27,7 +27,7 @@ class Relator_model extends CI_Model {
 function get_area_tematica(){
 
     // armamos la consulta
-    $query = $this->db-> query('SELECT u.id_usuarios, a.nombre_tem, mesa FROM usuarios u INNER JOIN area_tematica a ON a.id_tematica = u.mesa');
+    $query = $this->db-> query('SELECT id_logistica, nombre_area, turno, cupo FROM area_logistica');
 
     if ($query->num_rows() > 0) {
         return $query->result();

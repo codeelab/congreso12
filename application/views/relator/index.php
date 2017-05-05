@@ -77,11 +77,11 @@ echo "
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan2 featured'>
 <li class='plan-name'>
-<h4>Mesa(s) Asignada(s)</h4>
+<h4>Ponencias Asignadas</h4>
 </li>
 <li class='plan-price'>
 <div>
-<span class='price'><i class='fa fa-file-text-o' aria-hidden='true'></i></span>
+<span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
 </div>
 </li>
 <li class='plan-action'>
@@ -94,11 +94,11 @@ echo "
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan2 featured'>
 <li class='plan-name'>
-<h4>Mesa(s) Asignada(s)</h4>
+<h4>Ponencias Asignadas</h4>
 </li>
 <li class='plan-price'>
 <div>
-<span class='price'><i class='fa fa-file-text-o' aria-hidden='true'></i></span>
+<span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
 </div>
 </li>
 <li class='plan-action'>
@@ -113,11 +113,27 @@ echo "
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan3'>
 <li class='plan-name'>
+<h4>Horarios</h4>
+</li>
+<li class='plan-price'>
+<div>
+<span class='price'><i class='fa fa-calendar fa-2x' aria-hidden='true'></i></span>
+</div>
+</li>
+<li class='plan-action'>
+<a href='calendario' class='btn btn-default btn-md'><i class='fa fa-external-link' aria-hidden='true'></i>   Acceso</a>
+</li>
+</ul>
+</div>
+
+<div class='col-md-3 col-xs-6'>
+<ul class='plan plan3'>
+<li class='plan-name'>
 <h4>Constancias</h4>
 </li>
 <li class='plan-price'>
 <div>
-<span class='price'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></span>
+<span class='price'><i class='fa fa-file-pdf-o fa-2x' aria-hidden='true'></i></span>
 </div>
 </li>
 <li class='plan-action'>

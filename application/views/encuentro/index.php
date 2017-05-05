@@ -65,7 +65,7 @@ if ( $actual >= "17/04/2017" AND $actual <= "20/04/2017") {
 </li>
 <li class="plan-price">
 <div>
-<span class="price"><i class="fa fa-list" aria-hidden="true"></i></span>
+<span class="price"><i class="fa fa-list fa-2x" aria-hidden="true"></i></span>
 </div>
 </li> 
 <li class="plan-action">
@@ -80,7 +80,7 @@ if ( $actual >= "17/04/2017" AND $actual <= "20/04/2017") {
 </li>
 <li class="plan-price">
 <div>
-<span class="price"><i class="fa fa-list" aria-hidden="true"></i></span>
+<span class="price"><i class="fa fa-list fa-2x" aria-hidden="true"></i></span>
 </div>
 </li>
 <li class="plan-action">
@@ -95,7 +95,7 @@ if ( $actual >= "17/04/2017" AND $actual <= "20/04/2017") {
 </li>
 <li class="plan-price">
 <div>
-<span class="price"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
+<span class="price"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></span>
 </div>
 </li>
 <li class="plan-action">
