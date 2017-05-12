@@ -34,4 +34,23 @@ class Logistico extends MY_Controller {
         $this->load->view("logistico/calendario",$data);
         $this->load->view("theme/footer");
     }
+
+    public function constancias()
+    {
+        /* Se obtienen los registros a mostrar*/
+        $data['pdf'] = $this->Logistico_model->get_area();
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view("logistico/constancias",$data);
+        $this->load->view("theme/footer");
+    }
+
+    public function constancia()
+    {
+        /* Se obtienen los registros a mostrar*/
+        $id=$this->uri->segment(3);
+        $data['datos']=$this->db->query("SELECT id_usuarios, nombre, a_paterno, a_materno FROM usuarios WHERE id_usuarios=$id");
+        $this->load->view("logistico/constancia_logistico",$data);
+    }
+
 }

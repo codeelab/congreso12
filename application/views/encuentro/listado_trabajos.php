@@ -96,7 +96,7 @@ if($ponencias !== FALSE) {
                <td>$row->nombre_tem</td>
                <td>$resumen</td>
                <td>$extenso</td>
-               <td><a href='" . base_url() . "evaluador/evaluar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
+               <td><a href='" . base_url() . "encuentro/evaluar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
               }
            }
 }

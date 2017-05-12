@@ -63,7 +63,7 @@
             <div class="input-group">
                 <div class="input-group-addon"><span class="fa fa-ticket"> CECTI-</span>
                 </div>
-                <?php echo form_input(array('id' => 'ponencia_id', 'name' => 'ponencia_id', 'class' => 'form-control', 'value' => $folio, 'readonly' => 'TRUE')); ?>
+                <?php echo form_input(array('id' => 'ponencia_id', 'name' => 'ponencia_id', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'value' => $folio, 'readonly' => 'TRUE')); ?>
             </div>
         </div>
         <div class="form-group">
@@ -139,35 +139,35 @@
 
     <tr>
         <td ><b>La investigación y sus resultados son innovadores.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_1', 'name' => 'calificacion_1', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></th>
+        <td><?php echo form_input(array('id' => 'calificacion_1', 'name' => 'calificacion_1', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></th>
     </tr>
     <tr>
         <td ><b>La investigación se ubica en un campo específico de interés y actualidad.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_2', 'name' => 'calificacion_2', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></td>
+        <td><?php echo form_input(array('id' => 'calificacion_2', 'name' => 'calificacion_2', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></td>
     </tr>
     <tr>
         <td ><b>La investigación contribuye significativamente al enrequecimiento de un campo específico.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_3', 'name' => 'calificacion_3', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></td>
+        <td><?php echo form_input(array('id' => 'calificacion_3', 'name' => 'calificacion_3', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></td>
     </tr>
     <tr>
         <td ><b>Los resultados de la investigación contribuyen a erradicar una problemática en el estado.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_4', 'name' => 'calificacion_4', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></td>
+        <td><?php echo form_input(array('id' => 'calificacion_4', 'name' => 'calificacion_4', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></td>
     </tr>
     <tr>
         <td ><b>La investigación es lógica y coherente.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_5', 'name' => 'calificacion_5', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></td>
+        <td><?php echo form_input(array('id' => 'calificacion_5', 'name' => 'calificacion_5', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></td>
     </tr>
     <tr>
         <td ><b>La investigación tiene argumentos claros y pertinentes.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_6', 'name' => 'calificacion_6', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></td>
+        <td><?php echo form_input(array('id' => 'calificacion_6', 'name' => 'calificacion_6', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></td>
     </tr>
     <tr>
         <td ><b>Las fuentes de información utilizadas en esta investigación son suficientes, actuales y pertinentes.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_7', 'name' => 'calificacion_7', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></td>
+        <td><?php echo form_input(array('id' => 'calificacion_7', 'name' => 'calificacion_7', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></td>
     </tr>
     <tr>
         <td ><b>La redacción es correcta ortográfica y gramaticalmente.</b></td>
-        <td><?php echo form_input(array('id' => 'calificacion_8', 'name' => 'calificacion_8', 'type' => 'number', 'class' => 'form-control', 'onchange' => 'sumar(this.value);')); ?></td>
+        <td><?php echo form_input(array('id' => 'calificacion_8', 'name' => 'calificacion_8', 'type' => 'number', 'type' => 'number', 'min' => '0', 'max' => '10', 'class' => 'form-control', 'required' => 'required', 'onchange' => 'sumar(this.value);')); ?></td>
     </tr>
     <tr>
         <td ><b>TOTAL FINAL</b></td>

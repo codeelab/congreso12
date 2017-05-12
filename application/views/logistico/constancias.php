@@ -34,7 +34,7 @@
 
 <section id="career" class="container">
 <div class="center">
-<h2>Constancias de Participación</h2>
+<h2>Constancia de Participación</h2>
 </div>
 <hr>
 <div class="row">
@@ -45,9 +45,8 @@
  <tr>
             <th>Folio</th>
             <th>Participación</th>
+            <th>Área</th>
             <th>Nombre</th>
-            <th>Sala</th>
-            <th>Mesa</th>
             <th>Constancia</th>
  </tr>
  </thead>
@@ -57,16 +56,15 @@
 
 if ($row->id_usuarios === $user) {
 
-$moderador = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
+$logistico = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
 
 
                echo "<tr>
-               <td><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-RE-$row->id_usuarios</span></td>
+               <td><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-LO-$row->id_usuarios</span></td>
                <td>Apoyo Logistico</td>
-               <td>$moderador</td>
-               <td>$row->nombre_sala</td>
-               <td>$row->nombre_mesa</td>
-               <td><a href='" . base_url() . "moderador/constancia/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$moderador'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td></td>";
+               <td>$row->nombre_area</td>
+               <td>$logistico</td>
+               <td><a href='" . base_url() . "logistico/constancia/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$logistico'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td></td>";
            }else{
                 echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>      No cuenta con un registro valido en el sistema</h4></div></td>';
               }

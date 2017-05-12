@@ -3,10 +3,10 @@
   $actual = date("d") . "/" . date("m") . "/" . date("Y"); //fecha que compara la actual
   //Para los avisos de subida de resumen y cierre del módulo a todos los ponentes
   $inicio_aviso_resumen = "17/04/2017";
-  $cierre_aviso_resumen = "28/04/2017";
+  $cierre_aviso_resumen = "12/05/2017";
   //Para los avisos de subida de extensos y cierre del módulo a todos los ponentes aprobados
-  $inicio_aviso_extensos = "29/04/2017";
-  $cierre_aviso_extensos = "30/05/2017";
+  $inicio_aviso_extensos = "13/05/2017";
+  $cierre_aviso_extensos = "23/05/2017";
 
 
   $user = $this->session->userdata('id_usuarios');
@@ -46,29 +46,26 @@
 </section>
 <section id="pricing">
 <div class="container">
-<?php
-if ($actual >= $inicio_aviso_resumen AND $actual < $cierre_aviso_resumen) {
 
-    //Función texto sólo para alerta de resúmen
+<?php
+if($actual >= $inicio_aviso_resumen AND $actual < $cierre_aviso_resumen){
+    // Función texto sólo para alerta de resúmen
     echo "<div class='alert alert-info' role='alert'><p class='lead'>La fecha limite para el envío del archivo en <b>Resumen</b>, es el día <b>26 de agosto del 2016</b>. Le sugerimos elaborar el Resumen en base a los lineamientos marcados en la convocatoria. <br> Una vez aprobado dicho resumen, se enviará un correo electrónico donde se solicitará el trabajo en extenso.</p></div>";
 
-}else if ($actual == $cierre_aviso_resumen) {
-
-    //Función texto sólo para alerta de resúmen
+}elseif ($actual >= $cierre_aviso_resumen AND $actual < $inicio_aviso_extensos){
+    // Función texto sólo para alerta de resúmen
     echo "<div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Resumen ha finalizado</b> agradecemos tu participaci&oacute;n. Si tu proyecto fue <b>aprobado</b>  en breve se habilitara la opción de extenso</p></div>";
 
-}else if ($actual >= $inicio_aviso_extensos AND $actual <= $cierre_aviso_extensos) {
+}elseif($actual >= $inicio_aviso_extensos AND $actual <= $cierre_aviso_extensos){
 
-    //Función texto sólo para alerta de extenso
+    // Función texto sólo para alerta de extenso
     echo "<div class='alert alert-warning' role='alert'><p class='lead'>La fecha limite para el envío del archivo en <b>Extenso</b> del trabajo es el día <b> 18 de septiembre del 2016</b>. Le sugerimos elaborar el documento en base a los lineamientos marcados en la convocatoria.</p></div>";
 
 }else{
-
-    //Función texto sólo para alerta de resúmen
-    echo "<div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu Extenso ha finalizado agradecemos tu participaci&oacute;n.</p></div>";
+    // Función texto sólo para alerta de resúmen -->
+    echo "<div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Extenso</b> ha finalizado agradecemos tu participaci&oacute;n.</p></div>";
 }
-
- ?>
+?>
 
 <div class="gap"></div>
 <div id="pricing-table" class="row">
@@ -87,27 +84,9 @@ if ($actual >= $inicio_aviso_resumen AND $actual < $cierre_aviso_resumen) {
 </li>
 </ul>
 </div>
-<?php
-if ( $actual >= $cierre_aviso_resumen) {
 
-echo "
-<div class='col-md-3 col-xs-6'>
-<ul class='plan plan2 featured'>
-<li class='plan-name'>
-<h4>Registrar Trabajo</h4>
-</li>
-<li class='plan-price'>
-<div>
-<span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
-</div>
-</li>
-<li class='plan-action'>
+<?php if($actual >= $cierre_aviso_resumen): ?>
 
-</li>
-</ul>
-</div>";
-}else{
-echo "
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan2 featured'>
 <li class='plan-name'>
@@ -122,11 +101,30 @@ echo "
 <a href='trabajo' class='btn btn-default btn-md'><i class='fa fa-edit' aria-hidden='true'></i>   Acceso</a>
 </li>
 </ul>
-</div>";
-}
+</div>
 
-  if ($estado == '2' XOR $actual >= $cierre_aviso_extensos) {
-    echo "
+<?php else: ?>
+
+<div class='col-md-3 col-xs-6'>
+<ul class='plan plan2 featured'>
+<li class='plan-name'>
+<h4>Registrar Trabajo</h4>
+</li>
+<li class='plan-price'>
+<div>
+<span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
+</div>
+</li>
+<li class='plan-action'>
+<a href='#' class='btn btn-default btn-md' disabled='disabled'><i class='fa fa-edit' aria-hidden='true'></i>   Acceso</a>
+</li>
+</ul>
+</div>
+
+<?php endif ?>
+
+<?php if($estado == '2' XOR $actual >= $cierre_aviso_extensos): ?>
+
     <div class='col-md-3 col-xs-6'>
     <ul class='plan plan2 featured'>
     <li class='plan-name'>
@@ -141,9 +139,8 @@ echo "
     <a href='extenso' class='btn btn-default btn-md'><i class='fa fa-cloud-upload' aria-hidden='true'></i>   Registro</a>
     </li>
     </ul>
-    </div>";
-  }else{
-  echo "
+    </div>
+<?php else: ?>
     <div class='col-md-3 col-xs-6'>
     <ul class='plan plan2 featured'>
     <li class='plan-name'>
@@ -155,13 +152,13 @@ echo "
     </div>
     </li>
     <li class='plan-action'>
+    <a href='extenso' class='btn btn-default btn-md' disabled='disabled'><i class='fa fa-cloud-upload' aria-hidden='true'></i>   Registro</a>
 
     </li>
     </ul>
-    </div>";
-  }
+    </div>
+<?php endif ?>
 
-?>
 <div class="col-md-3 col-xs-6">
 <ul class="plan plan3">
 <li class="plan-name">
@@ -177,10 +174,7 @@ echo "
 </li>
 </ul>
 </div> 
-<?php
-if ( $estado == '2' XOR $estado == '5') {
-
-echo "
+<?php if ( $estado == '2' XOR $estado == '5'): ?>
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan3'>
 <li class='plan-name'>
@@ -195,11 +189,11 @@ echo "
 <a href='constancias' class='btn btn-default btn-md'><i class='fa fa-download' aria-hidden='true'></i>   Descargas</a>
 </li>
 </ul>
-</div>";
-}else{
-echo "";
-}
-?>
+</div>
+<?php else: ?>
+
+<?php endif ?>
+
 
 
 
