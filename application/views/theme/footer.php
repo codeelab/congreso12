@@ -49,10 +49,10 @@ SECRETARÍA DE INNOVACIÓN, CIENCIA Y DESARROLLO TECNOLÓGICO | 2015 - <?php ech
 </div>
 <div class="col-sm-6">
 <ul class="pull-right">
-        <li><i class="fa fa-twitter" aria-hidden="true"></i><a href="https://twitter.com/SICDETmichoacan/" title="Twitter" target="_blank"><span class="label">Twitter</span></a></li>
-        <li><i class="fa fa-facebook" aria-hidden="true"></i><a href="https://www.facebook.com/SICDET/" title="Facebook" target="_blank"><span class="label">Facebook</span></a></li>
-        <li><i class="fa fa-instagram" aria-hidden="true"></i><a href="https://www.instagram.com/GobMichoacan/" title="Instagram" target="_blank"><span class="label">Instagram</span></a></li>
-        <li><i class="fa fa-youtube" aria-hidden="true"></i><a href="https://www.youtube.com/channel/UC_uaIRgMrAl91qewRt17v5g" title="Youtube" target="_blank"><span class="label">Youtube</span></a></li>
+        <li><i class="fa fa-twitter" aria-hidden="true"></i><a href="https://twitter.com/SICDETmichoacan/" data-toggle='tooltip' data-placement='bottom' title="Twitter" target="_blank"><span class="label">Twitter</span></a></li>
+        <li><i class="fa fa-facebook" aria-hidden="true"></i><a href="https://www.facebook.com/SICDET/" data-toggle='tooltip' data-placement='bottom' title="Facebook" target="_blank"><span class="label">Facebook</span></a></li>
+        <li><i class="fa fa-instagram" aria-hidden="true"></i><a href="https://www.instagram.com/GobMichoacan/" data-toggle='tooltip' data-placement='bottom' title="Instagram" target="_blank"><span class="label">Instagram</span></a></li>
+        <li><i class="fa fa-youtube" aria-hidden="true"></i><a href="https://www.youtube.com/channel/UC_uaIRgMrAl91qewRt17v5g" data-toggle='tooltip' data-placement='bottom' title="Youtube" target="_blank"><span class="label">Youtube</span></a></li>
 </ul>
 </div>
 </div>

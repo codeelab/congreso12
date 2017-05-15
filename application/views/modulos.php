@@ -7,8 +7,8 @@
 <img class="icon-md" src="<?php base_url()?>assets/images/icon_innovacion.png" width="64px" height="64px">
 </div>
 <div class="media-body">
-<h3 class="media-heading">INNOVACIÓN</h3>
-<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae.</p>
+<h3 class="">INNOVACIÓN</h3>
+<p></p>
 
 </div>
 </div>
@@ -19,8 +19,8 @@
 <img class="icon-md" src="<?php base_url()?>assets/images/icon-ciencia.png" width="64px" height="64px">
 </div>
 <div class="media-body">
-<h3 class="media-heading">CIENCIA</h3>
-<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae.</p>
+<h3 class="">CIENCIA</h3>
+<p></p>
 
 </div>
 </div>
@@ -31,8 +31,8 @@
 <img class="icon-md" src="<?php base_url()?>assets/images/icon-tecnologia.png" width="64px" height="64px">
 </div>
 <div class="media-body">
-<h3 class="media-heading">TECNOLOGÍA</h3>
-<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae.</p>
+<h3 class="">TECNOLOGÍA</h3>
+<p></p>
 
 </div>
 </div>
