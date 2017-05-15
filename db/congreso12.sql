@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 05-05-2017 a las 23:54:48
+-- Tiempo de generación: 15-05-2017 a las 18:15:06
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `area_logistica` (
   `id_logistica` int(11) NOT NULL,
   `nombre_area` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dia` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `turno` varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `cupo` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -37,13 +38,16 @@ CREATE TABLE `area_logistica` (
 -- Volcado de datos para la tabla `area_logistica`
 --
 
-INSERT INTO `area_logistica` (`id_logistica`, `nombre_area`, `turno`, `cupo`) VALUES
-(1, 'Registro', 'Mañana', 12),
-(2, 'Registro', 'Tarde', 12),
-(3, 'Mesas', 'Mañana', 20),
-(4, 'Mesas', 'Tarde', 20),
-(5, 'Logística general ', 'Mañana', 10),
-(6, 'Logística general ', 'Tarde', 10);
+INSERT INTO `area_logistica` (`id_logistica`, `nombre_area`, `dia`, `turno`, `cupo`) VALUES
+(1, 'Registro', 'Día 1', 'Mañana', 14),
+(2, 'Registro', 'Día 1', 'Tarde', 7),
+(3, 'Registro', 'Día 2', 'Mañana', 7),
+(4, 'Mesas', 'Día 1', 'Mañana', 22),
+(5, 'Mesas', 'Día 1', 'Tarde', 22),
+(6, 'Mesas', 'Día 2', 'Mañana', 22),
+(7, 'Logística general ', 'Día 1', 'Mañana', 4),
+(8, 'Logística general ', 'Día 1', 'Tarde', 4),
+(9, 'Logística general ', 'Día 2', 'Mañana', 4);
 
 -- --------------------------------------------------------
 
@@ -85,6 +89,7 @@ CREATE TABLE `asignacion_logistica` (
   `sala_id` int(11) DEFAULT NULL,
   `mesa_id` int(11) DEFAULT NULL,
   `fecha_id` int(11) DEFAULT NULL,
+  `dia_id` int(11) DEFAULT NULL,
   `horario_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -92,8 +97,8 @@ CREATE TABLE `asignacion_logistica` (
 -- Volcado de datos para la tabla `asignacion_logistica`
 --
 
-INSERT INTO `asignacion_logistica` (`id_asignacion`, `usuario_id`, `area_id`, `sala_id`, `mesa_id`, `fecha_id`, `horario_id`) VALUES
-(1, 6, 1, 1, 1, 1, 1);
+INSERT INTO `asignacion_logistica` (`id_asignacion`, `usuario_id`, `area_id`, `sala_id`, `mesa_id`, `fecha_id`, `dia_id`, `horario_id`) VALUES
+(1, 6, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -139,7 +144,7 @@ CREATE TABLE `evaluaciones` (
 --
 
 INSERT INTO `evaluaciones` (`id_evaluacion`, `evaluador_id`, `ponencia_id`, `ponente`, `correo`, `modalidad`, `mesa`, `nivel`, `titulo`, `status`, `calificacion_1`, `calificacion_2`, `calificacion_3`, `calificacion_4`, `calificacion_5`, `calificacion_6`, `calificacion_7`, `calificacion_8`, `status_id`) VALUES
-(118, 3, 3, 'Omar Campos', 'softcodec@gmail.com', 'Exposición Oral', 'Mesa 1.- Ciencias Naturales y de Materiales', 'LICENCIATURA', 'frfrrfrfrrfr', 'Enviado', 7, 7, 7, 7, 7, 7, 7, 7, 5);
+(120, 3, 3, 'Omar Campos', 'softcodec@gmail.com', 'Exposición Oral', 'Mesa 1.- Ciencias Naturales y de Materiales', 'LICENCIATURA', 'frfrrfrfrrfr', 'Enviado', 10, 10, 10, 10, 10, 10, 10, 10, 5);
 
 -- --------------------------------------------------------
 
@@ -1275,7 +1280,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `area_logistica`
 --
 ALTER TABLE `area_logistica`
-  MODIFY `id_logistica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_logistica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `area_tematica`
 --
@@ -1295,7 +1300,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `evaluaciones`
 --
 ALTER TABLE `evaluaciones`
-  MODIFY `id_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT de la tabla `fechas`
 --
@@ -1345,7 +1350,7 @@ ALTER TABLE `nivel_academico`
 -- AUTO_INCREMENT de la tabla `ponencias`
 --
 ALTER TABLE `ponencias`
-  MODIFY `id_ponencias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_ponencias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `proceso`
 --
