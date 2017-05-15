@@ -18,18 +18,9 @@ foreach ($tematica as $row) {
 <div class="container">
 <div class="row">
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
-<br>
 <h1>Moderador: <?php echo $nombre .' '.$a_paterno .' '.$a_materno ?></h1>
 </div>
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
 <ul class="breadcrumb pull-right lead">
     <li><a href="<?php echo site_url('moderador/index') ?>">Inicio</a></li>
     <li class="active"><a href="<?php echo site_url('moderador/listado') ?>">Trabajos</a></li>

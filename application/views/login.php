@@ -2,18 +2,9 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
-<br>
 <h1>INICIO DE SESIÓN</h1>
 </div>
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
 <ul class="breadcrumb pull-right">
 <li><a href="<?php base_url();?>">INICIO</a></li>
 <li class="active">ACCESO</li>

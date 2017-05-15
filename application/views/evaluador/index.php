@@ -14,18 +14,9 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
-<br>
 <h1>Evaluador: <?php echo $nombre .' '.$a_paterno .' '.$a_materno ?></h1>
 </div>
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
 <ul class="breadcrumb pull-right lead">
     <li class="active"><a href="<?php echo site_url('evaluador/index') ?>">Inicio</a></li>
     <li><a href="<?php echo site_url("login/salir") ?>">Salir</a></li>

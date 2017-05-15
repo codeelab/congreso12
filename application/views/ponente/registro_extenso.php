@@ -13,18 +13,9 @@ foreach ($lista as $row) {
 <div class="container">
 <div class="row">
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
-<br>
 <h1>Ponente: <?php echo $nombre .' '.$a_paterno .' '.$a_materno ?></h1>
 </div>
 <div class="col-sm-6">
-<br>
-<br>
-<br>
-<br>
 <ul class="breadcrumb pull-right lead">
     <li><a href="<?php echo site_url('ponente/index') ?>">Inicio</a></li>
     <li class="active"><a href="<?php echo site_url('ponente/extenso') ?>">Registro</a></li>

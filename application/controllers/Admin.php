@@ -13,7 +13,7 @@ class Admin extends MY_Controller {
 		$this->load->view("theme/header");
         $this->load->view("theme/menu");
 		$this->load->view("admin");
-		$this->load->view("ftheme/ooter");
+		$this->load->view("theme/footer");
 	}
 
 }
