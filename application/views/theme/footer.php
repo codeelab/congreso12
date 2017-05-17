@@ -6,13 +6,13 @@
     <div class="col-xs-2 col-sm-2 col-md-2  verde"></div>
     <div class="col-xs-2 col-sm-2 col-md-2  magenta"></div>
 </div>
-<section id="bottom" class="wet-asphalt">
+<section id="bottom" class="wet-asphalt-footer">
 <div class="container">
 <div class="row">
 <div class="col-md-3 col-sm-6">
 <ul class="pull-left" style="list-style: none;">
   <li>
-       <center><img src="<?php echo base_url();?>assets/images/logo_foot.png"  alt="Michoacán"></center>
+       <center><img src="<?php echo base_url();?>assets/images/logo_foot.png"  height="125px" alt="Michoacán"></center>
   </li>
 </ul>
 </div>
@@ -43,11 +43,11 @@
 <footer id="footer" class="midnight-blue">
 <div class="container">
 <div class="row">
-<div class="col-sm-6">
-SECRETARÍA DE INNOVACIÓN, CIENCIA Y DESARROLLO TECNOLÓGICO | 2015 - <?php echo date("Y") ?>
+<div class="col-sm-8">
+© <?php echo date("Y") ?>, Desarrollado por la Secretaría de Innovación, Ciencia y Desarrollo Tecnológico | <a href="http://michoacan.gob.mx/" target="_blank">Gobierno del Estado de Michoacán 2015 - 2021</a>
 <!-- Programado por Joel Álvarez | CODEELAB.COM -->
 </div>
-<div class="col-sm-6">
+<div class="col-sm-4">
 <ul class="pull-right">
         <li><i class="fa fa-twitter" aria-hidden="true"></i><a href="https://twitter.com/SICDETmichoacan/" data-toggle='tooltip' data-placement='bottom' title="Twitter" target="_blank"><span class="label">Twitter</span></a></li>
         <li><i class="fa fa-facebook" aria-hidden="true"></i><a href="https://www.facebook.com/SICDET/" data-toggle='tooltip' data-placement='bottom' title="Facebook" target="_blank"><span class="label">Facebook</span></a></li>
@@ -57,11 +57,15 @@ SECRETARÍA DE INNOVACIÓN, CIENCIA Y DESARROLLO TECNOLÓGICO | 2015 - <?php ech
 </div>
 </div>
 </div>
-</footer> 
+</footer>
 <script src="<?php echo base_url();?>assets/js/jquery.js"></script>
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo base_url();?>assets/js/main.js"></script>
 <script src="<?php echo base_url();?>assets/js/funciones.js"></script>
+    <script src="http:////cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script src="http:////cdn.datatables.net/responsive/1.0.1/js/dataTables.responsive.min.js"></script>
+    <script src="http://cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
 </body>
 </html>

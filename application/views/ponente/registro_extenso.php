@@ -42,7 +42,7 @@ foreach ($lista as $row) {
     <input type="file" id="userfile" name="userfile">
     <p class="help-block">Sólo esta permitido archivos en formato PDF</p>
   </div>
-  <button type="submit" class="btn btn-info btn-md">Enviar</button>
+  <button type="submit" class="btn btn-outlined btn-theme btn-md" data-wow-delay="0.7s">Enviar</button>
 </form>
 
 

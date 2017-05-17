@@ -1,12 +1,12 @@
 <?php
 
-
+  $actual = date('d') . '/' . date('m') . '/' . date('y');
   //Para los avisos de subida de resumen y cierre del módulo a todos los ponentes
-  $FIR = explode('/',"17/04/2017");
-  $FCR = explode('/',"15/05/2017");
+  $FIR = "17/04/2017";
+  $FCR = "10/05/2017";
   //Para los avisos de subida de extensos y cierre del módulo a todos los ponentes aprobados
-  $FIE = explode('/',"18/05/2017");
-  $FCE = explode('/',"23/05/2017");
+  $FIE = "12/05/2017";
+  $FCE = "17/05/2017";
 
 
   $user = $this->session->userdata('id_usuarios');
@@ -38,25 +38,35 @@
 <section id="pricing">
 <div class="container">
 
-  <?php if($FCR < $FIE): ?>
+<?php if($FCR > $actual): ?>
+  <!-- Función texto sólo para alerta de resúmen -->
+  <div class='alert alert-info' role='alert'><p class='lead'>La fecha limite para el envío del archivo en <b>Resumen</b>, es el día <b>26 de agosto del 2016</b>. Le sugerimos elaborar el Resumen en base a los lineamientos marcados en la convocatoria. <br> Una vez aprobado dicho resumen, se enviará un correo electrónico donde se solicitará el trabajo en extenso.</p></div>
 
-    <!-- Función texto sólo para alerta de resúmen -->
-    <div class='alert alert-info' role='alert'><p class='lead'>La fecha limite para el envío del archivo en <b>Resumen</b>, es el día <b>26 de agosto del 2016</b>. Le sugerimos elaborar el Resumen en base a los lineamientos marcados en la convocatoria. <br> Una vez aprobado dicho resumen, se enviará un correo electrónico donde se solicitará el trabajo en extenso.</p></div>
-
-<?php else: ?>
+  <?php elseif ($actual >= $FCR && $actual < $FIE): ?>
 
     <!-- Función texto sólo para alerta de resúmen -->
     <div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Resumen ha finalizado</b> agradecemos tu participaci&oacute;n. Si tu proyecto fue <b>aprobado</b>  en breve se habilitara la opción de extenso</p></div>
 
-<?php endif; ?>
+  <?php elseif($actual > $FIE && $actual <= $FCE): ?>
+
+    <!-- Función texto sólo para alerta de extenso -->
+    <div class='alert alert-warning' role='alert'><p class='lead'>La fecha limite para el envío del archivo en <b>Extenso</b> del trabajo es el día <b> 18 de septiembre del 2016</b>. Le sugerimos elaborar el documento en base a los lineamientos marcados en la convocatoria.</p></div>
+
+<?php else: ?>
+    <!-- Función texto sólo para alerta de resúmen -->
+    <div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Extenso</b> ha finalizado agradecemos tu participaci&oacute;n.</p></div>
+
+<?php endif ?>
 
 
 <div class="gap"></div>
 <div id="pricing-table" class="row">
+
+
 <div class="col-md-3 col-xs-6">
 <ul class="plan plan1">
 <li class="plan-name">
-<h4>Plantilla</h4>
+<h4>Plantillas</h4>
 </li>
 <li class="plan-price">
 <div>
@@ -64,12 +74,13 @@
 </div>
 </li>
 <li class="plan-action">
-<a href="#" class="btn btn-default btn-md"><i class="fa fa-download" aria-hidden="true"></i>   Descarga</a>
+<a href="#" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Descarga</a>
 </li>
 </ul>
 </div>
 
-<?php if($FIE > $FCR): ?>
+
+<?php if($FCR > $actual): ?>
 
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan2 featured'>
@@ -82,34 +93,15 @@
 </div>
 </li>
 <li class='plan-action'>
-<a href='trabajo' class='btn btn-default btn-md'><i class='fa fa-edit' aria-hidden='true'></i>   Acceso</a>
+<a href='trabajo' class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class='fa fa-edit' aria-hidden='true'></i>   Acceso</a>
 </li>
 </ul>
 </div>
-
-<?php else: ?>
-
-<div class='col-md-3 col-xs-6'>
-<ul class='plan plan2 featured'>
-<li class='plan-name'>
-<h4>Registrar Trabajo</h4>
-</li>
-<li class='plan-price'>
-<div>
-<span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
-</div>
-</li>
-<li class='plan-action'>
-<a href='#' class='btn btn-default btn-md' disabled='disabled'><i class='fa fa-edit' aria-hidden='true'></i>   Acceso</a>
-</li>
-</ul>
-</div>
-
-
 <?php endif ?>
 
-<?php if($estado == '2' XOR $FIE >= $FCE): ?>
+<?php if($FCE < $actual): ?>
 
+<?php elseif($estado === '2'): ?>
     <div class='col-md-3 col-xs-6'>
     <ul class='plan plan2 featured'>
     <li class='plan-name'>
@@ -121,27 +113,11 @@
     </div>
     </li>
     <li class='plan-action'>
-    <a href='extenso' class='btn btn-default btn-md'><i class='fa fa-cloud-upload' aria-hidden='true'></i>   Registro</a>
+    <a href='extenso' class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class='fa fa-edit' aria-hidden='true'></i>   Registro</a>
     </li>
     </ul>
     </div>
-<?php else: ?>
-    <div class='col-md-3 col-xs-6'>
-    <ul class='plan plan2 featured'>
-    <li class='plan-name'>
-    <h4>Registrar Extenso</h4>
-    </li>
-    <li class='plan-price'>
-    <div>
-    <span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
-    </div>
-    </li>
-    <li class='plan-action'>
-    <a href='extenso' class='btn btn-default btn-md' disabled='disabled'><i class='fa fa-cloud-upload' aria-hidden='true'></i>   Registro</a>
 
-    </li>
-    </ul>
-    </div>
 <?php endif ?>
 
 <div class="col-md-3 col-xs-6">
@@ -153,13 +129,15 @@
 <div>
 <span class="price"><i class="fa fa-list fa-2x" aria-hidden="true"></i></span>
 </div>
-</li> 
+</li>
 <li class="plan-action">
-<a href="<?php echo base_url(); ?>ponente/listado" class="btn btn-default btn-md"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
+<a href="<?php echo base_url(); ?>ponente/listado" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
 </li>
 </ul>
-</div> 
-<?php if ( $estado == '2' XOR $estado == '5'): ?>
+</div>
+
+<?php if($estado === '2' XOR $estado === '5'): ?>
+  <?php if($actual > $FCE): ?>
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan3'>
 <li class='plan-name'>
@@ -171,14 +149,12 @@
 </div>
 </li>
 <li class='plan-action'>
-<a href='constancias' class='btn btn-default btn-md'><i class='fa fa-download' aria-hidden='true'></i>   Descargas</a>
+<a href='constancias' class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class='fa fa-download' aria-hidden='true'></i>   Descargas</a>
 </li>
 </ul>
 </div>
-<?php else: ?>
-
+  <?php endif ?>
 <?php endif ?>
-
 
 
 

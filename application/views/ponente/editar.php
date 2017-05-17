@@ -55,12 +55,12 @@ if($this->session->flashdata('incorrecto'))
     <label for="">Nombre del Asesor</label>
     <input type="text" class="form-control" id="asesor" name="asesor" value="<?=$row->asesor?>">
   </div>
-  <button type="submit" name="submit" value="Modificar" class="btn btn-default">Enviar</button>
+  <button type="submit" name="submit" value="Modificar"  class="btn btn-outlined btn-theme btn-md" data-wow-delay="0.7s">Enviar</button>
   <?php endforeach;?>
 </form>
 <hr>
 <br>
-<a href="<?php echo base_url(); ?>ponente/listado"><button type="button" class="btn btn-primary btn-lg btn-block">Regresar al listado</button></a>
+<a href="<?php echo base_url(); ?>ponente/listado"><button type="button"  class="btn btn-outlined btn-theme btn-md btn-block" data-wow-delay="0.7s">Regresar al listado</button></a>
 
 </div>
 </div>

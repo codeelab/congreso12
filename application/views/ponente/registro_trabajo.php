@@ -81,7 +81,7 @@
     <p class="help-block">Sólo esta permitido archivos en formato PDF</p>
   </div>
   <?php echo form_hidden("usuario_id", "$user"); ?>
-  <button type="submit" class="btn btn-info btn-md">Enviar</button>
+  <button type="submit" class="btn btn-outlined btn-theme btn-md" data-wow-delay="0.7s">Enviar</button>
 </form>
 
 

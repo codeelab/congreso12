@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
 
+
 });
 
 /* Sumar dos números. */
@@ -23,3 +24,24 @@ function sumar (valor) {
 
 
 }
+
+$(document).ready(function (){
+    var table = $('#table').DataTable({
+       responsive: true,
+       orderCellsTop: true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        }
+    });
+    
+    $('#table thead').on( 'click', '.form-control', function (e) {   // for text boxes
+       e.stopPropagation();
+    });
+
+    $('#table thead').on( 'keyup change', '.form-control', function (e) {   // for text boxes
+       var i = $(this).attr('data-column');  // getting column index
+       var v = $(this).val();  // getting search input value
+       var table = $('#table').DataTable();
+       table.columns(i).search(v).draw();
+   }); 
+});

@@ -2,12 +2,11 @@
 <div class="container">
 <div class="navbar-header">
 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-<span class="sr-only">Toggle navigation</span>
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="<?=base_url();?>"><img src="<?php echo base_url();?>assets/img/logo.png" alt="logo" width="250px" heigth="80px"></a>
+<a class="navbar-brand" href="<?=base_url();?>"><img src="<?php echo base_url();?>assets/img/logo-black.png" alt="logo" width="270px"></a>
 </div>
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav navbar-right">

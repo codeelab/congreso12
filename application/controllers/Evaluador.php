@@ -12,8 +12,6 @@ class Evaluador extends MY_Controller {
         $this->load->model('Evaluador_model');
         $this->load->library("session");
         $this->load->helper('url');
-        /* Se cargan la libreria pagination */
-        $this->load->library('pagination');
     }
 
     public function index()
@@ -26,21 +24,9 @@ class Evaluador extends MY_Controller {
 
     public function listado()
     {
-        $pages=5; //Número de registros mostrados por páginas
-        $this->load->library('pagination'); //Cargamos la librería de paginación
-        /* URL a la que se desea agregar la paginación*/
-        $config['base_url'] = base_url().'evaluador/listado/';
-        $config['total_rows'] = $this->Evaluador_model->get_total_ponencias();//calcula el número de filas
-        $config['per_page'] = $pages; //Número de registros mostrados por páginas
-        $config['num_links'] = 20; //Número de links mostrados en la paginación
-        $config['first_link'] = 'Primera';//primer link
-        $config['last_link'] = 'Última';//último link
-        $config["uri_segment"] = 3;//el segmento de la paginación
-        $config['next_link'] = 'Siguiente';//siguiente link
-        $config['prev_link'] = 'Anterior';//anterior link
-        $this->pagination->initialize($config); //inicializamos la paginación
-        /* Se obtienen los registros a mostrar*/
-        $data['ponencias'] = $this->Evaluador_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
+
+        $data['ponencias'] = $this->Evaluador_model->lista_ponencias();
+        $data['tematica'] = $this->Evaluador_model->get_area_tematica();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view("evaluador/listado_trabajos",$data);
@@ -77,21 +63,8 @@ class Evaluador extends MY_Controller {
 
     public function aprobado()
     {
-        $pages=5; //Número de registros mostrados por páginas
-        $this->load->library('pagination'); //Cargamos la librería de paginación
-        /* URL a la que se desea agregar la paginación*/
-        $config['base_url'] = base_url().'evaluador/aprobado/';
-        $config['total_rows'] = $this->Evaluador_model->get_total_ponencias();//calcula el número de filas
-        $config['per_page'] = $pages; //Número de registros mostrados por páginas
-        $config['num_links'] = 20; //Número de links mostrados en la paginación
-        $config['first_link'] = 'Primera';//primer link
-        $config['last_link'] = 'Última';//último link
-        $config["uri_segment"] = 3;//el segmento de la paginación
-        $config['next_link'] = 'Siguiente';//siguiente link
-        $config['prev_link'] = 'Anterior';//anterior link
-        $this->pagination->initialize($config); //inicializamos la paginación
-        /* Se obtienen los registros a mostrar*/
-        $data['ponencias'] = $this->Evaluador_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
+        $data['ponencias'] = $this->Evaluador_model->lista_ponencias_aprobados();
+        $data['tematica'] = $this->Evaluador_model->get_area_tematica();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view("evaluador/listado_aprobados",$data);
