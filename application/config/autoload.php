@@ -60,7 +60,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 
-$autoload['libraries'] = array('database','session','fpdf_class','fpdf_multicell','form_validation');
+$autoload['libraries'] = array('database','session','fpdf_class','fpdf_multicell','form_validation','recaptcha');
 
 
 /*
@@ -88,7 +88,7 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form','file','html');
+$autoload['helper'] = array('url', 'form','file','html','security');
 
 
 /*

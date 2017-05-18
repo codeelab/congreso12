@@ -60,7 +60,7 @@ if ( $actual >= "17/04/2017" AND $actual <= "20/04/2017") {
 </div>
 </li> 
 <li class="plan-action">
-<a href="<?php echo base_url(); ?>encuentro/listado" class="btn btn-default btn-md"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
+<a href="<?php echo base_url(); ?>encuentro/listado" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
 </li>
 </ul>
 </div>
@@ -75,7 +75,7 @@ if ( $actual >= "17/04/2017" AND $actual <= "20/04/2017") {
 </div>
 </li>
 <li class="plan-action">
-<a href="<?php echo base_url(); ?>encuentro/aprobado" class="btn btn-default btn-md"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
+<a href="<?php echo base_url(); ?>encuentro/aprobado" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
 </li>
 </ul>
 </div>
@@ -90,7 +90,7 @@ if ( $actual >= "17/04/2017" AND $actual <= "20/04/2017") {
 </div>
 </li>
 <li class="plan-action">
-<a href="<?php echo base_url(); ?>encuentro/constancia" class="btn btn-default btn-md"><i class="fa fa-download" aria-hidden="true"></i>   Descargas</a>
+<a href="<?php echo base_url(); ?>encuentro/constancia" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Descargas</a>
 </li>
 </ul>
 </div>

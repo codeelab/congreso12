@@ -5,11 +5,14 @@
   $a_materno = $this->session->userdata('a_materno');
   $mesa = $this->session->userdata('mesa');
 
-foreach ($tematica as $row) {
-  if ($row->mesa == $mesa) {
-    $mesa_asignada = $row->nombre_tem;
+if(!empty($tematica) ) {
+  foreach ($tematica as $row) {
+    if ($row->id_tematica === $mesa) {
+        $mesa_asignada = $row->nombre_tem;
+    }
   }
 }
+
 
 ?>
 
@@ -39,7 +42,7 @@ foreach ($tematica as $row) {
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" width="100%" id="table">
      <thead>
  <tr>
             <th>FECHA</th>

@@ -32,7 +32,7 @@
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" width="100%" id="table">
      <thead>
  <tr>
             <th>Folio</th>

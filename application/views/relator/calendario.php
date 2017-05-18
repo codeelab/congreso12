@@ -5,9 +5,11 @@
   $a_materno = $this->session->userdata('a_materno');
   $mesa = $this->session->userdata('mesa');
 
-foreach ($tematica as $row) {
-  if ($row->mesa == $mesa) {
-    $mesa_asignada = $row->nombre_tem;
+if(!empty($tematica) ) {
+  foreach ($tematica as $row) {
+    if ($row->id_tematica === $mesa) {
+        $mesa_asignada = $row->nombre_tem;
+    }
   }
 }
 
@@ -22,7 +24,7 @@ foreach ($tematica as $row) {
 <div class="col-sm-6">
 <ul class="breadcrumb pull-right lead">
     <li><a href="<?php echo site_url('relator/index') ?>">Inicio</a></li>
-    <li class="active"><a href="<?php echo site_url('relator/listado') ?>">Trabajos</a></li>
+    <li class="active"><a href="<?php echo site_url('relator/listado') ?>">Programa</a></li>
     <li><a href="<?php echo site_url("login/salir") ?>">Salir</a></li>
 </ul>
 </div>
@@ -39,7 +41,7 @@ foreach ($tematica as $row) {
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" width="100%" id="table">
      <thead>
  <tr>
             <th>FECHA</th>
@@ -68,9 +70,7 @@ $fecha = strftime("%A $dia de $mes del $ano");
                <td>$row->hora</td>
                <td>$row->nombre_sala</td>
                <td>$row->nombre_mesa</td>";
-        }else{
-                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4> <i class="fa fa-clock-o" aria-hidden="true"></i>      Actualmente no cuenta con horarios asignados</h4></div></td>';
-              }
+        }
   }
 }
 ?>

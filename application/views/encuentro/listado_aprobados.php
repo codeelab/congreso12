@@ -15,7 +15,7 @@
 <div class="col-sm-6">
 <ul class="breadcrumb pull-right lead">
     <li class="active"><a href="<?php echo site_url('encuentro/index') ?>">Inicio</a></li>
-    <li class="active"><a href="<?php echo site_url('encuentro/aprobado') ?>">Trabajos Aprobados</a></li>
+    <li class="active"><a href="<?php echo site_url('encuentro/aprobado') ?>">Trabajos Evaluados</a></li>
     <li><a href="<?php echo site_url("login/salir") ?>">Salir</a></li>
 </ul>
 </div>
@@ -31,8 +31,8 @@
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
-<table class="table">
-     <thead>
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" width="100%" id="table">
+<thead>
  <tr>
             <th>Folio</th>
             <th>Estatus</th>
@@ -64,20 +64,13 @@ if($ponencias !== FALSE) {
                <td>$row->nombre_tem</td>
                <td><a href='" . base_url() . "encuentro/editar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
 
-              }else{
-                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>      Actualmente no hay proyectos evaluados</h4></div></td>';
               }
            }
 }
 ?>
  </tbody>
  </table>
- <ul class="pagination">
-  <?php
-    /* Se imprimen los números de página */
-    echo $this->pagination->create_links();
-  ?>
-</ul>
+
 </div>
 </div>
 

@@ -17,11 +17,11 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-9">
-<h1>Apoyo Logistico:  <?php echo $nombre_completo ?></h1>
+<h1>Asistente:  <?php echo $nombre_completo ?></h1>
 </div>
 <div class="col-sm-3">
 <ul class="breadcrumb pull-right lead">
-    <li class="active"><a href="<?php echo site_url('logistico/index') ?>">Inicio</a></li>
+    <li class="active"><a href="<?php echo site_url('asistente/index') ?>">Inicio</a></li>
     <li><a href="<?php echo site_url("login/salir") ?>">Salir</a></li>
 </ul>
 </div>
@@ -36,26 +36,6 @@
 
 <div class="gap"></div>
 <div id="pricing-table" class="row">
-
-
-<?php if ( $FCL > $actual): ?>
-
-<div class='col-md-3 col-xs-6'>
-<ul class='plan plan2 featured'>
-<li class='plan-name'>
-<h4>Área asignada</h4>
-</li>
-<li class='plan-price'>
-<div>
-<span class='price'><i class='fa fa-list-ol fa-2x' aria-hidden='true'></i></span>
-</div>
-</li>
-<li class='plan-action'>
-<a href='area' class='btn btn-outlined btn-white' data-wow-delay='0.7s'><i class='fa fa-edit' aria-hidden='true'></i>   Acceso</a>
-</li>
-</ul>
-</div>
-<?php endif; ?>
 
 
 <?php if($actual >= $FCL): ?>

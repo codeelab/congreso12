@@ -31,14 +31,12 @@
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" width="100%" id="table">
      <thead>
  <tr>
             <th>Folio</th>
             <th>Estatus</th>
             <th>Autor</th>
-            <th>Co-autores</th>
-            <th>Asesor</th>
             <th>Título</th>
             <th>Modalidad</th>
             <th>Mesa</th>
@@ -80,8 +78,6 @@ if($ponencias !== FALSE) {
                <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span><h4></td>
                <td>$estado</td>
                <td>$row->autor</td>
-               <td>$row->coautores</td>
-               <td>$row->asesor</td>
                <td>$row->titulo</td>
                <td>$row->nombre_trabajo</td>
                <td>$row->nombre_tem</td>

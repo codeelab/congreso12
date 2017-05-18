@@ -14,10 +14,9 @@
 <link href="<?php echo base_url();?>assets/css/prettyPhoto.css" rel="stylesheet">
 <link href="<?php echo base_url();?>assets/css/animate.css" rel="stylesheet">
 <link href="<?php echo base_url();?>assets/css/main.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/dataTables.responsive.css" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http:////cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="http://cdn.datatables.net/responsive/1.0.1/css/dataTables.responsive.css" rel="stylesheet">
-
 
 <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>

@@ -5,9 +5,11 @@
   $a_materno = $this->session->userdata('a_materno');
   $mesa = $this->session->userdata('mesa');
 
-foreach ($tematica as $row) {
-  if ($row->mesa == $mesa) {
-    $mesa_asignada = $row->nombre_tem;
+if(!empty($tematica) ) {
+  foreach ($tematica as $row) {
+    if ($row->id_tematica === $mesa) {
+        $mesa_asignada = $row->nombre_tem;
+    }
   }
 }
 
@@ -40,14 +42,12 @@ foreach ($tematica as $row) {
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" width="100%" id="table">
      <thead>
  <tr>
             <th>Folio</th>
             <th>Estatus</th>
             <th>Autor</th>
-            <th>Co-autores</th>
-            <th>Asesor</th>
             <th>Título</th>
             <th>Modalidad</th>
             <th>Mesa</th>
@@ -68,6 +68,8 @@ if($mesas !== FALSE) {
                    $estado = "<h4><span class='label label-success'>Aprobado</span></h4>";
              } else if ($row->status === 'No aceptado') {
                    $estado = "<h4><span class='label label-danger'>No aprobado</span></h4>";
+             } else if ($row->status === 'Evaluado') {
+                   $estado = "<h4><span class='label label-success'>Evaluado</span></h4>";
              } else {
                    $estado = "<h4><span class='label label-default'>Cancelado</span></h4>";
              }
@@ -84,23 +86,21 @@ if($mesas !== FALSE) {
                 $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
-        if ($row->nombre_tem == $mesa_asignada) {
-          echo "<tr>
-               <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span><h4></td>
-               <td>$estado</td>
-               <td>$row->autor</td>
-               <td>$row->coautores</td>
-               <td>$row->asesor</td>
-               <td>$row->titulo</td>
-               <td>$row->nombre_trabajo</td>
-               <td>$row->nombre_tem</td>
-               <td>$resumen</td>
-               <td>$extenso</td>";
-        }else{
-                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>      Actualmente no hay proyectos asignados disponibles</h4></div></td>';
-              }
-  }
-}
+        if ($row->mesa_id === $mesa && $row->status_id === '5') {
+
+            echo "<tr>
+                 <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span><h4></td>
+                 <td>$estado</td>
+                 <td>$row->autor</td>
+                 <td>$row->titulo</td>
+                 <td>$row->nombre_trabajo</td>
+                 <td>$row->nombre_tem</td>
+                 <td>$resumen</td>
+                 <td>$extenso</td>";
+          
+        }
+      }
+    }
 ?>
  </tbody>
  </table>

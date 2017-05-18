@@ -24,7 +24,7 @@ if(!empty($tematica) ) {
 <ul class="breadcrumb pull-right lead">
     <li class="active"><a href="<?php echo site_url('evaluador/index') ?>">Inicio</a></li>
     <li class="active"><a href="<?php echo site_url('evaluador/aprobado') ?>">Trabajos Aprobados</a></li>
-    <li><a href="<?php echo site_url("login/salir") ?>">logout</a></li>
+    <li><a href="<?php echo site_url("login/salir") ?>">Salir</a></li>
 </ul>
 </div>
 </div>

@@ -16,23 +16,6 @@ function get_area_tematica(){
 }
 
 
-    public function count_ponencias()
-    {
-      return $this->db->count_all('ponencias');
-    }
-
-    public function fetch_ponencias($limit,$offset)
-    {
-      $this->db->limit($limit,$offset);
-      $query = $this->db->get('ponencias');
-      if ($query->num_rows() > 0)
-      {
-        return $query->result();
-      }else{
-        return $query->result();
-      }
-    }
-
 
     //obtenemos las entradas de todos o un usuario, dependiendo
     // si le pasamos el id como argument o no

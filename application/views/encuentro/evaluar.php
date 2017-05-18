@@ -42,7 +42,6 @@
 <hr>
 <div class="row">
 <div class="col-md-12">
-<div class="table-responsive">
 
 <?php echo form_open('encuentro/add_evaluacion'); ?>
 
@@ -167,14 +166,14 @@
 
 </tbody>
 </table>
-
+</div>
 <!--con la funcion validation_errors ci nos muestra los errores al pulsar el botón submit, la podemos colocar donde queramos-->
 <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo validation_errors(); ?></font>
 <?php echo form_input(array('id' => 'evaluador_id', 'name' => 'evaluador_id', 'value'=> $user, 'type' => 'hidden')); ?>
 <?php echo form_input(array('id' => 'status_id', 'name' => 'status_id', 'value'=> '5', 'type' => 'hidden')); ?>
-<?php echo form_submit(array('id' => 'submit', 'name' => 'submit', 'value' => 'Guardar', 'class' => 'btn btn-primary btn-lg btn-block')); ?>
+<?php echo form_submit(array('id' => 'submit', 'name' => 'submit', 'value' => 'Guardar', 'class' => 'btn btn-outlined btn-theme btn-lg btn-block', 'data-wow-delay=' => '0.7s')); ?>
 <?php echo form_close(); ?><br/>
 
-</div>
+
 
 </section>

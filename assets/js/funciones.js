@@ -28,12 +28,15 @@ function sumar (valor) {
 $(document).ready(function (){
     var table = $('#table').DataTable({
        responsive: true,
+       ordering:  false,
+       lengthMenu: [[5, 15, 25, -1], [5, 15, 25, "All"]],
+       pageLength: 5,
        orderCellsTop: true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
         }
     });
-    
+
     $('#table thead').on( 'click', '.form-control', function (e) {   // for text boxes
        e.stopPropagation();
     });
@@ -43,5 +46,6 @@ $(document).ready(function (){
        var v = $(this).val();  // getting search input value
        var table = $('#table').DataTable();
        table.columns(i).search(v).draw();
-   }); 
+   });
 });
+

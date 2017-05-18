@@ -63,9 +63,9 @@
 <script src="<?php echo base_url();?>assets/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo base_url();?>assets/js/main.js"></script>
 <script src="<?php echo base_url();?>assets/js/funciones.js"></script>
-    <script src="http:////cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-    <script src="http:////cdn.datatables.net/responsive/1.0.1/js/dataTables.responsive.min.js"></script>
-    <script src="http://cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/dataTables.responsive.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/dataTables.bootstrap.js"></script>
 
 </body>
 </html>

@@ -31,7 +31,7 @@
 <div class="row">
 <div class="col-md-12">
 <div class="table-responsive">
-<table class="table">
+<table class="table table-striped table-bordered table-hover dt-responsive nowrap" width="100%" id="table">
      <thead>
  <tr>
             <th>Folio</th>
@@ -44,25 +44,22 @@
  </thead>
  <tbody>
  <?php
-            foreach ($pdf as $row) {
+    foreach ($pdf as $row) {
 
-if ($row->id_usuarios === $user) {
+      if ($row->id_usuarios === $user) {
 
-$moderador = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
+        $moderador = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
 
-
-               echo "<tr>
-               <td><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-RE-$row->id_usuarios</span></td>
+        echo "<tr>
+               <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-RE-$row->id_usuarios</span></h4></td>
                <td>Moderador</td>
                <td>$moderador</td>
                <td>$row->nombre_sala</td>
                <td>$row->nombre_mesa</td>
                <td><a href='" . base_url() . "moderador/constancia/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$moderador'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td></td>";
-           }else{
-                echo '<tr><td colspan="11"><div class="alert alert-danger" role="alert"><h4> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>      No cuenta con un registro valido en el sistema</h4></div></td>';
-              }
+      }
 
-}
+    }
 ?>
  </tbody>
  </table>
