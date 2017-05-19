@@ -24,7 +24,24 @@
         </ul>
         </div>
       </div>
+              <?php
+            messages_flash('danger',validation_errors(),'Errores del formulario', true);
 
+            //si hay error enviando el email
+            messages_flash('danger','not_email_send','Error enviando el email');
+
+            //si se ha enviando el email correctamente
+            messages_flash('success','mail_send','Email enviado correctamente');
+
+            //si hay error enviando el email
+            messages_flash('danger','expired_request','Error recuperación password');
+
+            //si hay error modificando el password lo mostramos
+            messages_flash('danger','error_password_changed','Error modificando el password');
+
+            //si se ha modificado el password correctamente
+            messages_flash('success','password_changed','Password modificado correctamente');
+            ?>
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="ingreso">
           <div class="row">
@@ -52,12 +69,14 @@
                   </div>
                   <div class="form-group">
                   <div class="table-responsive">
+                  <div class="col-sm-10">
                         <?php echo $this->recaptcha->render(); ?>
                         <?if($this->session->flashdata('error')):?>
                             <p class="list-group-item list-group-item-danger">
                                 <b><?=$this->session->flashdata('error')?></b>
                             </p>
                         <?endif?>
+                  </div>
                   </div>
                   </div>
                         <input type="submit" value="Inicio de sesión" class="btn btn-success btn-block">
@@ -77,11 +96,12 @@
           <div class="col-sm-12 mobile-pull">
             <article role="login" class='signup form-horizontal'>
               <h3 class="text-center"><i class="fa fa-lock"></i> Recuperación de Contraseña</h3>
-              <form class="signup" action="index.html" method="post">
+              <?=form_open(base_url().'login/request_password')?>
+              <form class="signup">
                   <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Correo</label>
                     <div class="col-sm-10">
-                  <input type="email" class="form-control" placeholder="Email Address">
+                  <input type="email" class="form-control" placeholder="Correo electrónico" name="email" id="email" value="<?php echo set_value('email')?>">
                 </div>
                 </div>
 
@@ -90,7 +110,7 @@
                   <input type="submit" class="btn btn-success btn-block"  value="SUBMIT">
                 </div>
                 </div>
-              </form>
+              <?php echo form_close(); ?>
             </article>
           </div>
 
