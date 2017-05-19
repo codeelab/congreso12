@@ -72,6 +72,7 @@ $db['default'] = array(
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => TRUE,
+	//'db_debug' => FALSE; //Activarla solo en producción por seguridad
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',

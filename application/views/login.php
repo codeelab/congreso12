@@ -13,45 +13,88 @@
 </div>
 </div>
 </section>
-<section id="registration" class="container">
-         <div class="panel panel-default">
-                <div class="panel-heading">
-                        <strong>12 CONGRESO ESTATAL DE CIENCIA, TECNOLOGÍA E INNOVACIÓN</strong>
-                </div>
-                <div class="panel-body">
-                    <?=form_open(base_url().'login/new_user')?>
-                        <div class="form-group">
-                                <label for="username">Usuario</label>
-                                        <div class="input-group">
-                                                <span class="input-group-addon">
-                                                        <i class="fa fa-user"></i>
-                                                </span>
-                                        <input type="text" name="username" value="<?php echo set_value('username') ?>" id="username" class="form-control">
-                                        </div>
-                                        <?php echo form_error('username', '<p class="list-group-item list-group-item-danger"><b>', '</b></p>'); ?>
-                        </div>
-                        <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                        <div class="input-group">
-                                                <span class="input-group-addon">
-                                                        <i class="fa fa-lock"></i>
-                                                </span>
-                                        <input type="password" name="password" id="password" class="form-control">
-                                        </div>
-                                        <?php echo form_error('password', '<p class="list-group-item list-group-item-danger"><b>', '</b></p>'); ?>
-                        </div>
-                        <div class="table-responsive">
-                        <div class="form-group">
-                        <?php echo $recaptcha_html; ?>
-                        <?php if ($this->session->flashdata('error') !== FALSE) { echo $this->session->flashdata('error'); } ?>
-                        </div>
-                        </div>
 
-                        <input type="submit" value="Login" class="btn btn-primary btn-md btn-block">
+<section id="registration" class="container">
+    <div class="login-signup">
+      <div class="row">
+        <div class="col-sm-12 nav-tab-holder">
+        <ul class="nav nav-tabs row" role="tablist">
+          <li role="presentation" class="active col-sm-6"><a href="#ingreso" aria-controls="ingreso" role="tab" data-toggle="tab">Ingreso</a></li>
+          <li role="presentation" class="col-sm-6"><a href="#recuperar" aria-controls="recuperar" role="tab" data-toggle="tab">Recuperar Cuenta</a></li>
+        </ul>
+        </div>
+      </div>
+
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="ingreso">
+          <div class="row">
+
+            <div class="col-sm-12 mobile-pull">
+              <article role="login" class='signup form-horizontal'>
+                <h3 class="text-center"><i class="fa fa-users"></i>
+                    Acceso a usuarios registrados en el <br>Congreso Estatal de Ciencia, Tecnología e Innovación <?=date('Y')?>
+                </h3>
+                <?=form_open(base_url().'login/new_user')?>
+                   <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Usuario</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="username" value="<?php echo set_value('username') ?>" id="username" class="form-control">
+                    <?php echo form_error('username', '<p class="list-group-item list-group-item-danger"><b>', '</b></p>'); ?>
+                    </div>
+
+                  </div>
+                  <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Contraseña</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="password" id="password" class="form-control">
+                        <?php echo form_error('password', '<p class="list-group-item list-group-item-danger"><b>', '</b></p>'); ?>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                  <div class="table-responsive">
+                        <?php echo $this->recaptcha->render(); ?>
+                        <?if($this->session->flashdata('error')):?>
+                            <p class="list-group-item list-group-item-danger">
+                                <b><?=$this->session->flashdata('error')?></b>
+                            </p>
+                        <?endif?>
+                  </div>
+                  </div>
+                        <input type="submit" value="Inicio de sesión" class="btn btn-success btn-block">
                         <?=form_hidden('token',$token)?>
                         <?php echo form_close(); ?>
 
                 </div>
-        </div>
 
+          </div>
+          <!-- end of row -->
+        </div>
+        <!-- end of home -->
+
+      <div role="tabpanel" class="tab-pane" id="recuperar">
+        <div class="row">
+
+          <div class="col-sm-12 mobile-pull">
+            <article role="login" class='signup form-horizontal'>
+              <h3 class="text-center"><i class="fa fa-lock"></i> Recuperación de Contraseña</h3>
+              <form class="signup" action="index.html" method="post">
+                  <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Correo</label>
+                    <div class="col-sm-10">
+                  <input type="email" class="form-control" placeholder="Email Address">
+                </div>
+                </div>
+
+                <div class="form-group">
+                <div class="col-sm-12">
+                  <input type="submit" class="btn btn-success btn-block"  value="SUBMIT">
+                </div>
+                </div>
+              </form>
+            </article>
+          </div>
+
+        </div>
+      </div>
+  </div>
 </section>

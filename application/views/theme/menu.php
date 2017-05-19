@@ -1,4 +1,4 @@
-<header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
+<header class="navbar navbar-inverse navbar-fixed-top wet-asphalt">
 <div class="container">
 <div class="navbar-header">
 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -15,7 +15,7 @@
                     <a href="<?php echo base_url(); ?>programa_11_congreso.pdf" target="_blank" title="Programa">Programa</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>registro" title="Registro">Registro</a>
+                    <a href="<?php echo base_url(); ?>inicio/registro" title="Registro">Registro</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>convocatoria_congreso11.pdf"  target="_blank" title="Convocatoria">Convocatoria</a>
@@ -24,10 +24,10 @@
                     <a href="<?php echo base_url(); ?>lineamientos_congreso11.pdf"  target="_blank" title="Lineamientos">Lineamientos</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>mapa" title="Mapa">Mapa</a>
+                    <a href="<?php echo base_url(); ?>inicio/mapa" title="Mapa">Mapa</a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Memorias  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Memorias  <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                     <ul class="dropdown-menu">
                         <li>
                         <a href="//mega.nz/#!BdBVRabT!AixHRsv2ITgaju2DEAOkjDRLKSTI74VJN5q8o7AlTbE"  target="_blank" title="Memoria 10 congreso ISSN">Memoria 10 Congreso ISSN</a>
@@ -38,7 +38,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>contacto" title="Contacto">Contacto</a>
+                    <a href="<?php echo base_url(); ?>inicio/contacto" title="Contacto">Contacto</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>login" title="Login">Inicio de Sesión</a>

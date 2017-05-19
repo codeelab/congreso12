@@ -21,7 +21,8 @@ class Login extends CI_Controller
     {
         switch ($this->session->userdata('puesto')) {
             case '':
-                $data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
+                //$data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
+                $this->load->library('recaptcha');
                 $data['token'] = $this->token();
                 $this->load->view("theme/header");
                 $this->load->view("theme/menu");
@@ -77,12 +78,10 @@ class Login extends CI_Controller
             $this->form_validation->set_rules('username', 'Nombre de Usuario', 'required|trim|xss_clean|min_length[2]|max_length[15]');
             $this->form_validation->set_rules('password', 'Contraseña', 'required|trim|xss_clean|min_length[6]|max_length[15]');
 
-            //lanzamos mensajes de error si es que los hay
-            $this->recaptcha->recaptcha_check_answer();
 
                 $this->form_validation->set_message('required', '%s requerido');
                 $this->form_validation->set_message('min_length', 'El %s debe tener al menos %s caracteres.');
-                $this->form_validation->set_message('max_length', 'El %s debe tener máximo %s caracteres.');
+                $this->session->set_flashdata('error','Captcha requerido');
 
             if($this->form_validation->run() == FALSE)
             {
@@ -91,8 +90,9 @@ class Login extends CI_Controller
                 $username = $this->input->post('username');
                 $password = sha1($this->input->post('password'));
                 $check_user = $this->login_model->login_user($username,$password);
-                $captcha = $this->recaptcha->getIsValid();
-                if($check_user == TRUE && $captcha == TRUE)
+                $captcha_answer = $this->input->post('g-recaptcha-response');
+                $captcha = $this->recaptcha->verifyResponse($captcha_answer);
+                if($check_user == TRUE && $captcha['success'])
                 {
                     $data = array(
                     'is_logued_in'  =>      TRUE,
@@ -108,12 +108,10 @@ class Login extends CI_Controller
                     );
                     $this->session->set_userdata($data);
                     $this->index();
-                }else{
-                    if(!$this->recaptcha->getIsValid()) {
-                    $this->session->set_flashdata('error','Captcha incorrecto');
-                    $this->index();
-                }
-                }
+                }else {
+                    $this->session->set_flashdata('error','Captcha requerido');
+                    redirect('login');
+        }
             }
         }else{
             redirect('login');
