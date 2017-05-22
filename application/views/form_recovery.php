@@ -29,16 +29,6 @@
           <div class="col-sm-12 mobile-pull">
             <article role="login" class='signup form-horizontal'>
               <h3 class="text-center"><i class="fa fa-lock"></i> Recuperación de Contraseña</h3>
-              <?php
-
-                messages_flash('danger',validation_errors(),'Errores del formulario', true);
-
-                //si el email no se ha podido enviar
-                messages_flash('danger','not_mail_send','Error enviando el email');
-
-                //si el email ha sido enviado correctamente se lo notificamos
-                messages_flash('success','mail_send','Email enviado correctamente');
-              ?>
               <form class="signup">
               <?=form_open(base_url().'login/update_password')?>
 

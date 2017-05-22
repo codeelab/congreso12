@@ -23,9 +23,6 @@
                 <li>
                     <a href="<?php echo base_url(); ?>lineamientos_congreso11.pdf"  target="_blank" title="Lineamientos">Lineamientos</a>
                 </li>
-                <li>
-                    <a href="<?php echo base_url(); ?>inicio/mapa" title="Mapa">Mapa</a>
-                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Memorias  <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                     <ul class="dropdown-menu">

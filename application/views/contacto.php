@@ -1,64 +1,42 @@
-<div class="wrapper header-image " style="background: url('<?php echo base_url();?>images/textura_header.png');opacity: 0.9; box-shadow: inset 0 6px 5px -5px rgba(0,0,0,0.3);">
-  <div style="text-align: center; color: #000; padding-top: 30px;"><h1 style="color:#7B1D5F;">CONTACTO</h1><br><br></div>
+<section id="title" class="emerald">
+<div class="container">
+<div class="row">
+<div class="col-sm-6">
+<h1>CONTACTO</h1>
 </div>
+<div class="col-sm-6">
 
-<div class="wrapper-gup ">
-  <div class="container main">
-    <div class="post-area grid_12">
-      <div>
-    <table>
-        <tr>
-            <td>
-                <p style="text-align:center;">
-                    <a href="http://sicdet.michoacan.gob.mx" target="_blank">
-                    <img src="<?= base_url() ?>images/logo.png" width="200" border="0" align="center" title="Portal principal">
-                    </a>
-                <h3 style="text-align:center;">Secretaría de Innovación, Ciencia y Desarrollo Tecnológico</h3>
-            </td>
-        <tr>
-    </table>
-<br><br>
-<div class="post-area grid_12">
+</div>
+</div>
+</div>
+</section>
 
-<div class="theme-one-third">
 
-        <article class="service service-style2">
-           <div class="service-icon">
-               <img src="<?=base_url()?>images/icon_innovacion.png" width="64px" height="64px">
-              <div></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="well">
+                <h3 style="line-height:20%;"><i class="fa fa-home fa-1x" style="line-height:6%;color:#29bdbe"></i> DirecciÃ³n:</h3>
+                <br>
+                <p>Av. Ventura Puente S/N Esq. Av. Camelinas Col. Felix Ireta C.P. 58070</p>
+                <br />
+                <h3 style="line-height:20%;"><i class="fa fa-user fa-1x" style="line-height:6%;color:#29bdbe"></i> Contacto:</h3>
+                <br>
+                <p style="color:#7B1D5F;"><b>Mtro. Gaspar EfraÃ­n GuzmÃ¡n SÃ¡nchez</b></p>
+                <p>VinculaciÃ³n<br/><a href="mailto:"></a></p>
+                <br />
+                <p style="color:#7B1D5F;"><b>Mtro. Gaspar EfraÃ­n GuzmÃ¡n SÃ¡nchez</b></p>
+                <p>VinculaciÃ³n<br/><a href="mailto:"></a></p>
+                <br />
+                <h3 style="line-height:20%;"><i class="fa fa-life-ring fa-1x" style="line-height:6%;color:#29bdbe"></i> Soporte:</h3>
+                <br>
+                <p><i class="fa fa-envelope-o" style="line-height:6%;color:#29bdbe"></i>   <a href="informatica.cecti@gmail.com">informatica.cecti@gmail.com</a></p>
+                <p><i class="fa fa-envelope-o" style="line-height:6%;color:#29bdbe"></i>  (01 443) 314 99 07 Ext: 114</p>
             </div>
-            <h2 class="tran03slinear" style="color:#7B1D5F;">Mtro. Gaspar Efraín Guzmán Sánchez</h2>
-            <p>Vinculación<br/><a href="mailto:"></a></p>
-        </article>
-</div>
-<div class="theme-one-third theme-column-last">
-
-        <article class="service service-style2">
-           <div class="service-icon">
-              <img src="<?=base_url()?>images/icon-ciencia.png" width="64px" height="64px">
-              <div></div>
-            </div>
-            <h2 class="tran03slinear" style="color:#7B1D5F;">M.C. Rubén Salazar Jasso</h2>
-            <p>Innovación<br/><a href="mailto:rsalazar@michoacan.gob.mx">rsalazar@michoacan.gob.mx</a></p>
-        </article>
-</div>
-<div class="theme-one-third theme-column-last">
-
-        <article class="service service-style2">
-           <div class="service-icon">
-             <img src="<?=base_url()?>images/icon-tecnologia.png" width="64px" height="64px">
-              <div></div>
-            </div>
-            <h2 class="tran03slinear" style="color:#7B1D5F;"></h2>
-            <p>Ciencia y Desarrollo Tecnológico<br/><a href="mailto:"></a></p>
-        </article>
-</div>
-<div class="clear"></div>
-
-
-</div>
-</div>
-</div>
-</div>
-</div>
+        </div>
+        <div class="col-sm-8">
+        <br>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1878.3534037438212!2d-101.18143205069057!3d19.68251007496351!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x314c3e62548aca49!2sCentro+de+Convenciones+y+Exposiciones+de+Morelia!5e0!3m2!1ses!2smx!4v1464982121621" width="980" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
 </div>

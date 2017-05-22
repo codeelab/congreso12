@@ -3,8 +3,8 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
 
-
 });
+
 
 /* Sumar dos números. */
 function sumar (valor) {
@@ -49,3 +49,6 @@ $(document).ready(function (){
    });
 });
 
+function mostrar(){
+document.getElementById('oculto').style.display = 'block';
+}

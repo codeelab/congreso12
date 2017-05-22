@@ -302,15 +302,14 @@ class Login extends CI_Controller
             'charset' => 'utf-8',
             'newline' => "\r\n"
         );
-
+        $nombre = $this->session->set_userdata($nombre);
         //cargamos la libreria email de ci
         $this->load->library('email',$configGmail);
         $this->email->from('soporte@sicdet.org');
         $this->email->to($userdata->email);
         $this->email->subject('Recuperación de password CECTI 2017');
-        $html .= "<img src='".base_url()."images/banner.png'' width='700px' align='center'><p>{$datos['nombre']}: <br/><br/>Por medio del presente correo, se le notifica de la alta de usuario para registrar trabajos en el 11° Congreso Estatal de Ciencia, Tecnología e Innovación, para lo cual le entregamos las credenciales de acceso</p>
-        <p>Nombre de Usuario:  ".$datos['username']." <br/>
-        Contraseña de Usuario:  ".$datos['passwd']." <br/>
+        $html .= "<img src='".base_url()."assets/img/logo.png' width='700px' align='center'><p>Estimado usuario(a), <br/><br/>por medio del presente correo, se le notifica de la alta de usuario para registrar trabajos en el 12° Congreso Estatal de Ciencia, Tecnología e Innovación, para lo cual le solicitamos de clic al enlace siguiente.</p>
+
         <center><a href='".base_url()."login/recovery/$userdata->token'>Recuperación de Contraseña</a></center><br/>
         </p><p>Atentamente: <br/><br/><a href='http://sicdet.michoacan.gob.mx'>Secrtetaría de Innovación, Ciencia y desarrollo tecnológico</a></p>";
 
