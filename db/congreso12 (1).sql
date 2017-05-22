@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-05-2017 a las 18:15:06
+-- Tiempo de generación: 23-05-2017 a las 00:09:42
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -103,6 +103,26 @@ INSERT INTO `asignacion_logistica` (`id_asignacion`, `usuario_id`, `area_id`, `s
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `clave`
+--
+
+CREATE TABLE `clave` (
+  `clave` int(25) DEFAULT NULL,
+  `usuario` varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `clave`
+--
+
+INSERT INTO `clave` (`clave`, `usuario`) VALUES
+(123, NULL),
+(123, 'logistico'),
+(123, 'evaluador');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estado`
 --
 
@@ -144,7 +164,8 @@ CREATE TABLE `evaluaciones` (
 --
 
 INSERT INTO `evaluaciones` (`id_evaluacion`, `evaluador_id`, `ponencia_id`, `ponente`, `correo`, `modalidad`, `mesa`, `nivel`, `titulo`, `status`, `calificacion_1`, `calificacion_2`, `calificacion_3`, `calificacion_4`, `calificacion_5`, `calificacion_6`, `calificacion_7`, `calificacion_8`, `status_id`) VALUES
-(120, 3, 3, 'Omar Campos', 'softcodec@gmail.com', 'Exposición Oral', 'Mesa 1.- Ciencias Naturales y de Materiales', 'LICENCIATURA', 'frfrrfrfrrfr', 'Enviado', 10, 10, 10, 10, 10, 10, 10, 10, 5);
+(120, 3, 3, 'Omar Campos', 'softcodec@gmail.com', 'Exposición Oral', 'Mesa 1.- Ciencias Naturales y de Materiales', 'LICENCIATURA', 'frfrrfrfrrfr', 'Enviado', 10, 10, 10, 10, 10, 10, 10, 10, 5),
+(121, 3, 3, 'Omar Campos', 'softcodec@gmail.com', 'Exposición Oral', 'Mesa 1.- Ciencias Naturales y de Materiales', 'LICENCIATURA', 'frfrrfrfrrfr', 'Enviado', 7, 7, 7, 7, 7, 7, 7, 7, 5);
 
 -- --------------------------------------------------------
 
@@ -957,7 +978,7 @@ CREATE TABLE `ponencias` (
 
 INSERT INTO `ponencias` (`id_ponencias`, `usuario_id`, `tipo_trabajo_id`, `titulo`, `autor`, `coautores`, `asesor`, `mesa_id`, `c_jovenes`, `archivo_resumen`, `archivo_extenso`, `status_id`, `fecha_registro`, `fecha_extenso`) VALUES
 (2, 1, 1, 'ESTA ES LA PRUEBA DE GUARDAR ', 'JOEL ALVAREZ ', 'OMAR JAIMES ', 'JULIO NAVA ', 1, 0, 'mesas/mesa1/2-resumen.pdf', 'mesas_ext/mesa1/2-extenso.pdf', 2, '2017-04-10', '2017-04-28'),
-(3, 2, 1, 'frfrrfrfrrfr', 'Omar Campos', 'Joel Alvarez', 'Pedro Mata', 1, 1, 'NULL', 'NULL', 5, '2017-04-18', '2017-04-28');
+(3, 2, 1, 'frfrrfrfrrfr', 'Omar Campos', 'Joel Alvarez', 'Pedro Mata', 6, 1, 'NULL', 'NULL', 5, '2017-04-18', '2017-04-28');
 
 -- --------------------------------------------------------
 
@@ -1109,20 +1130,24 @@ CREATE TABLE `usuarios` (
   `area_id` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `puesto` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `puesto` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `token` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `created_at` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `request_token` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuarios`, `nombre`, `a_paterno`, `a_materno`, `edad`, `genero`, `nacionalidad`, `otra_nac`, `estado`, `municipio`, `otro_mun`, `email`, `institucion`, `otra_ins`, `facultad`, `otra_fac`, `nivel`, `otro_nivel`, `mesa`, `modalidad`, `area_id`, `password`, `username`, `puesto`) VALUES
-(1, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, 'null', 1, 1, 'null', 'softcodec@gmail.com', 1, 'null', 2, 'null', 1, 'null', 1, 1, NULL, '74b5421ef14cc5d43b3380f99fc152d0017d9db0', 'ponente', 'ponente'),
-(2, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'softcodec@gmail.com', 1, '', 1, '', 1, '', 1, 1, NULL, '0eb5d4bdcd0cf425c08038262401da27ec289e69', 'evaluador', 'evaluador'),
-(3, 'Joel', 'Alvarez', 'Garcia', 22, 1, 1, '', 1, 1, '', 'softcodec@gmail.com', 1, '', 2, '', 1, '', 1, 1, NULL, '0596f5b01421e625a67a2d71623af1b9c55f8e24', 'encuentro', 'encuentro'),
-(4, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'softcodec@gmail.com', 1, '', 2, '', 1, '', 5, 1, NULL, '522b7eb4f3f66fea0ea9f755b53dd0fcb1775454', 'relator', 'relator'),
-(5, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'softcodec@gmail.com', 1, '', 2, '', 1, '', 1, 1, NULL, 'b676cb087863bdc7422e410a77524aac8e65ed6a', 'moderador', 'moderador'),
-(6, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'softcodec@gmail.com', 1, '', 2, '', 1, '', 0, 0, 1, '6e3f09910883b77e92de878e220e8cf0ed65b502', 'logistico', 'logistico');
+INSERT INTO `usuarios` (`id_usuarios`, `nombre`, `a_paterno`, `a_materno`, `edad`, `genero`, `nacionalidad`, `otra_nac`, `estado`, `municipio`, `otro_mun`, `email`, `institucion`, `otra_ins`, `facultad`, `otra_fac`, `nivel`, `otro_nivel`, `mesa`, `modalidad`, `area_id`, `password`, `username`, `puesto`, `token`, `created_at`, `request_token`) VALUES
+(1, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, 'null', 1, 1, 'null', 'informatica.cecti@gmail.com', 1, 'null', 2, 'null', 1, 'null', 1, 1, NULL, '74b5421ef14cc5d43b3380f99fc152d0017d9db0', 'ponente', 'ponente', 'b6a92c63074228dd1a0b066c84912190', '2017-05-19 13:47:58.480917', '2017-05-22 22:54:47'),
+(2, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'admin@gmail.com', 1, '', 1, '', 1, '', 1, 1, NULL, '0eb5d4bdcd0cf425c08038262401da27ec289e69', 'evaluador', 'evaluador', NULL, '2017-05-19 13:47:58.480917', '2017-05-19 13:51:32'),
+(3, 'Joel', 'Alvarez', 'Garcia', 22, 1, 1, '', 1, 1, '', 'admin@gmail.com', 1, '', 2, '', 1, '', 1, 1, NULL, '0596f5b01421e625a67a2d71623af1b9c55f8e24', 'encuentro', 'encuentro', NULL, '2017-05-19 13:47:58.480917', '2017-05-19 13:51:32'),
+(4, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'admin@admin.com', 1, '', 2, '', 1, '', 5, 1, NULL, '522b7eb4f3f66fea0ea9f755b53dd0fcb1775454', 'relator', 'relator', NULL, '2017-05-19 13:47:58.480917', '2017-05-19 13:51:32'),
+(5, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'admin@admin.com', 1, '', 2, '', 1, '', 6, 1, NULL, 'b676cb087863bdc7422e410a77524aac8e65ed6a', 'moderador', 'moderador', NULL, '2017-05-19 13:47:58.480917', '2017-05-19 13:51:32'),
+(6, 'Joel', 'Alvarez', 'Garcia', 31, 1, 1, '', 1, 1, '', 'admin@admin.com', 1, '', 2, '', 1, '', 0, 0, 1, '6e3f09910883b77e92de878e220e8cf0ed65b502', 'logistico', 'logistico', NULL, '2017-05-19 13:47:58.480917', '2017-05-19 13:51:32'),
+(7, 'Norma Eliza', 'Valencia', 'Guzman', 26, 1, 1, '', 1, 1, '', 'admin@admin.com', 1, '', 2, '', 1, '', 1, 1, NULL, '55e5b6b1299763ee823c9648c03637dac1235563', 'asistente', 'asistente', NULL, '2017-05-19 13:47:58.480917', '2017-05-19 13:51:32');
 
 --
 -- Índices para tablas volcadas
@@ -1300,7 +1325,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `evaluaciones`
 --
 ALTER TABLE `evaluaciones`
-  MODIFY `id_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id_evaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 --
 -- AUTO_INCREMENT de la tabla `fechas`
 --
@@ -1385,7 +1410,7 @@ ALTER TABLE `tipo`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_usuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
