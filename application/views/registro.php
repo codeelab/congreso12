@@ -27,7 +27,7 @@
                   </div>
                </div>
                <div class="bottom">
-                  <button class="btn btn-default">REGISTRO</button>
+                  <a href="ponentes"><button class="btn btn-default">REGISTRO</button></a>
                </div>
             </div>
         </div>
@@ -44,10 +44,16 @@
                   </div>
                </div>
                <div class="bottom">
-                  <button class="btn btn-default">REGISTRO</button>
+                 <button class="btn btn-default"  data-toggle="modal" data-target="#myModal">REGISTRO</button>
                </div>
+                <?php if (isset($error) && $error): ?>
+                  <div class="alert alert-danger" role="alert">
+                    <b>Clave de acceso incorrecta!</b>
+                  </div>
+                <?php endif; ?>
             </div>
         </div>
+
 
         <div class="col-md-4">
             <div class="card hovercard">
@@ -61,10 +67,16 @@
                   </div>
                </div>
                <div class="bottom">
-                  <button class="btn btn-default">REGISTRO</button>
+                 <button class="btn btn-default"  data-toggle="modal" data-target="#myModal">REGISTRO</button>
                </div>
+                <?php if (isset($error) && $error): ?>
+                  <div class="alert alert-danger" role="alert">
+                    <b>Clave de acceso incorrecta!</b>
+                  </div>
+                <?php endif; ?>
             </div>
         </div>
+
 
 
         <div class="col-md-4">
@@ -102,7 +114,7 @@
                   </div>
                </div>
                <div class="bottom">
-                  <button class="btn btn-default">REGISTRO</button>
+                  <a href=""><button class="btn btn-default">REGISTRO</button></a>
                </div>
             </div>
         </div>
@@ -116,24 +128,23 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-               <?php echo form_open('inicio/acceso','class="form-horizontal"') ?>
-                  <div class="col-md-8">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="fa fa-lock"></span> ACCESO A REGISTRO</h4>
+        </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <?php echo form_open('inicio/acceso') ?>
+                <div class="form-group">
+                  <label for="usrname"><i class="fa fa-user"></i> Usuario</label>
                   <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
-                      <input type="password" class="form-control" id="clave" name="clave" placeholder="Clave">
-                  </div>
-                  <div class="col-md-4">
-                  <button type="submit" name="submit" class="btn btn-info btn-block">Acceder</button>
-                  </div>
-                </form>
-                <br>
-      </div>
-      <div class="modal-footer">
-      </div>
+                </div>
+                <div class="form-group">
+                  <label for="psw"><i class="fa fa-key"></i> Password</label>
+                  <input type="text" class="form-control" id="clave" name="clave" placeholder="Clave">
+                </div>
+                  <button type="submit" name="submit" class="btn btn-success btn-block"><i class="fa fa-paper-plane-o"></i>    Ingresar</button>
+              </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

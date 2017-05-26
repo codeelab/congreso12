@@ -16,22 +16,4 @@ function get_area($id_usuarios = false)
 }
 
 
-
-    public function acceso($clave,$usuario)
-    {
-        $this->db->where('clave',$clave);
-        $this->db->where('usuario',$usuario);
-        $query = $this->db->get('clave');
-        if($query->num_rows() == 1)
-        {
-            return $query->row();
-        }else{
-            $this->session->set_flashdata('usuario_incorrecto','El usuario o la contraseña son incorrectos. Por favor intenténtelo nuevamente.');
-            redirect(base_url().'registro');
-        }
-    }
-
-
-
-
 }
