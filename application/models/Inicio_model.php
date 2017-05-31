@@ -127,4 +127,5 @@ function validate_user($clave, $usuario ) {
 
 
 
+
 }

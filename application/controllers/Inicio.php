@@ -7,6 +7,7 @@ class Inicio extends CI_Controller {
         parent::__construct();
         $this->load->model('Inicio_model');
         $this->load->helper('url'); //loads url helper
+        $this->load->library('form_validation');
     }
 
 
@@ -37,9 +38,10 @@ class Inicio extends CI_Controller {
 
     public function login()
     {
+        $data['token'] = $this->token();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view('login');
+        $this->load->view('login',$data);
         $this->load->view("theme/footer");
     }
 
@@ -115,98 +117,6 @@ class Inicio extends CI_Controller {
         redirect("inicio/registro");
     }
 
-    /**
-    * @desc - genera un token para cada usuario registrado
-    * @return token
-    */
-    private function token()
-    {
-        return sha1(uniqid(rand(),true));
-    }
-
-    public function regPonente()
-    {
-        $this->form_validation->set_rules(
-            'nombre', 'nombre', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'a_paterno', 'a_paterno', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'a_materno', 'a_materno', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'email', 'email', 'required|trim|min_length[2]|max_length[50]|xss_clean|is_unique[users.email]|valid_email'
-        );
-        $this->form_validation->set_rules(
-            'edad', 'edad', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'genero', 'genero', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'nacionalidad', 'nacionalidad', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'estado', 'estado', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'municipio', 'municipio', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'escolaridad', 'escolaridad', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'institucion', 'institucion', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'facultad', 'facultad', 'required|trim|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'usuario', 'usuario', 'required|trim|min_length[6]|max_length[50]|xss_clean'
-        );
-        $this->form_validation->set_rules(
-            'password', 'password', 'required|trim|min_length[6]|max_length[50]|xss_clean'
-        );
-
-        $this->form_validation->set_message('required', 'El %s es requerido');
-        $this->form_validation->set_message('valid_email', 'El %s no tiene un formato correcto');
-        $this->form_validation->set_message('is_unique', 'El email %s ya está registrado');
-        $this->form_validation->set_message('min_length', 'El %s debe tener al menos %s carácteres');
-        $this->form_validation->set_message('max_length', 'El %s debe tener al menos %s carácteres');
-
-        if($this->form_validation->run() == FALSE)
-        {
-            $this->acceso();
-        }
-        else
-        {
-            $data = array(
-                    "nombre"        =>  $this->input->post("nombre"),
-                    "a_paterno"     =>  $this->input->post("a_paterno"),
-                    "a_materno"     =>  $this->input->post("a_materno"),
-                    "email"         =>  $this->input->post("email"),
-                    "edad"          =>  $this->input->post("edad"),
-                    "genero"        =>  $this->input->post("genero"),
-                    "nacionalidad"  =>  $this->input->post("nacionalidad"),
-                    "estado"        =>  $this->input->post("estado"),
-                    "municipio"     =>  $this->input->post("municipio"),
-                    "escolaridad"   =>  $this->input->post("escolaridad"),
-                    "institucion"   =>  $this->input->post("institucion"),
-                    "facultad"      =>  $this->input->post("facultad"),
-                    "usuario"       =>  $this->input->post("usuario"),
-                    "password"      =>  sha1($this->input->post("password")),
-                    "token"         =>  $this->token(),
-                );
-
-            $this->load->model("Login_model");
-            if($this->Login_model->register($data) === TRUE)
-            {
-                $this->session->set_flashdata("registered", "Te has registrado correctamente");
-                 $this->acceso();
-            }
-        }
-    }
 
 
     function getCidades($id_estado)
@@ -237,6 +147,67 @@ class Inicio extends CI_Controller {
         return;
     }
 
+    /**
+    * @desc - genera un token para cada usuario registrado
+    * @return token
+    */
+    private function token()
+    {
+        return sha1(uniqid(rand(),true));
+    }
+
+    function registro_ponente() {
+
+        $token = $this->token();
+        //Validar que no exista el usuario
+        $validar = $this->db->query("SELECT id_usuarios FROM usuarios WHERE username='{$_POST['username']}' and password='{$_POST['password']}' limit 1");
+        if ($validar->num_rows() == 0) {
+            $query = $this->db->insert('usuarios', $_POST);
+            $id_usuarios = $this->db->insert_id();
+            $this->db->query("UPDATE usuarios SET token='$token' WHERE id_usuarios='$id_usuarios'");
+        } else {
+            $r = $validar->row();
+            $id_usuarios = $r->id_usuarios;
+            $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
+        }
+        $base = base_url();
+        if ($id_usuarios > 0) {
+            //Enviar Correo Electrónico
+            $this->load->library('My_PHPMailer');
+            $this->load->model('Enviar_correo');
+            $mail = new PHPMailer();
+            $mail->SMTPAuth   = true; // enabled SMTP authentication
+            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
+            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
+            $mail->Port       = 465;                   // SMTP port to connect to GMail
+            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
+            $mail->Password   = "sicdet2016";            // password in GMail
+            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
+            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
+            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
+            $datos['username'] = $_POST['username'];
+            $datos['nombre'] = $_POST['nombre'];
+            $datos['password'] = $_POST['password'];
+            $mail->Body = $this->Enviar_correo->acceso_html($datos);
+            $mail->AltBody = "Credenciales de Acceso CECTI";
+            $correo_destino = $_POST['email'];
+            if (strlen($correo_destino) > 5) {
+                $mail->AddAddress($correo_destino, $_POST['nombre']);
+            }
+
+            if (!$mail->Send()) {
+                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
+                show_error("Error en el envío: " . $mail->ErrorInfo);
+            } else {
+                $data["message"] = "¡Mensaje enviado correctamente!";
+                //show_error("Si se envió");
+            }
+
+             $this->login();
+        } else {
+            $this->ponentes();
+        }
+    }
 
 
 

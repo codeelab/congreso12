@@ -1,3 +1,37 @@
+<script>
+
+    function send() {
+        var validado = 1;
+        //valida el nombre
+        if (document.form1.nombre.value.length == 0) {
+            alert("Escriba el nombre del ponente")
+            validado = 0;
+        }
+
+        //valida la institución
+        else if ((document.form1.a_paterno.value.length == 0)) {
+            alert("Seleccione la Institución en la cual labora")
+            validado = 0;
+        }
+
+
+        //valida la dirección
+        else if ((document.form1.a_materno.value.length == 0)) {
+            alert("Ingrese su domicilio y localidad")
+            validado = 0;
+        }
+
+
+        else if (!(/\w{1,}[@][\w\-]{1,}([.]([\w\-]{1,})){1,3}$/.test(document.form1.email.value))) {
+            alert("Escriba una dirección de correo electrónico válida")
+            validado = 0;
+        }
+
+        if (validado == 1) {
+            document.form1.submit();
+        }
+    }
+</script>
 <section id="title" class="emerald">
 <div class="container">
 <div class="row">
@@ -12,16 +46,14 @@
 </section>
 
 <section id="contact-page" class="container">
-        <?php
-            messages_flash('danger',validation_errors(),'Errores del formulario', true);
 
-            messages_flash('success','registered','Correcto');
-        ?>
-    <?php echo form_open('inicio/regPonente'); ?>
+
+    <?php $atrib = array('name' => 'form1'); echo form_open('inicio/registro_ponente', $atrib); ?>
         <div class="row">
             <div class="col-md-6">
                 <label for="nombre">Nombre</label>
-                <input type="email" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                <?php echo form_error('nombre'); ?>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo set_value('nombre'); ?>" placeholder="Nombre">
             </div>
             <div class="col-md-6">
                 <label for="nacionalidad">Nacionalidad</label>
@@ -36,7 +68,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="a_paterno">Apellido Paterno</label>
-                <input type="email" class="form-control" id="a_paterno" name="a_paterno" placeholder="Apellido Paterno">
+                <input type="text" class="form-control" id="a_paterno" name="a_paterno" placeholder="Apellido Paterno">
             </div>
             <div class="col-md-6">
                 <label for="estado">Estado</label>
@@ -44,7 +76,7 @@
                 $options = array ('' => 'Elija estado de procedencia');
                 foreach($estados as $estado)
                     $options[$estado->id_estado] = $estado->nombre_est;
-                echo form_dropdown('estado', $options, '', 'class="form-control" id="estado"');
+                echo form_dropdown('estado', $options, '', 'class="form-control" id="estado" name="estado"');
                 ?>
 
             </div>
@@ -52,13 +84,13 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="a_materno">Apellido Materno</label>
-                <input type="email" class="form-control" id="a_materno" name="a_materno" placeholder="Apellido Materno">
+                <input type="text" class="form-control" id="a_materno" name="a_materno" placeholder="Apellido Materno">
             </div>
             <div class="col-md-6">
                 <label for="municipio">Municipio</label>
                  <?php
                     $options = array(''=>'Elija un estado');
-                    echo form_dropdown('municipio', $options, '', 'class="form-control" id="municipio"');
+                    echo form_dropdown('municipio', $options, '', 'class="form-control" id="municipio name="municipio"');
                 ?>
             </div>
         </div>
@@ -69,7 +101,7 @@
             </div>
             <div class="col-md-6">
                 <label for="escolaridad">Escolaridad</label>
-                <select name="escolaridad" id="escolaridad" class="form-control">
+                <select name="nivel" id="nivel" class="form-control">
                 <?php
                 foreach ($esc as $i => $escolaridad)
                    echo '<option value="',$i,'">',$escolaridad,'</option>';
@@ -106,22 +138,22 @@
                 <label for="facultad">Facultad</label>
                  <?php
                     $options = array(''=>'Elija su carrera');
-                    echo form_dropdown('facultad', $options, '', 'class="form-control" id="facultad"');
+                    echo form_dropdown('facultad', $options, '', 'class="form-control" id="facultad" name="facultad"');
                 ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <label for="usuario">Usuario</label>
-                <input type="email" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
             </div>
             <div class="col-md-6">
                 <label for="password">Contraseña</label>
-                <input type="email" class="form-control" id="password" name="password" placeholder="Contraseña">
+                <input type="text" class="form-control" id="password" name="password" placeholder="Contraseña">
             </div>
         </div>
             <input type="hidden" class="form-control" id="puesto" name="puesto" value="ponente">
-            <button type="button" class="btn btn-primary btn-block btn-md btn-white">Registrar</button>
+            <button type="button" class="btn btn-primary btn-block btn-md btn-white" onclick="javascript:send()">Registrar</button>
     <?php echo form_close();?>
 
 
