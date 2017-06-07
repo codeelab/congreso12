@@ -2,6 +2,8 @@
 
 class Inicio_model extends CI_Model {
 
+
+
 function validate_user($clave, $usuario ) {
     // Build a query to retrieve the user's details
     // based on the received username and password

@@ -18,7 +18,7 @@ if(!function_exists('messages_flash'))
         {
         ?>
         <div class="panel panel-<?php echo $type ?>">
-            <div class="panel-heading"><?php echo $headMessage ?></div>
+            <div class="panel-heading"><b><?php echo $headMessage ?></b></div>
              <div class="panel-body">
                 <?php echo $flash ?>
              </div>
@@ -29,7 +29,7 @@ if(!function_exists('messages_flash'))
         {
         ?>
         <div class="panel panel-<?php echo $type ?>">
-            <div class="panel-heading"><?php echo $headMessage ?></div>
+            <div class="panel-heading"><b><?php echo $headMessage ?></b></div>
              <div class="panel-body">
                 <?php echo $ci->session->flashdata($flash) ?>
              </div>

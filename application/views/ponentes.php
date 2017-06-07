@@ -46,7 +46,16 @@
 </section>
 
 <section id="contact-page" class="container">
+<?php $error = $this->session->flashdata('error'); ?>
 
+            <?php if ($error) :?>
+            <div class="panel panel-danger">
+                <div class="panel-heading"><b>Errores del formulario</b></div>
+                 <div class="panel-body">
+                    <?php echo $error; ?>
+                 </div>
+            </div>
+            <?php endif ?>
 
     <?php $atrib = array('name' => 'form1'); echo form_open('inicio/registro_ponente', $atrib); ?>
         <div class="row">
@@ -111,8 +120,8 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label for="edad">Edad</label>
-                <input type="number" min="15" max="99" id="edad" name="edad" class="form-control">
+                <label for="email">Confirmar Correo</label>
+                <input type="email" class="form-control" id="email2" name="email2" placeholder="Correo Electrónico">
             </div>
             <div class="col-md-6">
                 <label for="institucion">Institución</label>
@@ -126,13 +135,8 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label for="genero">Genero</label>
-                <select name="genero" id="genero" class="form-control">
-                <?php
-                foreach ($gen as $i => $genero)
-                   echo '<option value="',$i,'">',$genero,'</option>';
-                ?>
-                </select>
+                <label for="edad">Edad</label>
+                <input type="number" min="15" max="99" id="edad" name="edad" class="form-control">
             </div>
             <div class="col-md-6">
                 <label for="facultad">Facultad</label>
@@ -144,14 +148,31 @@
         </div>
         <div class="row">
             <div class="col-md-6">
+                <label for="genero">Genero</label>
+                <select name="genero" id="genero" class="form-control">
+                <?php
+                foreach ($gen as $i => $genero)
+                   echo '<option value="',$i,'">',$genero,'</option>';
+                ?>
+                </select>
+
+            </div>
+            <div class="col-md-6">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" autofocus="autofocus">
+            </div>
+        </div>
+<div class="row">
+            <div class="col-md-6">
                 <label for="usuario">Usuario</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
             </div>
             <div class="col-md-6">
-                <label for="password">Contraseña</label>
-                <input type="text" class="form-control" id="password" name="password" placeholder="Contraseña">
+                <label for="password">Confirmar Contraseña</label>
+                <input type="password" class="form-control" name="password2" id="password2" placeholder="Confirmar Contraseña">
+
             </div>
-        </div>
+</div>
             <input type="hidden" class="form-control" id="puesto" name="puesto" value="ponente">
             <button type="button" class="btn btn-primary btn-block btn-md btn-white" onclick="javascript:send()">Registrar</button>
     <?php echo form_close();?>

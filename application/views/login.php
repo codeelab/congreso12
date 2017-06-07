@@ -24,7 +24,7 @@
         </ul>
         </div>
       </div>
-              <?php
+        <?php
             messages_flash('danger',validation_errors(),'Errores del formulario', true);
 
             //si hay error enviando el email
@@ -41,7 +41,21 @@
 
             //si se ha modificado el password correctamente
             messages_flash('success','password_changed','Password modificado correctamente');
-            ?>
+
+            $error = $this->session->flashdata('error');
+
+        ?>
+
+            <?php if ($error) :?>
+            <div class="panel panel-danger">
+                <div class="panel-heading"><b>Errores del formulario</b></div>
+                 <div class="panel-body">
+                    <?php echo $error; ?>
+                 </div>
+            </div>
+            <?php endif ?>
+
+
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="ingreso">
           <div class="row">
@@ -53,30 +67,21 @@
                 </h3>
                 <?=form_open(base_url().'login/new_user')?>
                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Usuario</label>
+                        <label for="usuario" class="col-sm-2 control-label">Usuario</label>
                     <div class="col-sm-10">
                         <input type="text" name="username" value="<?php echo set_value('username') ?>" id="username" class="form-control">
-                    <?php echo form_error('username', '<p class="list-group-item list-group-item-danger"><b>', '</b></p>'); ?>
                     </div>
 
                   </div>
                   <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Contraseña</label>
+                        <label for="password" class="col-sm-2 control-label">Contraseña</label>
                     <div class="col-sm-10">
                         <input type="password" name="password" id="password" class="form-control">
-                        <?php echo form_error('password', '<p class="list-group-item list-group-item-danger"><b>', '</b></p>'); ?>
                     </div>
                   </div>
                   <div class="form-group">
                   <div class="table-responsive">
-                  <div class="col-sm-10">
-                        <?php echo $this->recaptcha->render(); ?>
-                        <?if($this->session->flashdata('error')):?>
-                            <p class="list-group-item list-group-item-danger">
-                                <b><?=$this->session->flashdata('error')?></b>
-                            </p>
-                        <?endif?>
-                  </div>
+
                   </div>
                   </div>
                         <input type="submit" value="Inicio de sesión" class="btn btn-success btn-block">
@@ -99,7 +104,7 @@
               <?=form_open(base_url().'login/request_password')?>
               <form class="signup">
                   <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Correo</label>
+                        <label for="email" class="col-sm-2 control-label">Correo</label>
                     <div class="col-sm-10">
                   <input type="email" class="form-control" placeholder="Correo electrónico" name="email" id="email" value="<?php echo set_value('email')?>">
                 </div>

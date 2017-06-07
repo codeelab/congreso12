@@ -6,8 +6,9 @@ class Inicio extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Inicio_model');
-        $this->load->helper('url'); //loads url helper
-        $this->load->library('form_validation');
+        $this->load->helper(array('url','form','security'));
+        $this->load->library(array('form_validation','session'));
+        $this->load->database('default');
     }
 
 
@@ -156,22 +157,27 @@ class Inicio extends CI_Controller {
         return sha1(uniqid(rand(),true));
     }
 
-    function registro_ponente() {
 
+    function registro_ponente() {
         $token = $this->token();
+        unset($_POST['password2']);
+        unset($_POST['email2']);
+        $pa = $_POST['password'];
+        $_POST['password'] = do_hash($_POST['password']);
+
+        $base = base_url();
         //Validar que no exista el usuario
-        $validar = $this->db->query("SELECT id_usuarios FROM usuarios WHERE username='{$_POST['username']}' and password='{$_POST['password']}' limit 1");
-        if ($validar->num_rows() == 0) {
+        $validar = $this->db->query("SELECT id_usuarios FROM usuarios WHERE username='{$_POST['username']}' AND password='{$_POST['password']}' limit 1");
+
+        if ($validar->num_rows() > 0) {
+            $this->session->set_flashdata('error', 'El nombre de usuario no esta disponible!');
+            redirect('inicio/ponentes','refresh');
+
+        }else{
             $query = $this->db->insert('usuarios', $_POST);
             $id_usuarios = $this->db->insert_id();
-            $this->db->query("UPDATE usuarios SET token='$token' WHERE id_usuarios='$id_usuarios'");
-        } else {
-            $r = $validar->row();
-            $id_usuarios = $r->id_usuarios;
             $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
-        }
-        $base = base_url();
-        if ($id_usuarios > 0) {
+
             //Enviar Correo Electrónico
             $this->load->library('My_PHPMailer');
             $this->load->model('Enviar_correo');
@@ -185,10 +191,16 @@ class Inicio extends CI_Controller {
             $mail->IsSMTP(); // establecemos que utilizaremos SMTP
             $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
             $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
+            $mail->Debugoutput = 'html';
+            $mail->IsHTML(true);
+            $mail->CharSet = 'UTF-8';
             $datos['username'] = $_POST['username'];
+            $datos['password'] = $pa;
             $datos['nombre'] = $_POST['nombre'];
-            $datos['password'] = $_POST['password'];
-            $mail->Body = $this->Enviar_correo->acceso_html($datos);
+            $datos['a_paterno'] = $_POST['a_paterno'];
+            $datos['a_materno'] = $_POST['a_materno'];
+            $mail->Subject = "Credenciales de Acceso XII CECTI";
+            $mail->Body = $this->Enviar_correo->registro_ponentes($datos);
             $mail->AltBody = "Credenciales de Acceso CECTI";
             $correo_destino = $_POST['email'];
             if (strlen($correo_destino) > 5) {
@@ -204,9 +216,8 @@ class Inicio extends CI_Controller {
             }
 
              $this->login();
-        } else {
-            $this->ponentes();
         }
+        $this->ponentes();
     }
 
 
