@@ -159,6 +159,7 @@ class Inicio extends CI_Controller {
 
 
     function registro_ponente() {
+
         $token = $this->token();
         unset($_POST['password2']);
         unset($_POST['email2']);

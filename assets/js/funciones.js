@@ -58,40 +58,15 @@ document.getElementById('oculto').style.display = 'block';
 
 $(document).ready(function() {
   //variables
-  var password = $('[name=password]');
-  var password2 = $('[name=password2]');
   var email = $('[name=email]');
   var email2 = $('[name=email2]');
-  var confirmacion = "Las contraseñas si coinciden";
-  var confirmacion2 = "Ambos correos si coinciden";
-  var longitud = "La contraseña debe estar formada entre 6-10 carácteres (ambos inclusive)";
-  var negacion = "No coinciden las contraseñas";
-  var negacion2 = "No coinciden los correos agregados";
-  var vacio = "La contraseña no puede estar vacía";
+  var confirmacion = "Los correos si coinciden";
+  var negacion = "No coinciden los ambos correos";
+  var vacio = "El campo no puede estar vacío";
   //oculto por defecto el elemento span
-  var span = $('<p></p>').insertAfter(password2,email2);
+  var span = $('<p></p>').insertAfter(email2);
   span.hide();
   //función que comprueba las dos contraseñas
-  function coincidePassword(){
-  var valor1 = password.val();
-  var valor2 = password2.val();
-  //muestro el span
-  span.show().removeClass();
-  //condiciones dentro de la función
-  if(valor1 != valor2){
-  span.text(negacion).addClass('text-danger');
-  }
-  if(valor1.length==0 || valor1==""){
-  span.text(vacio).addClass('text-warning');
-  }
-  if(valor1.length<6 || valor1.length>10){
-  span.text(longitud).addClass('text-danger');
-  }
-  if(valor1.length!=0 && valor1==valor2){
-  span.text(confirmacion).removeClass("text-danger").addClass('text-success');
-  }
-  }
-    //función que comprueba las dos contraseñas
   function coincideEmail(){
   var valor1 = email.val();
   var valor2 = email2.val();
@@ -109,11 +84,212 @@ $(document).ready(function() {
   }
   }
   //ejecuto la función al soltar la tecla
-  password2.keyup(function(){
-  coincidePassword();
-  });
-  //ejecuto la función al soltar la tecla
   email2.keyup(function(){
   coincideEmail();
+  });
+});
+
+
+$(document).ready(function() {
+    $('#ponentes').bootstrapValidator({
+        message: 'Este valor no es válido',
+        feedbackIcons: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-remove',
+            validating: 'fa fa-refresh'
+        },
+        fields: {
+            nombre: {
+                validators: {
+                    notEmpty: {
+                        message: 'Es requerido el nombre del Ponente. '
+                    },
+                    regexp: {
+                      regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/,
+                      message: 'Solo está permitido el uso caracteres alfabeticos.'
+                    }
+                }
+            },
+            a_paterno: {
+                validators: {
+                    notEmpty: {
+                        message: 'Es requerido el apellido paterno. '
+                    },
+                    regexp: {
+                      regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/,
+                      message: 'Solo está permitido el uso caracteres alfabeticos.'
+                    }
+                }
+            },
+            a_materno: {
+                validators: {
+                    notEmpty: {
+                        message: 'Es requerido el apellido materno. '
+                    },
+                    regexp: {
+                      regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/,
+                      message: 'Solo está permitido el uso caracteres alfabeticos.'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Es requerido su correo personal. '
+                    },
+                    emailAddress: {
+                        message: 'Su correo no pertenece a un dominio valido.'
+                    },
+                    regexp: {
+                      regexp: /^[A-Z0-9._%+-]+@(?:[A-Z]{4}|gmail|yahoo|outlook|hotmail)+\.(com|mx|es|com.mx)+$/i,
+                      message: 'Solo está permitido el uso de los siguientes dominios: Gmail, Yahoo, Outlook, Hotmail.'
+                    }
+                }
+            },
+            email2: {
+                validators: {
+                    notEmpty: {
+                        message: 'Es requerido su correo personal. '
+                    },
+                    emailAddress: {
+                        message: 'Su correo no pertenece a un dominio valido.'
+                    },
+                    regexp: {
+                      regexp: /^[A-Z0-9._%+-]+@(?:[A-Z]{4}|gmail|yahoo|outlook|hotmail)+\.(com|mx|es|com.mx)+$/i,
+                      message: 'Solo está permitido el uso de los siguientes dominios: Gmail, Yahoo, Outlook, Hotmail.'
+                    }
+                }
+            },
+            edad: {
+              validators: {
+                notEmpty:{
+                  message: 'Tu edad es requerida.'
+                },
+                between: {
+                  min: 15,
+                  max: 99,
+                  message: 'La edad requerida para participar es de %s a %s años.'
+                },
+                regexp:{
+                  regexp: /^[0-9\s\-()+\.]+$/,
+                  message: 'Solo está permitido el uso de caracteres alfanuméricos.'
+                }
+              }
+            },
+            genero: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido su genero.'
+                }
+              }
+            },
+            username: {
+              validators: {
+                notEmpty:{
+                  message: 'Es requerido su usuario.'
+                }
+              }
+            },
+            nacionalidad: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerida su nacionalidad.'
+                }
+              }
+            },
+            estado: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido su estado.'
+                }
+              }
+            },
+            municipio: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido su municipio.'
+                }
+              }
+            },
+            nivel: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido seleccione su nivel educativo.'
+                }
+              }
+            },
+            institucion: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido elija una institución educativa.'
+                }
+              }
+            },
+            facultad: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido elija su facultad.'
+                }
+              }
+            },
+            password: {
+              validators: {
+                notEmpty:{
+                  message: 'Los nombres de usuario pueden contener letras (a-z), números (0-9), guiones (-), guiones bajos (_), apóstrofes y puntos (.).'
+                },
+                between: {
+                  min: 8,
+                  max: 20,
+                  message: 'Los nombres de usuario pueden empezar o terminar con caracteres no alfanuméricos, excepto puntos (.), y deben tener minimo %s y máximo %s caracteres.'
+                },
+                callback: {
+                  callback: function(value, validator, $field)
+                  {
+                    var password = $field.val();
+                    if (password == '') {
+                    return true;
+                  }
+                    var result  = zxcvbn(password),
+                        score   = result.score,
+                        message = result.feedback.warning || 'La contraseña es demaciado debil.';
+
+                    // Actualizar el ancho de la barra de progreso y agregar la clase de alerta
+                    var $bar = $('#strengthBar');
+                      switch (score) {
+                        case 0:
+                          $bar.attr('class', 'progress-bar progress-bar-danger')
+                              .css('width', '1%');
+                          break;
+                        case 1:
+                          $bar.attr('class', 'progress-bar progress-bar-danger')
+                              .css('width', '25%');
+                          break;
+                        case 2:
+                          $bar.attr('class', 'progress-bar progress-bar-danger')
+                              .css('width', '50%');
+                          break;
+                        case 3:
+                          $bar.attr('class', 'progress-bar progress-bar-warning')
+                              .css('width', '75%');
+                          break;
+                        case 4:
+                          $bar.attr('class', 'progress-bar progress-bar-success')
+                              .css('width', '100%');
+                          break;
+                }
+                    // Trataremos la contraseña como inválida si la puntuación es menor de 8
+                    if (score < 8) {
+                      return {
+                        valid: false,
+                        message: message
+                      }
+                    }
+
+                    return true;
+                  }
+            }
+        }
+      }
+    }
   });
 });

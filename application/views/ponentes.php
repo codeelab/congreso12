@@ -1,37 +1,4 @@
-<script>
 
-    function send() {
-        var validado = 1;
-        //valida el nombre
-        if (document.form1.nombre.value.length == 0) {
-            alert("Escriba el nombre del ponente")
-            validado = 0;
-        }
-
-        //valida la institución
-        else if ((document.form1.a_paterno.value.length == 0)) {
-            alert("Seleccione la Institución en la cual labora")
-            validado = 0;
-        }
-
-
-        //valida la dirección
-        else if ((document.form1.a_materno.value.length == 0)) {
-            alert("Ingrese su domicilio y localidad")
-            validado = 0;
-        }
-
-
-        else if (!(/\w{1,}[@][\w\-]{1,}([.]([\w\-]{1,})){1,3}$/.test(document.form1.email.value))) {
-            alert("Escriba una dirección de correo electrónico válida")
-            validado = 0;
-        }
-
-        if (validado == 1) {
-            document.form1.submit();
-        }
-    }
-</script>
 <section id="title" class="emerald">
 <div class="container">
 <div class="row">
@@ -57,12 +24,12 @@
             </div>
             <?php endif ?>
 
-    <?php $atrib = array('name' => 'form1'); echo form_open('inicio/registro_ponente', $atrib); ?>
+
+<form id="ponentes" method="post" action="inicio/registro_ponente">
         <div class="row">
             <div class="col-md-6">
                 <label for="nombre">Nombre</label>
-                <?php echo form_error('nombre'); ?>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo set_value('nombre'); ?>" placeholder="Nombre">
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
             </div>
             <div class="col-md-6">
                 <label for="nacionalidad">Nacionalidad</label>
@@ -106,7 +73,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="email">Correo</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico" autofocus="autofocus">
             </div>
             <div class="col-md-6">
                 <label for="escolaridad">Escolaridad</label>
@@ -136,7 +103,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="edad">Edad</label>
-                <input type="number" min="15" max="99" id="edad" name="edad" class="form-control">
+                <input type="number" data-bv-integer-message="Solo está permitido el uso de caracteres alfanuméricos" id="edad" name="edad" class="form-control">
             </div>
             <div class="col-md-6">
                 <label for="facultad">Facultad</label>
@@ -159,7 +126,10 @@
             </div>
             <div class="col-md-6">
                 <label for="password">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" autofocus="autofocus">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" data-bv-integer-message="Solo está permitido el uso de caracteres alfanuméricos">
+            <div class="progress password-progress form-progres">
+                <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0;"></div>
+            </div>
             </div>
         </div>
 <div class="row">
@@ -174,8 +144,8 @@
             </div>
 </div>
             <input type="hidden" class="form-control" id="puesto" name="puesto" value="ponente">
-            <button type="button" class="btn btn-primary btn-block btn-md btn-white" onclick="javascript:send()">Registrar</button>
-    <?php echo form_close();?>
+            <button type="submit" class="btn btn-primary btn-block btn-md btn-white">Registrar</button>
+</form>
 
 
 </section>

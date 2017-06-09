@@ -60,6 +60,7 @@
 </footer>
 <script src="<?php echo base_url();?>assets/js/jquery.js"></script>
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/bootstrapValidator.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.prettyPhoto.js"></script>
 <script src="<?php echo base_url();?>assets/js/main.js"></script>
 <script src="<?php echo base_url();?>assets/js/funciones.js"></script>
@@ -67,6 +68,8 @@
 <script src="<?php echo base_url();?>assets/js/dataTables.responsive.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/dataTables.bootstrap.js"></script>
 <script src="<?php echo base_url();?>assets/js/ajax.js"></script>
+<script src="<?php echo base_url();?>assets/js/zxcvbn.js"></script>
+
 
 </body>
 </html>
