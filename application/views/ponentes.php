@@ -13,19 +13,9 @@
 </section>
 
 <section id="contact-page" class="container">
-<?php $error = $this->session->flashdata('error'); ?>
 
-            <?php if ($error) :?>
-            <div class="panel panel-danger">
-                <div class="panel-heading"><b>Errores del formulario</b></div>
-                 <div class="panel-body">
-                    <?php echo $error; ?>
-                 </div>
-            </div>
-            <?php endif ?>
-
-
-<form id="ponentes" method="post" action="inicio/registro_ponente">
+<?php $atrib = array('name' => 'form1', 'id' => 'registro');
+echo form_open('inicio/registro_ponente', $atrib); ?>
         <div class="row">
             <div class="col-md-6">
                 <label for="nombre">Nombre</label>
@@ -65,7 +55,7 @@
             <div class="col-md-6">
                 <label for="municipio">Municipio</label>
                  <?php
-                    $options = array(''=>'Elija un estado');
+                    $options = array(''=>'Elija un estado', 'id' => 'municipio','name' => 'municipio');
                     echo form_dropdown('municipio', $options, '', 'class="form-control" id="municipio name="municipio"');
                 ?>
             </div>
@@ -96,7 +86,7 @@
                 $options = array ('' => 'Elija institución educativa');
                 foreach($instituciones as $ins)
                     $options[$ins->id_institucion] = $ins->nombre_ins;
-                echo form_dropdown('institucion', $options, '', 'class="form-control" id="institucion"');
+                echo form_dropdown('institucion', $options, '', 'class="form-control" id="institucion" name="institucion"');
                 ?>
             </div>
         </div>
@@ -108,7 +98,7 @@
             <div class="col-md-6">
                 <label for="facultad">Facultad</label>
                  <?php
-                    $options = array(''=>'Elija su carrera');
+                    $options = array(''=>'Elija su carrera', 'id' => 'facultad','name' => 'facultad');
                     echo form_dropdown('facultad', $options, '', 'class="form-control" id="facultad" name="facultad"');
                 ?>
             </div>
@@ -122,7 +112,6 @@
                    echo '<option value="',$i,'">',$genero,'</option>';
                 ?>
                 </select>
-
             </div>
             <div class="col-md-6">
                 <label for="password">Contraseña</label>
@@ -143,9 +132,20 @@
 
             </div>
 </div>
+<div class="row">
+            <div class="col-md-12">
+                <label for="mailing">Mailing</label>
+                ¿Deseas recibir correos de las diferentes convocatorias de la SICDET?
+                <div class="checkbox">
+                  <label><input type="checkbox" name="mailing" value="SI">Si</label>
+                  <label><input type="checkbox" name="mailing" value="NO">No</label>
+                </div>
+            </div>
+</div>
             <input type="hidden" class="form-control" id="puesto" name="puesto" value="ponente">
+            <input type="hidden" class="form-control" id="status" name="status" value="Activo">
             <button type="submit" class="btn btn-primary btn-block btn-md btn-white">Registrar</button>
-</form>
+<?php form_close()?>
 
 
 </section>

@@ -1,5 +1,3 @@
-// funcao para retornar as cidades conforme o combo dos estados
-
 $(function(){
 var url = "http://localhost/congreso12/";
 

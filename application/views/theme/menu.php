@@ -6,7 +6,7 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="<?=base_url();?>"><img src="<?php echo base_url();?>assets/img/logo-black.png" alt="logo" width="270px"></a>
+<a class="navbar-brand" href="<?=base_url();?>"><img src="<?php echo base_url();?>assets/img/header_12_congreso.png" alt="logo" width="270px"></a>
 </div>
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav navbar-right">

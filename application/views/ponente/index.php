@@ -6,7 +6,7 @@
   $FCR = "10/05/2017";
   //Para los avisos de subida de extensos y cierre del módulo a todos los ponentes aprobados
   $FIE = "12/05/2017";
-  $FCE = "17/05/2017";
+  $FCE = "10/05/2017";
 
 
   $user = $this->session->userdata('id_usuarios');

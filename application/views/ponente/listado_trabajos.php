@@ -55,13 +55,13 @@ if($ponencias !== FALSE) {
             foreach ($ponencias as $row) {
 
             if ($row->status === 'Enviado') {
-                   $estado = "<h4><span class='label label-info'>Enviado</span></h4>";
+                   $estado = "<div class='status-enviado'></div><span class='label label-info span-enviado' style='margin:15%;'>Enviado</span>";
               } else if ($row->status === 'Aceptado') {
-                   $estado = "<h4><span class='label label-success'>Aprobado</span></h4>";
+                   $estado = "<div class='status-aprobado'></div><span class='label label-success span-aprobado' style='margin:15%;'>Aprobado</span>";
              } else if ($row->status === 'No aceptado') {
-                   $estado = "<h4><span class='label label-danger'>No aprobado</span></h4>";
+                   $estado = "<div class='status-no-aprobado'></div><span class='label label-danger span-no-aprobado' style='margin:15%;'>No aprobado</span>";
              } else {
-                   $estado = "<h4><span class='label label-default'>Cancelado</span></h4>";
+                   $estado = "<div class='status-cancelado'></div><span class='label label-default span-cancelado' style='margin:15%;'>Cancelado</span>";
              }
 
             if ($row->archivo_resumen > 0) {
@@ -77,7 +77,7 @@ if($ponencias !== FALSE) {
             }
 
                echo "<tr>
-               <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span><h4></td>
+               <td><span class='label label-default span-enviado'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span></td>
                <td>$estado</td>
                <td>$row->autor</td>
                <td>$row->coautores</td>

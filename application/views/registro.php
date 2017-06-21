@@ -17,9 +17,9 @@
 
         <div class="col-md-4">
             <div class="card hovercard">
-               <img src="http://placehold.it/300x200/000000/&text=Header" alt=""/>
+               <img src="<?php echo base_url()?>assets/images/Registro_ponentes.jpg" alt=""/>
                <div class="avatar">
-                  <img src="http://placehold.it/80X80/333333/&text=Head" alt="" />
+                  <img src="<?php echo base_url()?>assets/images/Icono_1.jpg" alt="" />
                </div>
                <div class="info">
                   <div class="title">
@@ -34,9 +34,9 @@
 
         <div class="col-md-4">
             <div class="card hovercard">
-               <img src="http://placehold.it/300x200/000000/&text=Header" alt=""/>
+               <img src="<?php echo base_url()?>assets/images/Registro_evaluadores.jpg" alt=""/>
                <div class="avatar">
-                  <img src="http://placehold.it/80X80/333333/&text=Head" alt="" />
+                  <img src="<?php echo base_url()?>assets/images/Icono_4.jpg" alt="" />
                </div>
                <div class="info">
                   <div class="title">
@@ -57,13 +57,13 @@
 
         <div class="col-md-4">
             <div class="card hovercard">
-               <img src="http://placehold.it/300x200/000000/&text=Header" alt=""/>
+               <img src="<?php echo base_url()?>assets/images/Registro_moderadores.jpg" alt=""/>
                <div class="avatar">
-                  <img src="http://placehold.it/80X80/333333/&text=Head" alt="" />
+                  <img src="<?php echo base_url()?>assets/images/Icono_2.jpg" alt="" />
                </div>
                <div class="info">
                   <div class="title">
-                     MODERADORES Y RELATORES
+                     MODERADORES
                   </div>
                </div>
                <div class="bottom">
@@ -77,13 +77,33 @@
             </div>
         </div>
 
-
+        <div class="col-md-4">
+            <div class="card hovercard">
+               <img src="<?php echo base_url()?>assets/images/Registro_relatores.jpg" alt=""/>
+               <div class="avatar">
+                  <img src="<?php echo base_url()?>assets/images/Icono_6.jpg" alt="" />
+               </div>
+               <div class="info">
+                  <div class="title">
+                     RELATORES
+                  </div>
+               </div>
+               <div class="bottom">
+                 <button class="btn btn-default"  data-toggle="modal" data-target="#myModal">REGISTRO</button>
+               </div>
+                <?php if (isset($error) && $error): ?>
+                  <div class="alert alert-danger" role="alert">
+                    <b>Clave de acceso incorrecta!</b>
+                  </div>
+                <?php endif; ?>
+            </div>
+        </div>
 
         <div class="col-md-4">
             <div class="card hovercard">
-               <img src="http://placehold.it/300x200/000000/&text=Header" alt=""/>
+               <img src="<?php echo base_url()?>assets/images/Registro_logistica.jpg" alt=""/>
                <div class="avatar">
-                  <img src="http://placehold.it/80X80/333333/&text=Head" alt="" />
+                  <img src="<?php echo base_url()?>assets/images/Icono_5.jpg" alt="" />
                </div>
                <div class="info">
                   <div class="title">
@@ -104,9 +124,9 @@
 
         <div class="col-md-4">
             <div class="card hovercard">
-               <img src="http://placehold.it/300x200/000000/&text=Header" alt=""/>
+               <img src="<?php echo base_url()?>assets/images/Registro_asistentes.jpg" alt=""/>
                <div class="avatar">
-                  <img src="http://placehold.it/80X80/333333/&text=Head" alt="" />
+                  <img src="<?php echo base_url()?>assets/images/Icono_3.jpg" alt="" />
                </div>
                <div class="info">
                   <div class="title">
@@ -118,6 +138,8 @@
                </div>
             </div>
         </div>
+
+
 
     </div>
 
@@ -136,11 +158,11 @@
               <?php echo form_open('inicio/acceso') ?>
                 <div class="form-group">
                   <label for="usrname"><i class="fa fa-user"></i> Usuario</label>
-                  <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
+                  <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" required>
                 </div>
                 <div class="form-group">
                   <label for="psw"><i class="fa fa-key"></i> Password</label>
-                  <input type="text" class="form-control" id="clave" name="clave" placeholder="Clave">
+                  <input type="text" class="form-control" id="clave" name="clave" placeholder="Clave" required>
                 </div>
                   <button type="submit" name="submit" class="btn btn-success btn-block"><i class="fa fa-paper-plane-o"></i>    Ingresar</button>
               </form>

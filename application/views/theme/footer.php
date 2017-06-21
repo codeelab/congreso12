@@ -35,6 +35,10 @@
     <li>
         <center><img src="<?php echo base_url();?>assets/images/logo_estaenti_foot.png" width="120" height="72" alt="Michoacán"></center>
     </li>
+    <br>
+    <li>
+        <center><img src="<?php echo base_url();?>assets/images/logo_sicdet_grises.png" width="270" height="60" alt="Michoacán"></center>
+    </li>
 </ul>
 </div>
 </div>
@@ -69,7 +73,35 @@
 <script src="<?php echo base_url();?>assets/js/dataTables.bootstrap.js"></script>
 <script src="<?php echo base_url();?>assets/js/ajax.js"></script>
 <script src="<?php echo base_url();?>assets/js/zxcvbn.js"></script>
-
+  <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item": {
+      "@id": "https://typekit.com/",
+      "name": "Typekit"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item": {
+      "@id": "https://typekit.com/fonts",
+      "name": "Fonts"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 3,
+    "item": {
+      "@id": "https://typekit.com/fonts/adobe-garamond",
+      "name": "Adobe Garamond"
+    }
+  }
+  }]
+}
+</script>
 
 </body>
 </html>

@@ -2,30 +2,19 @@
 
 class Inicio_model extends CI_Model {
 
-
-
-function validate_user($clave, $usuario ) {
-    // Build a query to retrieve the user's details
-    // based on the received username and password
-  $this->db->select('*');
-    $this->db->from('clave');
-    $this->db->where('clave',$clave );
-    $this->db->where('usuario',$usuario);
-    $login = $this->db->get()->result();
-
-    // The results of the query are stored in $login.
-    // If a value exists, then the user account exists and is validated
-    if ( is_array($login) && count($login) == 1 ) {
-        // Set the users details into the $details property of this class
-        $this->details = $login[0];
-        // Call set_session to set the user's session vars via CodeIgniter
-        $this->set_session();
-        return true;
+    public function validate_user($clave,$usuario)
+    {
+        $this->db->where('clave',$clave);
+        $this->db->where('usuario',$usuario);
+        $query = $this->db->get('clave');
+        if($query->num_rows() == 1)
+        {
+            return $query->row();
+        }else{
+            $this->session->set_flashdata('usuario_incorrecto','El usuario o la contraseña son incorrectos. Por favor intenténtelo nuevamente.');
+            redirect(base_url().'registro');
+        }
     }
-
-    return false;
-}
-
 
     function set_session() {
         // session->set_userdata is a CodeIgniter function that
@@ -76,6 +65,20 @@ function validate_user($clave, $usuario ) {
             // almacenamos en una matriz bidimensional
             foreach($query->result() as $row)
                $arrDatos[htmlspecialchars($row->id_academico, ENT_QUOTES)] = htmlspecialchars($row->nombre_aca, ENT_QUOTES);
+                $query->free_result();
+                return $arrDatos;
+         }
+    }
+
+    function area_tematica()
+    {
+        $query = $this->db-> query('SELECT id_tematica,nombre_tem FROM area_tematica');
+
+        if ($query->num_rows() > 0)
+        {
+            // almacenamos en una matriz bidimensional
+            foreach($query->result() as $row)
+               $arrDatos[htmlspecialchars($row->id_tematica, ENT_QUOTES)] = htmlspecialchars($row->nombre_tem, ENT_QUOTES);
                 $query->free_result();
                 return $arrDatos;
          }

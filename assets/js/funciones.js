@@ -53,15 +53,12 @@ function mostrar(){
 document.getElementById('oculto').style.display = 'block';
 }
 
-
-
-
 $(document).ready(function() {
   //variables
   var email = $('[name=email]');
   var email2 = $('[name=email2]');
   var confirmacion = "Los correos si coinciden";
-  var negacion = "No coinciden los ambos correos";
+  var negacion = "No coinciden ambos correos";
   var vacio = "El campo no puede estar vacío";
   //oculto por defecto el elemento span
   var span = $('<p></p>').insertAfter(email2);
@@ -91,7 +88,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    $('#ponentes').bootstrapValidator({
+    $('#registro').bootstrapValidator({
         message: 'Este valor no es válido',
         feedbackIcons: {
             valid: 'fa fa-check',
@@ -204,13 +201,6 @@ $(document).ready(function() {
                 }
               }
             },
-            municipio: {
-              validators: {
-                notEmpty: {
-                  message: 'Es requerido su municipio.'
-                }
-              }
-            },
             nivel: {
               validators: {
                 notEmpty: {
@@ -225,22 +215,17 @@ $(document).ready(function() {
                 }
               }
             },
-            facultad: {
-              validators: {
-                notEmpty: {
-                  message: 'Es requerido elija su facultad.'
+            mailing: {
+                validators: {
+                    notEmpty: {
+                        message: 'Especifique al menos una opción de las dos mencionadas.'
+                    }
                 }
-              }
             },
             password: {
               validators: {
                 notEmpty:{
-                  message: 'Los nombres de usuario pueden contener letras (a-z), números (0-9), guiones (-), guiones bajos (_), apóstrofes y puntos (.).'
-                },
-                between: {
-                  min: 8,
-                  max: 20,
-                  message: 'Los nombres de usuario pueden empezar o terminar con caracteres no alfanuméricos, excepto puntos (.), y deben tener minimo %s y máximo %s caracteres.'
+                  message: 'La contraseña es obligatoria y no puede estar vacía.'
                 },
                 callback: {
                   callback: function(value, validator, $field)
@@ -278,7 +263,7 @@ $(document).ready(function() {
                           break;
                 }
                     // Trataremos la contraseña como inválida si la puntuación es menor de 8
-                    if (score < 8) {
+                    if (score < 4) {
                       return {
                         valid: false,
                         message: message
@@ -289,7 +274,35 @@ $(document).ready(function() {
                   }
             }
         }
+      },
+      password2: {
+
+          validators: {
+            notEmpty: {
+              message: 'La contraseña de confirmación es obligatoria y no puede estar vacía.'
+            },
+            identical: {
+              field: 'password',
+              message: 'La contraseña y su confirmación deben ser los mismos'
+            }
+          }
       }
     }
-  });
+  })
+        // Enable the password/confirm password validators if the password is not empty
+        .on('keyup', '[name="password"]', function() {
+            var isEmpty = $(this).val() == '';
+            $('#registro')
+                    .bootstrapValidator('enableFieldValidators', 'password', !isEmpty)
+                    .bootstrapValidator('enableFieldValidators', 'password2', !isEmpty);
+
+            // Revalidate the field when user start typing in the password field
+            if ($(this).val().length == 1) {
+                $('#registro').bootstrapValidator('validateField', 'password')
+                                .bootstrapValidator('validateField', 'password2');
+            }
+        });
 });
+
+
+
