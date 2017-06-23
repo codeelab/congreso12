@@ -12,7 +12,7 @@ class Ponente extends MY_Controller {
        {
             parent::__construct();
             $this->load->model('Ponentes_model');
-            $this->load->library("session");
+            $this->load->library(array('session','upload'));
             $this->load->helper('url');
             /* Se cargan la libreria pagination */
             $this->load->library('pagination');
@@ -20,7 +20,7 @@ class Ponente extends MY_Controller {
 
 	public function index()
 	{
-        $data['ponentes'] = $this->Ponentes_model->list_ponentes(1,$this->uri->segment(3));
+        $data['alert'] = $this->Ponentes_model->alerta();
 		$this->load->view("theme/header");
         $this->load->view("theme/menu");
 		$this->load->view("ponente/index",$data);
@@ -226,6 +226,7 @@ class Ponente extends MY_Controller {
         $data['datos']=$this->db->query("SELECT asesor, titulo FROM ponencias WHERE id_ponencias=$id");
         $this->load->view("ponente/constancia_asesor",$data);
     }
+
 
 
 

@@ -71,12 +71,12 @@
 <div class="checkbox">
   <label>
     <input type="checkbox" value="1" id="c_jovenes" name="c_jovenes">
-    ¿Tu proyecto cumple con los <b><a href="#">líneamientos</a></b> establecidos para participar en el <b>6to encuentro de jóvenes investigadores del estado de michoácan</b>?
+    ¿Tu proyecto cumple con los <b><a href="<?php base_url() ?>../formatos/lineamientos_congreso12.pdf" target="_blank">líneamientos</a></b> establecidos para participar en el <b>6to encuentro de jóvenes investigadores del estado de michoácan</b>?
   </label>
 </div>
 </div>
   <div class="form-group">
-    <label for="">Carga tu archivo Resúmen</label>
+    <label for="">Carga tu archivo Resúmen (5MB Max).</label>
     <input type="file" id="userfile" name="userfile">
     <p class="help-block">Sólo esta permitido archivos en formato PDF</p>
   </div>

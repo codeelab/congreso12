@@ -12,16 +12,16 @@
 <ul class="nav navbar-nav navbar-right">
 <li class="active"><a href="<?=base_url();?>">Inicio</a></li>
                 <li>
-                    <a href="<?php echo base_url(); ?>programa_11_congreso.pdf" target="_blank" title="Programa">Programa</a>
+                    <a href="#" target="_blank" title="Programa">Programa</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>inicio/registro" title="Registro">Registro</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>convocatoria_congreso11.pdf"  target="_blank" title="Convocatoria">Convocatoria</a>
+                    <a href="<?php echo base_url(); ?>formatos/convocatoria_congreso12.pdf"  target="_blank" title="Convocatoria">Convocatoria</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>lineamientos_congreso11.pdf"  target="_blank" title="Lineamientos">Lineamientos</a>
+                    <a href="<?php echo base_url(); ?>formatos/lineamientos_congreso12.pdf"  target="_blank" title="Lineamientos">Lineamientos</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Memorias  <i class="fa fa-angle-down" aria-hidden="true"></i></a>

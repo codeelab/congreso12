@@ -1,22 +1,31 @@
 <?php
-
-  $actual = date('d') . '/' . date('m') . '/' . date('y');
-  //Para los avisos de subida de resumen y cierre del módulo a todos los ponentes
-  $FIR = "17/04/2017";
-  $FCR = "10/05/2017";
-  //Para los avisos de subida de extensos y cierre del módulo a todos los ponentes aprobados
-  $FIE = "12/05/2017";
-  $FCE = "10/05/2017";
-
-
   $user = $this->session->userdata('id_usuarios');
   $nombre = $this->session->userdata('nombre');
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
 
- foreach ($ponentes as $row) {
-  $estado = $row->status_id;
- }
+  $actual = date('Y') . '-' . date('m') . '-' . date('d');
+
+  foreach ($alert as $rows) {
+    //Para los avisos de subida de resumen y cierre del módulo a todos los ponentes
+    $FIR = $rows->fecha_inicio_resumen;
+    $FCR = $rows->fecha_cierre_resumen;
+    //Para los avisos de estado a todos los ponentes aprobados
+    $FIA = $rows->fecha_inicio_estado;
+    $FCA = $rows->fecha_cierre_estado;
+    //Para los avisos de subida de extensos y cierre del módulo a todos los ponentes aprobados
+    $FIE = $rows->fecha_inicio_extenso;
+    $FCE = $rows->fecha_cierre_extenso;
+    //Para los avisos de CONSTANCIAS a todos los ponentes aprobados
+    $FIC = $rows->fecha_inicio_constancia;
+    $FCC = $rows->fecha_cierre_constancia;
+  }
+
+    //Para los avisos de cierre de extensos
+    $FIEA = "2017-04-22";
+    $FCEA = "2017-04-23";
+
+
 
 ?>
 
@@ -38,35 +47,37 @@
 <section id="pricing">
 <div class="container">
 
-<?php if($FCR > $actual): ?>
+<?php if($FCR > $actual && $actual < $FIA): ?>
   <!-- Función texto sólo para alerta de resúmen -->
-  <div class='alert alert-info' role='alert'><p class='lead'>La fecha limite para el envío del archivo en <b>Resumen</b>, es el día <b>26 de agosto del 2016</b>. Le sugerimos elaborar el Resumen en base a los lineamientos marcados en la convocatoria. <br> Una vez aprobado dicho resumen, se enviará un correo electrónico donde se solicitará el trabajo en extenso.</p></div>
+  <div class='alert alert-info' role='alert'><p class='lead'>La fecha límite para subir el resumen será el día <b>28 de Julio</b>. BAJO NINGUNA CIRCUNSTANCIA SE CONCEDERAN PRORROGAS O EXCEPCIONES EN LOS TIEMPOS Y FORMAS DE RECEPCIÓN DE TRABAJOS (Apartado A8 de los <a href="<?php base_url() ?>../formatos/lineamientos_congreso12.pdf" target="_blank">Lineamientos Generales</a>).</p></div>
 
-  <?php elseif ($actual >= $FCR && $actual < $FIE): ?>
-
+  <?php elseif ($actual >= $FIA && $actual < $FIE): ?>
     <!-- Función texto sólo para alerta de resúmen -->
-    <div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Resumen ha finalizado</b> agradecemos tu participaci&oacute;n. Si tu proyecto fue <b>aprobado</b>  en breve se habilitara la opción de extenso</p></div>
+    <div class='alert alert-warning' role='alert'><p class='lead'>Del 14 al 18 de Agosto se actualizará el estatus de <b>ENVIADO</b> a <b>ACEPTADO</b> o <b>NO ACEPTADO</b>. Las resoluciones del Comité Científico son inapelables.</p></div>
 
   <?php elseif($actual > $FIE && $actual <= $FCE): ?>
-
     <!-- Función texto sólo para alerta de extenso -->
-    <div class='alert alert-warning' role='alert'><p class='lead'>La fecha limite para el envío del archivo en <b>Extenso</b> del trabajo es el día <b> 18 de septiembre del 2016</b>. Le sugerimos elaborar el documento en base a los lineamientos marcados en la convocatoria.</p></div>
+    <div class='alert alert-info' role='alert'><p class='lead'>El trabajo en extenso deberá subirse del <b>28 de Agosto al 22 de Septiembre</b>. BAJO NINGUNA CIRCUNSTANCIA SE PRESENTARAN EN LAS MESAS DE TRABAJO, PONENCIAS QUE NO HAYAN ENVIADO SU TRABAJO EN EXTENSO. De igual forma no serán incluidos en las memorias.</p></div>
+
+    <div class='alert alert-warning' role='alert'><p class='lead'>
+    <p class="lead" style="font-size: 14px;">Las presentaciones deberán prepararse en archivos *.pptx (MS Office Power Point versión 2007 o superior) y serán enviados sin excepción, al correo electrónico congreso.ciencia@gmail.com, adjuntando nombre, folio y mesa, a más tardar el 22 de septiembre. Por seguridad de la información los organizadores y participantes <b>NO SE RECIBIRÁN PRESENTACIONES EN MEMORIAS USB O DISCOS EXTERNOS LOS DÍAS DEL EVENTO.</b></p></div>
+
+  <?php elseif($actual > $FIEA && $actual <= $FCEA): ?>
+    <div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Extenso</b> ha finalizado agradecemos tu participaci&oacute;n. <br>Los horarios y mesas de las ponencias serán notificados, <b>EL PONENTE DEBERÁ ESTAR AL HORA DE INICIO DE LA MESA ASIGNADO</b>.</p></div>
 
 <?php else: ?>
     <!-- Función texto sólo para alerta de resúmen -->
-    <div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Extenso</b> ha finalizado agradecemos tu participaci&oacute;n.</p></div>
+    <div class='alert alert-success' role='alert'><p class='lead'>Las constancias podrán ser descargadas a partir del día <b>23 de Octubre 2017 y hasta el 23 de Enero 2018</b> en ésta plataforma.</p></div>
 
 <?php endif ?>
-
-
 <div class="gap"></div>
 <div id="pricing-table" class="row">
 
-
+<?php if($actual > $FIR && $actual <= $FCE): ?>
 <div class="col-md-3 col-xs-6">
 <ul class="plan plan1">
 <li class="plan-name">
-<h4>Plantillas</h4>
+<h3>Plantillas</h3>
 </li>
 <li class="plan-price">
 <div>
@@ -74,10 +85,11 @@
 </div>
 </li>
 <li class="plan-action">
-<a href="#" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Descarga</a>
+<a href="#" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Formato Resumen</a>
 </li>
 </ul>
 </div>
+<?php endif ?>
 
 
 <?php if($FCR > $actual): ?>
@@ -85,7 +97,7 @@
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan2 featured'>
 <li class='plan-name'>
-<h4>Registrar Trabajo</h4>
+<h3>Registrar Trabajo</h3>
 </li>
 <li class='plan-price'>
 <div>
@@ -99,13 +111,13 @@
 </div>
 <?php endif ?>
 
-<?php if($FCE < $actual): ?>
 
-<?php elseif($estado === '2'): ?>
+
+<?php if($actual > $FIE && $actual <= $FCE): ?>
     <div class='col-md-3 col-xs-6'>
     <ul class='plan plan2 featured'>
     <li class='plan-name'>
-    <h4>Registrar Extenso</h4>
+    <h3>Registrar Extenso</h3>
     </li>
     <li class='plan-price'>
     <div>
@@ -117,13 +129,17 @@
     </li>
     </ul>
     </div>
-
 <?php endif ?>
+
+
+
+
+
 
 <div class="col-md-3 col-xs-6">
 <ul class="plan plan3">
 <li class="plan-name">
-<h4>Trabajo(s) Registrado(s)</h4>
+<h3>Trabajo(s) Registrado(s)</h3>
 </li>
 <li class="plan-price">
 <div>
@@ -136,12 +152,12 @@
 </ul>
 </div>
 
-<?php if($estado === '2' XOR $estado === '5'): ?>
-  <?php if($actual > $FCE): ?>
+
+<?php if($actual >= $FIC && $actual <= $FCC): ?>
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan3'>
 <li class='plan-name'>
-<h4>Constancias</h4>
+<h3>Constancias</h3>
 </li>
 <li class='plan-price'>
 <div>
@@ -153,13 +169,11 @@
 </li>
 </ul>
 </div>
-  <?php endif ?>
 <?php endif ?>
-
 
 
 </div>
 <br>
-<div class="alert alert-info" role="alert"><p class="lead">Dudas y Aclaraciones con la <b>Psic. Norma Elisa Valencia Farías</b>, al correo electrónico <b>congreso.ciencia@gmail.com</b>, o llamar a los teléfonos (01443) 3 24 90 80 | 3 14 99 07  ext. 107</p></div>
+<div class="alert alert-info" role="alert"><p class="lead" style="font-size: 15px;">Dudas y Aclaraciones con la <b>Psic. Norma Elisa Valencia Farías</b>, al correo electrónico <b>congreso.ciencia@gmail.com</b>, o llamar a los teléfonos (01443) 3 24 90 80 | 3 14 99 07  ext. 107</p></div>
 </div>
 </section>
