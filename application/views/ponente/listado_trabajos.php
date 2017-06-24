@@ -64,13 +64,13 @@ if($ponencias !== FALSE) {
                    $estado = "<div class='status-cancelado'></div><span class='label label-default span-cancelado' style='margin:15%;'>Cancelado</span>";
              }
 
-            if ($row->archivo_resumen > 0) {
+            if (empty($row->archivo_resumen)) {
                 $resumen = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
                 $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
-            if ($row->archivo_extenso > 0) {
+            if (empty($row->archivo_extenso)) {
                 $extenso = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
                 $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
@@ -94,12 +94,6 @@ if($ponencias !== FALSE) {
 ?>
  </tbody>
  </table>
- <ul class="pagination">
-  <?php
-    /* Se imprimen los números de página */
-    echo $this->pagination->create_links();
-  ?>
-</ul>
 </div>
 </div>
 

@@ -222,6 +222,55 @@ $(document).ready(function() {
                     }
                 }
             },
+            titulo: {
+                validators: {
+                    notEmpty: {
+                        message: 'Agrege el nombre del título del proyecto.'
+                    }
+                }
+            },
+            autor: {
+                validators: {
+                    notEmpty: {
+                        message: 'Agrege el nombre del autor del proyecto.'
+                    }
+                }
+            },
+            coautores: {
+                validators: {
+                    notEmpty: {
+                        message: 'Agrege el (los) nombre (es) de los coautores del proyecto.'
+                    }
+                }
+            },
+            asesor: {
+                validators: {
+                    notEmpty: {
+                        message: 'Agrege el nombre de asesor del proyecto.'
+                    }
+                }
+            },
+            tipo_trabajo_id: {
+                validators: {
+                    notEmpty: {
+                        message: 'Elige el tipo de ponencia.'
+                    }
+                }
+            },
+            mesa_id: {
+                validators: {
+                    notEmpty: {
+                        message: 'Elige un área temática.'
+                    }
+                }
+            },
+            userfile: {
+                validators: {
+                    notEmpty: {
+                        message: 'Es obligatorio subir su resumen.'
+                    }
+                }
+            },
             password: {
               validators: {
                 notEmpty:{

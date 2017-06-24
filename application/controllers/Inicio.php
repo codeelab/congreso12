@@ -82,7 +82,7 @@ class Inicio extends CI_Controller {
         $this->load->view("theme/footer");
     }
 
-    public function moderela()
+    public function moderador()
     {
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
@@ -137,7 +137,7 @@ class Inicio extends CI_Controller {
                     $this->session->set_userdata($data);
                     $this->usuarios();
                 }else {
-                    redirect('inicio/registro','refresh');
+                    $this->registro();
         }
     }
 

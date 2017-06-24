@@ -32,7 +32,9 @@
 
 <div class="col-md-10">
   
-<form action="<?php echo base_url(); ?>ponente/registro_trabajo" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url(); ?>ponente/registro_trabajo" method="post" enctype="multipart/form-data" id="registro">
+  <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+
   <div class="form-group">
     <label for="">Título del proyecto</label>
     <input type="text" class="form-control" id="titulo" name="titulo">
@@ -52,6 +54,7 @@
   <div class="form-group">
     <label for="">Tipo de trabajo</label>
     <select class="form-control" id="tipo_trabajo_id" name="tipo_trabajo_id">
+    <option value=" ">Elige el tipo de ponencia.</option>
     <?php
     foreach ($tipo as $i => $trabajo)
        echo '<option value="',$i,'">',$trabajo,'</option>';
@@ -61,6 +64,7 @@
   <div class="form-group">
     <label for="">Área temática</label>
     <select class="form-control" id="mesa_id" name="mesa_id">
+    <option value=" ">Elige un área temática.</option>
     <?php
     foreach ($area as $i => $tematica)
        echo '<option value="',$i,'">',$tematica,'</option>';

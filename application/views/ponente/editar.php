@@ -60,7 +60,7 @@ if($this->session->flashdata('incorrecto'))
 </form>
 <hr>
 <br>
-<a href="<?php echo base_url(); ?>ponente/listado"><button type="button"  class="btn btn-outlined btn-theme btn-md btn-block" data-wow-delay="0.7s">Regresar al listado</button></a>
+<a href="<?php echo base_url(); ?>ponente/listado/<?=$user;?>"><button type="button"  class="btn btn-outlined btn-theme btn-md btn-block" data-wow-delay="0.7s">Regresar al listado</button></a>
 
 </div>
 </div>

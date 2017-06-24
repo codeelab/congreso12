@@ -47,7 +47,7 @@ htmlspecialchars($row->nombre_tem, ENT_QUOTES);
 
     //obtenemos las entradas de todos o un usuario, dependiendo
     // si le pasamos el id como argument o no
-    public function list_ponencias($id_usuarios = false,$porpagina,$segmento)
+    public function list_ponencias($id_usuarios = false)
     {
         if($id_usuarios === false)
         {
@@ -64,7 +64,7 @@ htmlspecialchars($row->nombre_tem, ENT_QUOTES);
             $this->db->join('status s', 'p.status_id = s.id_status');
             $this->db->join('tipo t', 'p.tipo_trabajo_id = t.id_tipo');
             $this->db->join('area_tematica a', 'p.mesa_id = a.id_tematica');
-            $this->db->where('u.id_usuarios',$id_usuarios);
+            $this->db->where('u.id_usuarios',$id_usuarios); 
         }
         $query = $this->db->get();
         if($query->num_rows() > 0 )

@@ -1,8 +1,16 @@
 <?php
+
   $user = $this->session->userdata('id_usuarios');
   $nombre = $this->session->userdata('nombre');
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
+
+if(!$user)
+{
+  redirect('login','refresh');
+  exit();
+}
+
 
   $actual = date('Y') . '-' . date('m') . '-' . date('d');
 
@@ -85,7 +93,7 @@
 </div>
 </li>
 <li class="plan-action">
-<a href="#" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Formato Resumen</a>
+<a href="<?php base_url() ?>../formatos/formato_resumen.docx" target="_blank" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Formato Resumen</a>
 </li>
 </ul>
 </div>
@@ -147,7 +155,7 @@
 </div>
 </li>
 <li class="plan-action">
-<a href="<?php echo base_url(); ?>ponente/listado" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
+<a href="<?php echo base_url(); ?>ponente/listado/<?=$user;?>" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-edit" aria-hidden="true"></i>   Listado</a>
 </li>
 </ul>
 </div>
