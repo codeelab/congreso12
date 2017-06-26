@@ -22,16 +22,16 @@
                 <br />
                 <h3 style="line-height:20%;"><i class="fa fa-user fa-1x" style="line-height:6%;color:#29bdbe"></i> Contacto:</h3>
                 <br>
-                <p style="color:#7B1D5F;"><b>Mtro. Gaspar Efraín Guzmán Sánchez</b></p>
-                <p>Vinculación<br/><a href="mailto:"></a></p>
+                <p style="color:#7B1D5F;"><b>Lic. José Rodríguez Flores</b></p>
+                <p>Dirección de Ciencia y Desarrollo Tecnológico<br/><a href="mailto:"></a></p>
                 <br />
-                <p style="color:#7B1D5F;"><b>Mtro. Gaspar Efraín Guzmán Sánchez</b></p>
-                <p>Vinculación<br/><a href="mailto:"></a></p>
+                <p style="color:#7B1D5F;"><b>Psic. Norma Elisa Valencia</b></p>
+                <p>Departamento de Desarrollo Científico<br/><a href="mailto:"></a></p>
                 <br />
                 <h3 style="line-height:20%;"><i class="fa fa-life-ring fa-1x" style="line-height:6%;color:#29bdbe"></i> Soporte:</h3>
                 <br>
-                <p><i class="fa fa-envelope-o" style="line-height:6%;color:#29bdbe"></i>   <a href="informatica.cecti@gmail.com">informatica.cecti@gmail.com</a></p>
-                <p><i class="fa fa-envelope-o" style="line-height:6%;color:#29bdbe"></i>  (01 443) 314 99 07 Ext: 114</p>
+                <p><i class="fa fa-envelope-o" style="line-height:6%;color:#29bdbe"></i>   <a href="congreso.ciencia@gmail.com">congreso.ciencia@gmail.com</a></p>
+                <p><i class="fa fa-envelope-o" style="line-height:6%;color:#29bdbe"></i>  (01 443) 314 99 07 Ext: 107</p>
             </div>
         </div>
         <div class="col-sm-8">

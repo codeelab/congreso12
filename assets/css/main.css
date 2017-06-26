@@ -752,16 +752,16 @@ span.round-tab:hover {
     outline: none;
 }
 .range.range-info input[type="range"]::-webkit-slider-thumb {
-    background-color: #4c2579;
+    background-color: #464648;
 }
 .range.range-info input[type="range"]::-moz-slider-thumb {
-    background-color: #4c2579;
+    background-color: #464648;
 }
 .range.range-info output {
-    background-color: #4c2579;
+    background-color: #464648;
 }
 .range.range-info input[type="range"] {
-    outline-color: #4c2579;
+    outline-color: #464648;
 }
 
 .form-control{box-shadow:none; border-color:#eee;}

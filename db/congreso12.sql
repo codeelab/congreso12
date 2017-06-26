@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 24-06-2017 a las 03:06:10
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 26-06-2017 a las 21:06:58
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -47,6 +47,26 @@ CREATE TABLE `alertas` (
 
 INSERT INTO `alertas` (`id_alerta`, `asigna_alerta`, `fecha_inicio_resumen`, `fecha_cierre_resumen`, `fecha_inicio_estado`, `fecha_cierre_estado`, `fecha_inicio_extenso`, `fecha_cierre_extenso`, `fecha_inicio_evaluacion`, `fecha_cierre_evaluacion`, `fecha_inicio_constancia`, `fecha_cierre_constancia`) VALUES
 (1, 1, '2017-06-26', '2017-07-28', '2017-08-14', '2017-08-18', '2017-08-28', '2017-09-22', '0000-00-00', '0000-00-00', '2017-10-23', '2018-01-23');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `area_apoyo`
+--
+
+CREATE TABLE `area_apoyo` (
+  `id_area_apoyo` int(11) NOT NULL,
+  `nombre_area_apoyo` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `area_apoyo`
+--
+
+INSERT INTO `area_apoyo` (`id_area_apoyo`, `nombre_area_apoyo`) VALUES
+(1, 'Registro'),
+(2, 'Mesas'),
+(3, 'Logística general');
 
 -- --------------------------------------------------------
 
@@ -128,18 +148,20 @@ CREATE TABLE `asignacion_logistica` (
 --
 
 CREATE TABLE `clave` (
-  `clave` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  `usuario` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `id_clave` int(11) NOT NULL,
+  `clave` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `usuario` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `clave`
 --
 
-INSERT INTO `clave` (`clave`, `usuario`) VALUES
-('3v4luad0r', 'evaluador'),
-('m0d3r3l4', 'moderela'),
-('l0g1stic0', 'logistico');
+INSERT INTO `clave` (`id_clave`, `clave`, `usuario`) VALUES
+(1, '3v4luad0r', 'evaluador'),
+(2, 'm0d3r4d0R', 'moderador'),
+(3, 'R3l4t0R', 'relator'),
+(4, 'l0g1stic0', 'logistico');
 
 -- --------------------------------------------------------
 
@@ -789,11 +811,11 @@ INSERT INTO `institucion` (`id_institucion`, `nombre_ins`) VALUES
 (45, 'Escuela Normal de Educación Física (ENEF Morelia)'),
 (46, 'Escuela Normal Indigena de Michoácan (Cherán)'),
 (47, 'Escuela Normal para Educadoras de Morelia (ENE)'),
-(48, 'Escuela Normal Rural \"Vasco de Quiroga\"'),
+(48, 'Escuela Normal Rural "Vasco de Quiroga"'),
 (49, 'Escuela Normal Superior de Michoácan'),
-(50, 'Escuela Normal Urbana Federal \"J. Jesús Romero Flores\" (ENUF)'),
+(50, 'Escuela Normal Urbana Federal "J. Jesús Romero Flores" (ENUF)'),
 (51, 'Colegios Motolinía (Morelia)'),
-(52, 'Escuela Normal Particular Incorporada \"ANÁHUAC\"'),
+(52, 'Escuela Normal Particular Incorporada "ANÁHUAC"'),
 (53, 'Centro de Actualización del Magisterio en Michoacán (CAMM)'),
 (54, 'Centro de Educación Continua, Instituto Politécnico Nacional (CECUM)'),
 (55, 'Centro de Estudios Superiores del Oriente de Michoacán (CESOM)'),
@@ -860,7 +882,7 @@ INSERT INTO `institucion` (`id_institucion`, `nombre_ins`) VALUES
 (116, 'Instituto Fray Antonio de Lisboa, S.C.'),
 (117, 'Instituto Tecnológico Superior de Pátzcuaro'),
 (118, 'Instituto Superior Anglo-Americano'),
-(119, 'Instituto de Ciencias Teológicas y Filosóficas  \"Gabriel Méndez Plancarte\"'),
+(119, 'Instituto de Ciencias Teológicas y Filosóficas  "Gabriel Méndez Plancarte"'),
 (120, 'Centro Educativo Instituto Millenium, A.C.'),
 (121, 'Universidad del Valle de Atemajac (UNIVA). Plantel La Piedad'),
 (122, 'Universidad del Valle de Atemajac (UNIVA). Plantel Zamora'),
@@ -1087,7 +1109,37 @@ INSERT INTO `municipio` (`id_municipio`, `nombre_mun`, `estado_id`) VALUES
 (111, 'Zinánparo', 15),
 (112, 'Zinapécuaro', 15),
 (113, 'Ziracuaretiro', 15),
-(114, 'Zitácuaro', 15);
+(114, 'Zitácuaro', 15),
+(115, 'Aguascalientes', 1),
+(116, 'Mexicali', 2),
+(117, 'La Paz', 3),
+(118, 'Campeche', 4),
+(119, 'Saltillo', 5),
+(120, 'Tuxtla Gutiérrez', 6),
+(121, 'Chihuahua', 7),
+(122, 'Ciudad de México', 8),
+(123, 'Durango', 9),
+(124, 'Guanajuato', 10),
+(125, 'Chilpancingo', 11),
+(126, 'Pachuca', 12),
+(127, 'Guadalajara', 13),
+(128, 'Toluca', 14),
+(129, 'Cuernavaca', 16),
+(130, 'Tepic', 17),
+(131, 'Monterrey', 18),
+(132, 'Oaxaca', 19),
+(133, 'Puebla', 20),
+(134, 'Querétaro', 21),
+(135, 'Chetumal', 22),
+(136, 'San Luis Potosí', 23),
+(137, 'Culiacán', 24),
+(138, 'Hermosillo', 25),
+(139, 'Villahermosa', 26),
+(140, 'Ciudad Victoria', 27),
+(141, 'Tlaxcala', 28),
+(142, 'Xalapa', 29),
+(143, 'Mérida', 30),
+(144, 'Zacatecas', 31);
 
 -- --------------------------------------------------------
 
@@ -1150,13 +1202,6 @@ CREATE TABLE `ponencias` (
   `fecha_registro` date DEFAULT NULL,
   `fecha_extenso` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
---
--- Volcado de datos para la tabla `ponencias`
---
-
-INSERT INTO `ponencias` (`id_ponencias`, `usuario_id`, `tipo_trabajo_id`, `titulo`, `autor`, `coautores`, `asesor`, `mesa_id`, `c_jovenes`, `archivo_resumen`, `archivo_extenso`, `status_id`, `fecha_registro`, `fecha_extenso`) VALUES
-(3, 117, 1, 'Omar Jaimes bRITO', 'Joel Alvarez Garcia', 'José Luis Montañez Espinoza', 'Ruben Pedraza', 10, 1, 'mesas/mesa10/3-resumen.pdf', NULL, 1, '2017-06-24', NULL);
 
 -- --------------------------------------------------------
 
@@ -1304,17 +1349,17 @@ CREATE TABLE `usuarios` (
   `username` varchar(255) NOT NULL,
   `puesto` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `token` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
-  `created_at` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP(6),
-  `request_token` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created_at` timestamp(6) NULL DEFAULT CURRENT_TIMESTAMP
+) ;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuarios`, `nombre`, `a_paterno`, `a_materno`, `edad`, `genero`, `nacionalidad`, `otra_nac`, `estado`, `municipio`, `otro_mun`, `email`, `institucion`, `otra_ins`, `facultad`, `otra_fac`, `nivel`, `otro_nivel`, `mesa`, `modalidad`, `area_id`, `mailing`, `password`, `username`, `puesto`, `token`, `created_at`, `request_token`, `status`) VALUES
-(117, 'Omar', 'Jaimes', 'Brito', 34, 1, 1, '', 15, 0, '', 'informatica.cecti@gmail.com', 6, '', 0, '', 1, '', 0, 0, NULL, 'SI', '677c02e1cbe5b38d3471292dc0233d9bb5af20cf', 'omar', 'ponente', '1b3637fab78aad794de8299d5f245cf836146800', '2017-06-22 22:44:13.215042', '2017-06-22 22:44:13', 'Activo');
+(125, 'Omar', 'Jaimes', 'Brito', 35, 1, 1, '', 15, 56, '', 'softcodec@gmail.com', 15, '', 123, '', 1, '', 0, 0, NULL, 'SI', '6ecf4efbd082f93f7a5a86e9f97dbd3507b238fc', 'omar', 'ponente', '3548579e75c82769fcaefdaab1c1aacb3688a92e', '2017-06-25 19:51:38.764617', '2017-06-25 19:51:38', 'Activo'),
+(127, 'Linda', 'Perez', 'Reyes', 30, 2, 1, '', 10, 124, '', 'softcodec@gmail.com', 18, '', 135, '', 1, '', 0, 0, NULL, 'SI', '6ecf4efbd082f93f7a5a86e9f97dbd3507b238fc', 'linda', 'ponente', 'bfd3dcd8569fd5c861e8fac46b5c53816e6d9215', '2017-06-26 03:32:37.471198', '2017-06-26 03:32:37', 'Activo'),
+(130, 'José Luis', 'Montañez', 'Espinoza', 45, 1, 1, '', 15, 56, '', 'softcodec@gmail.com', 6, '', 53, '', 3, '', 0, 0, NULL, 'SI', '6ecf4efbd082f93f7a5a86e9f97dbd3507b238fc', 'jose', 'asistente', '7e04bfbee7f433f181f0a2c19bdc9edf10dde26e', '2017-06-26 04:08:36.166743', '2017-06-26 04:08:36', 'Activo');
 
 --
 -- Índices para tablas volcadas
@@ -1325,6 +1370,12 @@ INSERT INTO `usuarios` (`id_usuarios`, `nombre`, `a_paterno`, `a_materno`, `edad
 --
 ALTER TABLE `alertas`
   ADD PRIMARY KEY (`id_alerta`);
+
+--
+-- Indices de la tabla `area_apoyo`
+--
+ALTER TABLE `area_apoyo`
+  ADD PRIMARY KEY (`id_area_apoyo`);
 
 --
 -- Indices de la tabla `area_logistica`
@@ -1343,6 +1394,12 @@ ALTER TABLE `area_tematica`
 --
 ALTER TABLE `asignacion_logistica`
   ADD PRIMARY KEY (`id_asignacion`);
+
+--
+-- Indices de la tabla `clave`
+--
+ALTER TABLE `clave`
+  ADD PRIMARY KEY (`id_clave`);
 
 --
 -- Indices de la tabla `estado`
@@ -1465,12 +1522,6 @@ ALTER TABLE `tipo`
   ADD PRIMARY KEY (`id_tipo`);
 
 --
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuarios`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -1479,6 +1530,11 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `alertas`
   MODIFY `id_alerta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `area_apoyo`
+--
+ALTER TABLE `area_apoyo`
+  MODIFY `id_area_apoyo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `area_logistica`
 --
@@ -1494,6 +1550,11 @@ ALTER TABLE `area_tematica`
 --
 ALTER TABLE `asignacion_logistica`
   MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `clave`
+--
+ALTER TABLE `clave`
+  MODIFY `id_clave` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `estado`
 --
@@ -1538,7 +1599,7 @@ ALTER TABLE `modalidad`
 -- AUTO_INCREMENT de la tabla `municipio`
 --
 ALTER TABLE `municipio`
-  MODIFY `id_municipio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id_municipio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 --
 -- AUTO_INCREMENT de la tabla `nacionalidad`
 --
@@ -1553,7 +1614,7 @@ ALTER TABLE `nivel_academico`
 -- AUTO_INCREMENT de la tabla `ponencias`
 --
 ALTER TABLE `ponencias`
-  MODIFY `id_ponencias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_ponencias` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `proceso`
 --
@@ -1588,7 +1649,7 @@ ALTER TABLE `tipo`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id_usuarios` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

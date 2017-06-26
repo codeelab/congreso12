@@ -229,9 +229,9 @@ function check_username_availablity()
     $get_result = $this->Inicio_model->check_username_availablity();
 
     if(!$get_result )
-    echo '<span class="text-danger">Ya existe ese nombre de usuario ¿Quieres volver a intentarlo?.</span>';
+    echo '<span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i>    Este nombre de usuario ya existe ¿Quieres volver a intentarlo?.</span>';
     else
-    echo '<span class="text-success">Usuario disponible</span>';
+    echo '<span class="text-success"><i class="fa fa-check" aria-hidden="true"></i>   ¡Disponible!</span>';
 }
 
     /**
