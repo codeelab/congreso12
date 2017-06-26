@@ -2,7 +2,7 @@ $(function(){
 var url = "http://localhost/congreso12/";
 
 
-  $("select[name=estado]").change(function(){
+  $("select[id=estado]").change(function(){
 
     estado = $(this).val();
 
@@ -19,10 +19,10 @@ var url = "http://localhost/congreso12/";
       $.each(data, function(i, obj){
 
           option[i] = document.createElement('option');
-          $( option[i] ).attr( {value : obj.id} );
-        $( option[i] ).append( obj.nome );
+          $( option[i] ).attr( {value : obj.id_municipio} );
+        $( option[i] ).append( obj.nombre );
 
-          $("select[name='municipio']").append( option[i] );
+          $("select[id='municipio']").append( option[i] );
 
       });
 
@@ -31,7 +31,7 @@ var url = "http://localhost/congreso12/";
   });
 
 
-  $("select[name=institucion]").change(function(){
+  $("select[id=institucion]").change(function(){
 
     institucion = $(this).val();
 
@@ -48,10 +48,10 @@ var url = "http://localhost/congreso12/";
       $.each(data, function(i, obj){
 
           option[i] = document.createElement('option');
-          $( option[i] ).attr( {value : obj.id} );
-        $( option[i] ).append( obj.nome );
+          $( option[i] ).attr( {value : obj.id_facultad} );
+        $( option[i] ).append( obj.nombre );
 
-          $("select[name='facultad']").append( option[i] );
+          $("select[id='facultad']").append( option[i] );
 
       });
 
@@ -66,17 +66,44 @@ var url = "http://localhost/congreso12/";
 });
 
 function resetaCombo( el ) {
-   $("select[name='"+el+"']").empty();
+   $("select[id='"+el+"']").empty();
    var option = document.createElement('option');
    $( option ).attr( {value : ''} );
    $( option ).append( 'Elija Municipio' );
-   $("select[name='"+el+"']").append( option );
+   $("select[id='"+el+"']").append( option );
 }
 
 function resetaCombo2( el ) {
-   $("select[name='"+el+"']").empty();
+   $("select[id='"+el+"']").empty();
    var option = document.createElement('option');
    $( option ).attr( {value : ''} );
    $( option ).append( 'Elija Facultad' );
-   $("select[name='"+el+"']").append( option );
+   $("select[id='"+el+"']").append( option );
 }
+
+$(document).ready(function() {
+    /// make loader hidden in start
+    $('#Loading').hide();    
+
+    $('#username').blur(function(){
+  var a = $("#username").val();
+  var filter = /^[a-z0-9_-]{3,15}$/;
+       // check if username is valid
+  if(filter.test(a)){
+                // show loader 
+    $('#Loading').show();
+    $.post("check_username_availablity", {
+      username: $('#username').val()
+    }, function(response){
+                        //#usernameInfo is a span which will show you message
+      $('#Loading').hide();
+      setTimeout("finishAjax('Loading', '"+escape(response)+"')", 200);
+    });
+    return false;
+  }
+});
+    });
+function finishAjax(id, response){
+  $('#'+id).html(unescape(response));
+  $('#'+id).fadeIn();
+} 

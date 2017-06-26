@@ -21,15 +21,5 @@
     <script src="assets/js/html5shiv.js"></script>
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
-
-<style type="text/css">
-.form-control{box-shadow:none; border-color:#eee;}
-.form-control:focus{box-shadow: none; border-color: #00b09c;}
-.form-control-feedback{line-height: 50px;}
-.main-btn{ background: #00b09c; border-color: #00b09c; color:#fff; }
-.main-btn:hover{ background: #00a491; color:#fff; }
-.form-control-feedback{line-height: 90px; top:0px; width: 50px;}
-.form-progres{top: 90px; height: 10px;}
-</style>
 </head>
 <body>

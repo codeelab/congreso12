@@ -2,7 +2,7 @@
 <div class="container">
 <div class="row">
 <div class="col-sm-6">
-<h1>REGISTRO EVALUADOR</h1>
+<h1>REGISTRO RELATOR</h1>
 </div>
 <div class="col-sm-6">
 
@@ -14,7 +14,7 @@
 <section id="contact-page" class="container">
 
 <?php $atrib = array('name' => 'form1', 'id' => 'registro');
-echo form_open('inicio/registro_evaluador', $atrib); ?>
+echo form_open('inicio/registro_relator', $atrib); ?>
         <div class="row">
             <div class="col-md-6">
                 <label for="nombre">Nombre</label>
@@ -156,7 +156,7 @@ echo form_open('inicio/registro_evaluador', $atrib); ?>
 
             </div>
         </div>
-            <input type="hidden" class="form-control" id="puesto" name="puesto" value="evaluador">
+            <input type="hidden" class="form-control" id="puesto" name="puesto" value="relator">
             <input type="hidden" class="form-control" id="status" name="status" value="Activo">
             <button type="submit" class="btn btn-primary btn-block btn-md btn-white">Registrar</button>
 <?php form_close()?>

@@ -134,7 +134,7 @@
                   </div>
                </div>
                <div class="bottom">
-                  <a href=""><button class="btn btn-default">REGISTRO</button></a>
+                  <a href="asistente"><button class="btn btn-default">REGISTRO</button></a>
                </div>
             </div>
         </div>

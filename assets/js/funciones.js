@@ -61,7 +61,7 @@ $(document).ready(function() {
   var negacion = "No coinciden ambos correos";
   var vacio = "El campo no puede estar vacío";
   //oculto por defecto el elemento span
-  var span = $('<p></p>').insertAfter(email2);
+  var span = $('<span></span>').insertAfter(email2);
   span.hide();
   //función que comprueba las dos contraseñas
   function coincideEmail(){
@@ -157,22 +157,6 @@ $(document).ready(function() {
                     }
                 }
             },
-            edad: {
-              validators: {
-                notEmpty:{
-                  message: 'Tu edad es requerida.'
-                },
-                between: {
-                  min: 15,
-                  max: 99,
-                  message: 'La edad requerida para participar es de %s a %s años.'
-                },
-                regexp:{
-                  regexp: /^[0-9\s\-()+\.]+$/,
-                  message: 'Solo está permitido el uso de caracteres alfanuméricos.'
-                }
-              }
-            },
             genero: {
               validators: {
                 notEmpty: {
@@ -201,6 +185,20 @@ $(document).ready(function() {
                 }
               }
             },
+            municipio: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido su municipio.'
+                }
+              }
+            },
+            mesa: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido seleccione su área temática.'
+                }
+              }
+            },
             nivel: {
               validators: {
                 notEmpty: {
@@ -212,6 +210,13 @@ $(document).ready(function() {
               validators: {
                 notEmpty: {
                   message: 'Es requerido elija una institución educativa.'
+                }
+              }
+            },
+            facultad: {
+              validators: {
+                notEmpty: {
+                  message: 'Es requerido seleccione su facultad.'
                 }
               }
             },
@@ -261,6 +266,13 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                         message: 'Elige un área temática.'
+                    }
+                }
+            },
+            area_id: {
+                validators: {
+                    notEmpty: {
+                        message: 'Elige el área de apoyo.'
                     }
                 }
             },
@@ -352,6 +364,4 @@ $(document).ready(function() {
             }
         });
 });
-
-
 

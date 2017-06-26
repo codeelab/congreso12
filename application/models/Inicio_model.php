@@ -127,10 +127,31 @@ class Inicio_model extends CI_Model {
     }
 
 
+    function area_apoyo()
+    {
+        $query = $this->db-> query('SELECT id_area_apoyo,nombre_area_apoyo FROM area_apoyo');
 
+        if ($query->num_rows() > 0)
+        {
+            // almacenamos en una matriz bidimensional
+            foreach($query->result() as $row)
+               $arrDatos[htmlspecialchars($row->id_area_apoyo, ENT_QUOTES)] = htmlspecialchars($row->nombre_area_apoyo, ENT_QUOTES);
+                $query->free_result();
+                return $arrDatos;
+         }
+    }
 
+function check_username_availablity()
+{
+    $username = trim($this->input->post('username'));
 
+    $query = $this->db->query('SELECT * FROM usuarios where username="'.$username.'"');
 
+    if($query->num_rows() > 0)
+    return false;
+    else
+    return true;
+}
 
 
 }

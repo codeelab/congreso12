@@ -84,20 +84,58 @@ class Inicio extends CI_Controller {
 
     public function moderador()
     {
+        $data['estados']           = $this->Inicio_model->getEstados();
+        $data['instituciones']     = $this->Inicio_model->getInstituciones();
+        $data['gen']               = $this->Inicio_model->sexo();
+        $data['esc']               = $this->Inicio_model->escolaridad();
+        $data['nac']               = $this->Inicio_model->nacionalidad();
+        $data['mesa']              = $this->Inicio_model->area_tematica();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view('moderela');
+        $this->load->view('moderador',$data);
+        $this->load->view("theme/footer");
+    }
+
+    public function relator()
+    {
+        $data['estados']           = $this->Inicio_model->getEstados();
+        $data['instituciones']     = $this->Inicio_model->getInstituciones();
+        $data['gen']               = $this->Inicio_model->sexo();
+        $data['esc']               = $this->Inicio_model->escolaridad();
+        $data['nac']               = $this->Inicio_model->nacionalidad();
+        $data['mesa']              = $this->Inicio_model->area_tematica();
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view('relator',$data);
         $this->load->view("theme/footer");
     }
 
     public function logistico()
     {
+        $data['estados']           = $this->Inicio_model->getEstados();
+        $data['instituciones']     = $this->Inicio_model->getInstituciones();
+        $data['gen']               = $this->Inicio_model->sexo();
+        $data['esc']               = $this->Inicio_model->escolaridad();
+        $data['nac']               = $this->Inicio_model->nacionalidad();
+        $data['apoyo']              = $this->Inicio_model->area_apoyo();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view('logistico');
+        $this->load->view('logistico',$data);
         $this->load->view("theme/footer");
     }
 
+    public function asistente()
+    {
+        $data['estados']           = $this->Inicio_model->getEstados();
+        $data['instituciones']     = $this->Inicio_model->getInstituciones();
+        $data['gen']               = $this->Inicio_model->sexo();
+        $data['esc']               = $this->Inicio_model->escolaridad();
+        $data['nac']               = $this->Inicio_model->nacionalidad();
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view('asistente',$data);
+        $this->load->view("theme/footer");
+    }
 
     public function usuarios()
     {
@@ -108,8 +146,11 @@ class Inicio extends CI_Controller {
             case 'evaluador':
                 redirect(base_url().'inicio/evaluador');
                 break;
-            case 'moderela':
-                redirect(base_url().'inicio/moderela');
+            case 'moderador':
+                redirect(base_url().'inicio/moderador');
+                break;
+            case 'relator':
+                redirect(base_url().'inicio/relator');
                 break;
             case 'logistico':
                 redirect(base_url().'inicio/logistico');
@@ -156,10 +197,10 @@ class Inicio extends CI_Controller {
         $this->load->model('Inicio_model');
         $cidades = $this->Inicio_model->getCidades($id_estado);
         if( empty ( $cidades ) )
-            return '{ "nome": "No hay municipios disponibles" }';
+            return '{ "nombre": "No hay municipios disponibles" }';
         $arr_cidade = array();
         foreach ($cidades as $cidade) {
-            $arr_cidade[] = '{"id_municipio":' . $cidade->id_municipio . ',"nome":"' . $cidade->nombre_mun . '"}';
+            $arr_cidade[] = '{"id_municipio":' . $cidade->id_municipio . ',"nombre":"' . $cidade->nombre_mun . '"}';
         }
         echo '[ ' . implode(",",$arr_cidade) . ']';
         return;
@@ -170,14 +211,28 @@ class Inicio extends CI_Controller {
         $this->load->model('Inicio_model');
         $facultad = $this->Inicio_model->getFacultad($id_institucion);
         if( empty ( $facultad ) )
-            return '{ "nome": "No hay facultades disponibles" }';
+            return '{ "nombre": "No hay facultades disponibles" }';
         $arr_facult = array();
         foreach ($facultad as $fac) {
-            $arr_facult[] = '{"id_facultad":' . $fac->id_facultad . ',"nome":"' . $fac->nombre_fac . '"}';
+            $arr_facult[] = '{"id_facultad":' . $fac->id_facultad . ',"nombre":"' . $fac->nombre_fac . '"}';
         }
         echo '[ ' . implode(",",$arr_facult) . ']';
         return;
     }
+
+//---------------------------------
+// EMAIL EXISTS (true or false)
+//---------------------------------
+function check_username_availablity()
+{
+    $this->load->model('Inicio_model');
+    $get_result = $this->Inicio_model->check_username_availablity();
+
+    if(!$get_result )
+    echo '<span class="text-danger">Ya existe ese nombre de usuario ¿Quieres volver a intentarlo?.</span>';
+    else
+    echo '<span class="text-success">Usuario disponible</span>';
+}
 
     /**
     * @desc - genera un token para cada usuario registrado
@@ -233,7 +288,7 @@ public function bar(){
                 // disable auto-page-break
                 $pdf->SetAutoPageBreak(false, 0);
                 // set bacground image
-                $pdf->Image('assets/images/Ticket_ponente_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                $pdf->Image('assets/images/ticket_ponente_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
                 // restore auto-page-break status
                 $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
                 // set the starting point for the page content
@@ -282,7 +337,7 @@ public function bar(){
             $mail->Subject = "Credenciales de Acceso XII CECTI";
             $mail->Body = $this->Enviar_correo->registro_ponentes($datos);
             $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
-            $mail->AltBody = "Credenciales de Acceso CECTI";
+            $mail->AltBody = "Credenciales de Acceso XII CECTI";
             $correo_destino = $_POST['email'];
             if (strlen($correo_destino) > 5) {
                 $mail->AddAddress($correo_destino, $_POST['nombre']);
@@ -306,12 +361,65 @@ public function bar(){
         unset($_POST['password2']);
         unset($_POST['email2']);
         $pa = $_POST['password'];
+        $user = $_POST['username'];
+        $nombre = $_POST['nombre'];
+        $paterno = $_POST['a_paterno'];
+        $materno = $_POST['a_materno'];
         $_POST['password'] = do_hash($_POST['password']);
 
            $base = base_url();
            $query = $this->db->insert('usuarios', $_POST);
            $id_usuarios = $this->db->insert_id();
            $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
+
+
+                //GENERADOR DE PDF EN CORREO
+                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+                $pdf->AddPage();
+                $nombres = $nombre .' '.$paterno .' '.$materno;
+                $registro = "000".$id_usuarios."";
+                $acceso = $_POST['puesto'];
+                $fecha = date('d m Y');
+                $status = $_POST['status'];
+
+                $info = "Usuario: \n".$nombres."
+                        \nFolio: \n".$registro."
+                        \nAcceso: \n".$acceso."
+                        \nRegistro: \n".$fecha."
+                        \nStatus: \n".$status."
+                        ";
+
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/ticket_evaluador_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $style = array(
+                    'border' => false,
+                    'vpadding' => 'auto',
+                    'hpadding' => 'auto',
+                    'fgcolor' => array(70,70,72),
+                    'bgcolor' => false, //array(255,255,255)
+                    'module_width' => 1, // width of a single module in points
+                    'module_height' => 1 // height of a single module in points
+                );
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(145,72.5);
+                $pdf->writeHTML($registro, true, false, true, false, '');
+                $pdf->SetXY(39,95);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
+                $pdflisto = $pdf->Output('','S');
+
 
             //Enviar Correo Electrónico
             $this->load->library('My_PHPMailer');
@@ -329,14 +437,15 @@ public function bar(){
             $mail->Debugoutput = 'html';
             $mail->IsHTML(true);
             $mail->CharSet = 'UTF-8';
-            $datos['username'] = $_POST['username'];
+            $datos['username'] = $user;
             $datos['password'] = $pa;
-            $datos['nombre'] = $_POST['nombre'];
-            $datos['a_paterno'] = $_POST['a_paterno'];
-            $datos['a_materno'] = $_POST['a_materno'];
+            $datos['nombre'] = $nombre;
+            $datos['a_paterno'] = $paterno;
+            $datos['a_materno'] = $materno;
             $mail->Subject = "Credenciales de Acceso XII CECTI";
             $mail->Body = $this->Enviar_correo->registro_evaluador($datos);
-            $mail->AltBody = "Credenciales de Acceso CECTI";
+            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
+            $mail->AltBody = "Credenciales de Acceso XII CECTI";
             $correo_destino = $_POST['email'];
             if (strlen($correo_destino) > 5) {
                 $mail->AddAddress($correo_destino, $_POST['nombre']);
@@ -353,20 +462,71 @@ public function bar(){
              $this->login();
         }
 
-
-
-    function registro_moderela() {
+    function registro_moderador() {
 
         $token = $this->token();
         unset($_POST['password2']);
         unset($_POST['email2']);
         $pa = $_POST['password'];
+        $user = $_POST['username'];
+        $nombre = $_POST['nombre'];
+        $paterno = $_POST['a_paterno'];
+        $materno = $_POST['a_materno'];
         $_POST['password'] = do_hash($_POST['password']);
 
            $base = base_url();
            $query = $this->db->insert('usuarios', $_POST);
            $id_usuarios = $this->db->insert_id();
            $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
+
+
+                //GENERADOR DE PDF EN CORREO
+                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+                $pdf->AddPage();
+                $nombres = $nombre .' '.$paterno .' '.$materno;
+                $registro = "000".$id_usuarios."";
+                $acceso = $_POST['puesto'];
+                $fecha = date('d m Y');
+                $status = $_POST['status'];
+
+                $info = "Usuario: \n".$nombres."
+                        \nFolio: \n".$registro."
+                        \nAcceso: \n".$acceso."
+                        \nRegistro: \n".$fecha."
+                        \nStatus: \n".$status."
+                        ";
+
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/ticket_moderador_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $style = array(
+                    'border' => false,
+                    'vpadding' => 'auto',
+                    'hpadding' => 'auto',
+                    'fgcolor' => array(70,70,72),
+                    'bgcolor' => false, //array(255,255,255)
+                    'module_width' => 1, // width of a single module in points
+                    'module_height' => 1 // height of a single module in points
+                );
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(145,72.5);
+                $pdf->writeHTML($registro, true, false, true, false, '');
+                $pdf->SetXY(39,95);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
+                $pdflisto = $pdf->Output('','S');
+
 
             //Enviar Correo Electrónico
             $this->load->library('My_PHPMailer');
@@ -384,14 +544,15 @@ public function bar(){
             $mail->Debugoutput = 'html';
             $mail->IsHTML(true);
             $mail->CharSet = 'UTF-8';
-            $datos['username'] = $_POST['username'];
+            $datos['username'] = $user;
             $datos['password'] = $pa;
-            $datos['nombre'] = $_POST['nombre'];
-            $datos['a_paterno'] = $_POST['a_paterno'];
-            $datos['a_materno'] = $_POST['a_materno'];
+            $datos['nombre'] = $nombre;
+            $datos['a_paterno'] = $paterno;
+            $datos['a_materno'] = $materno;
             $mail->Subject = "Credenciales de Acceso XII CECTI";
-            $mail->Body = $this->Enviar_correo->registro_moderela($datos);
-            $mail->AltBody = "Credenciales de Acceso CECTI";
+            $mail->Body = $this->Enviar_correo->registro_moderador($datos);
+            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
+            $mail->AltBody = "Credenciales de Acceso XII CECTI";
             $correo_destino = $_POST['email'];
             if (strlen($correo_destino) > 5) {
                 $mail->AddAddress($correo_destino, $_POST['nombre']);
@@ -408,6 +569,113 @@ public function bar(){
              $this->login();
         }
 
+
+    function registro_relator() {
+
+        $token = $this->token();
+        unset($_POST['password2']);
+        unset($_POST['email2']);
+        $pa = $_POST['password'];
+        $user = $_POST['username'];
+        $nombre = $_POST['nombre'];
+        $paterno = $_POST['a_paterno'];
+        $materno = $_POST['a_materno'];
+        $_POST['password'] = do_hash($_POST['password']);
+
+           $base = base_url();
+           $query = $this->db->insert('usuarios', $_POST);
+           $id_usuarios = $this->db->insert_id();
+           $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
+
+
+                //GENERADOR DE PDF EN CORREO
+                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+                $pdf->AddPage();
+                $nombres = $nombre .' '.$paterno .' '.$materno;
+                $registro = "000".$id_usuarios."";
+                $acceso = $_POST['puesto'];
+                $fecha = date('d m Y');
+                $status = $_POST['status'];
+
+                $info = "Usuario: \n".$nombres."
+                        \nFolio: \n".$registro."
+                        \nAcceso: \n".$acceso."
+                        \nRegistro: \n".$fecha."
+                        \nStatus: \n".$status."
+                        ";
+
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/ticket_relator_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $style = array(
+                    'border' => false,
+                    'vpadding' => 'auto',
+                    'hpadding' => 'auto',
+                    'fgcolor' => array(70,70,72),
+                    'bgcolor' => false, //array(255,255,255)
+                    'module_width' => 1, // width of a single module in points
+                    'module_height' => 1 // height of a single module in points
+                );
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(145,72.5);
+                $pdf->writeHTML($registro, true, false, true, false, '');
+                $pdf->SetXY(39,95);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
+                $pdflisto = $pdf->Output('','S');
+
+
+            //Enviar Correo Electrónico
+            $this->load->library('My_PHPMailer');
+            $this->load->model('Enviar_correo');
+            $mail = new PHPMailer();
+            $mail->SMTPAuth   = true; // enabled SMTP authentication
+            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
+            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
+            $mail->Port       = 465;                   // SMTP port to connect to GMail
+            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
+            $mail->Password   = "sicdet2016";            // password in GMail
+            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
+            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
+            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
+            $mail->Debugoutput = 'html';
+            $mail->IsHTML(true);
+            $mail->CharSet = 'UTF-8';
+            $datos['username'] = $user;
+            $datos['password'] = $pa;
+            $datos['nombre'] = $nombre;
+            $datos['a_paterno'] = $paterno;
+            $datos['a_materno'] = $materno;
+            $mail->Subject = "Credenciales de Acceso XII CECTI";
+            $mail->Body = $this->Enviar_correo->registro_relator($datos);
+            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
+            $mail->AltBody = "Credenciales de Acceso XII CECTI";
+            $correo_destino = $_POST['email'];
+            if (strlen($correo_destino) > 5) {
+                $mail->AddAddress($correo_destino, $_POST['nombre']);
+            }
+
+            if (!$mail->Send()) {
+                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
+                show_error("Error en el envío: " . $mail->ErrorInfo);
+            } else {
+                $data["message"] = "¡Mensaje enviado correctamente!";
+                //show_error("Si se envió");
+            }
+
+             $this->login();
+        }
 
 
     function registro_logistico() {
@@ -416,12 +684,65 @@ public function bar(){
         unset($_POST['password2']);
         unset($_POST['email2']);
         $pa = $_POST['password'];
+        $user = $_POST['username'];
+        $nombre = $_POST['nombre'];
+        $paterno = $_POST['a_paterno'];
+        $materno = $_POST['a_materno'];
         $_POST['password'] = do_hash($_POST['password']);
 
            $base = base_url();
            $query = $this->db->insert('usuarios', $_POST);
            $id_usuarios = $this->db->insert_id();
            $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
+
+
+                //GENERADOR DE PDF EN CORREO
+                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+                $pdf->AddPage();
+                $nombres = $nombre .' '.$paterno .' '.$materno;
+                $registro = "000".$id_usuarios."";
+                $acceso = $_POST['puesto'];
+                $fecha = date('d m Y');
+                $status = $_POST['status'];
+
+                $info = "Usuario: \n".$nombres."
+                        \nFolio: \n".$registro."
+                        \nAcceso: \n".$acceso."
+                        \nRegistro: \n".$fecha."
+                        \nStatus: \n".$status."
+                        ";
+
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/ticket_apoyo_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $style = array(
+                    'border' => false,
+                    'vpadding' => 'auto',
+                    'hpadding' => 'auto',
+                    'fgcolor' => array(70,70,72),
+                    'bgcolor' => false, //array(255,255,255)
+                    'module_width' => 1, // width of a single module in points
+                    'module_height' => 1 // height of a single module in points
+                );
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(145,72.5);
+                $pdf->writeHTML($registro, true, false, true, false, '');
+                $pdf->SetXY(39,95);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
+                $pdflisto = $pdf->Output('','S');
+
 
             //Enviar Correo Electrónico
             $this->load->library('My_PHPMailer');
@@ -439,14 +760,15 @@ public function bar(){
             $mail->Debugoutput = 'html';
             $mail->IsHTML(true);
             $mail->CharSet = 'UTF-8';
-            $datos['username'] = $_POST['username'];
+            $datos['username'] = $user;
             $datos['password'] = $pa;
-            $datos['nombre'] = $_POST['nombre'];
-            $datos['a_paterno'] = $_POST['a_paterno'];
-            $datos['a_materno'] = $_POST['a_materno'];
+            $datos['nombre'] = $nombre;
+            $datos['a_paterno'] = $paterno;
+            $datos['a_materno'] = $materno;
             $mail->Subject = "Credenciales de Acceso XII CECTI";
             $mail->Body = $this->Enviar_correo->registro_logistico($datos);
-            $mail->AltBody = "Credenciales de Acceso CECTI";
+            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
+            $mail->AltBody = "Credenciales de Acceso XII CECTI";
             $correo_destino = $_POST['email'];
             if (strlen($correo_destino) > 5) {
                 $mail->AddAddress($correo_destino, $_POST['nombre']);
@@ -462,7 +784,6 @@ public function bar(){
 
              $this->login();
         }
-
 
     function registro_asistente() {
 
@@ -470,12 +791,65 @@ public function bar(){
         unset($_POST['password2']);
         unset($_POST['email2']);
         $pa = $_POST['password'];
+        $user = $_POST['username'];
+        $nombre = $_POST['nombre'];
+        $paterno = $_POST['a_paterno'];
+        $materno = $_POST['a_materno'];
         $_POST['password'] = do_hash($_POST['password']);
 
            $base = base_url();
            $query = $this->db->insert('usuarios', $_POST);
            $id_usuarios = $this->db->insert_id();
            $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
+
+
+                //GENERADOR DE PDF EN CORREO
+                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+                $pdf->AddPage();
+                $nombres = $nombre .' '.$paterno .' '.$materno;
+                $registro = "000".$id_usuarios."";
+                $acceso = $_POST['puesto'];
+                $fecha = date('d m Y');
+                $status = $_POST['status'];
+
+                $info = "Usuario: \n".$nombres."
+                        \nFolio: \n".$registro."
+                        \nAcceso: \n".$acceso."
+                        \nRegistro: \n".$fecha."
+                        \nStatus: \n".$status."
+                        ";
+
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/ticket_asistente_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $style = array(
+                    'border' => false,
+                    'vpadding' => 'auto',
+                    'hpadding' => 'auto',
+                    'fgcolor' => array(70,70,72),
+                    'bgcolor' => false, //array(255,255,255)
+                    'module_width' => 1, // width of a single module in points
+                    'module_height' => 1 // height of a single module in points
+                );
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(145,72.5);
+                $pdf->writeHTML($registro, true, false, true, false, '');
+                $pdf->SetXY(39,95);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
+                $pdflisto = $pdf->Output('','S');
+
 
             //Enviar Correo Electrónico
             $this->load->library('My_PHPMailer');
@@ -493,14 +867,15 @@ public function bar(){
             $mail->Debugoutput = 'html';
             $mail->IsHTML(true);
             $mail->CharSet = 'UTF-8';
-            $datos['username'] = $_POST['username'];
+            $datos['username'] = $user;
             $datos['password'] = $pa;
-            $datos['nombre'] = $_POST['nombre'];
-            $datos['a_paterno'] = $_POST['a_paterno'];
-            $datos['a_materno'] = $_POST['a_materno'];
+            $datos['nombre'] = $nombre;
+            $datos['a_paterno'] = $paterno;
+            $datos['a_materno'] = $materno;
             $mail->Subject = "Credenciales de Acceso XII CECTI";
             $mail->Body = $this->Enviar_correo->registro_asistente($datos);
-            $mail->AltBody = "Credenciales de Acceso CECTI";
+            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
+            $mail->AltBody = "Credenciales de Acceso XII CECTI";
             $correo_destino = $_POST['email'];
             if (strlen($correo_destino) > 5) {
                 $mail->AddAddress($correo_destino, $_POST['nombre']);
@@ -516,8 +891,6 @@ public function bar(){
 
              $this->login();
         }
-
-
 
 
 

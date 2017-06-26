@@ -1,64 +1,276 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
+?>
+<!DOCTYPE html>
+<html lang="es-ES">
 <head>
-<meta charset="utf-8">
-<title>404 Page Not Found</title>
-<style type="text/css">
+<title>12 Congreso Estatal de Ciencia, Tecnología e Innovación</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="12 Decimo Segundo Congreso Estatal de Ciencia, Tecnología e Innovación  Michoacán"/>
+<meta name="keywords" content="12 Decimo Segundo Congreso Estatal de Ciencia, Tecnología e Innovación  Michoacán COECYT SICDET Morelia 2017"/>
+<meta name="Generator" content="Secretaría de Innovación, Ciencia y Desarrollo Tecnológico"/>
+<link type="image/vnd.microsoft.icon" rel="shortcut icon" href="../assets/img/favicon.ico">
+<meta name="robots" content="index, follow"/>
+<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/css/bootstrapValidator.min.css" rel="stylesheet">
+<link href="../assets/css/prettyPhoto.css" rel="stylesheet">
+<link href="../assets/css/animate.css" rel="stylesheet">
+<link href="../assets/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="../assets/css/dataTables.responsive.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="../assets/css/main.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
 
-::selection { background-color: #E13300; color: white; }
-::-moz-selection { background-color: #E13300; color: white; }
+<style type="text/css" media="screen">
 
-body {
-	background-color: #fff;
-	margin: 40px;
-	font: 13px/20px normal Helvetica, Arial, sans-serif;
-	color: #4F5155;
+.page-404{
+
+  position:relative;
+
+  width:350px;
+
+  height:200px;    
+
+  margin:100px auto;
+
+  text-align: center;
+
+  margin-top: 1px !important;
+
 }
 
-a {
-	color: #003399;
-	background-color: transparent;
-	font-weight: normal;
+.text-404{    
+
+  font-size:138px;
+
+  background:#e9e3dd;
+
+  background-image: url('https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQTdWeWNteABnbzguiXSBxmfc8Z8nh_HHoWoK35QL81x4HnpVmgvQ');
+
+  background-repeat: no-repeat;
+
+  background-size: 200% 200%;
+
+  background-position: 100% 100%;
+
+  -webkit-animation: square 3s linear infinite;
+
+  -ms-animation: square 3s linear infinite;
+
+  animation: square 3s linear infinite;
+
+  -webkit-background-clip: text;
+
+  color:transparent;  
+
+  text-align:center;
+
+  line-height:200px;
+
+  position:relative;
+
 }
 
-h1 {
-	color: #444;
-	background-color: transparent;
-	border-bottom: 1px solid #D0D0D0;
-	font-size: 19px;
-	font-weight: normal;
-	margin: 0 0 14px 0;
-	padding: 14px 15px 10px 15px;
+
+
+.text-404:nth-of-type(2){
+
+  text-shadow:none;
+
+  z-index:2;
+
+  position:absolute;
+
+  top:-139px;
+
+  left:-1px;
+
 }
 
-code {
-	font-family: Consolas, Monaco, Courier New, Courier, monospace;
-	font-size: 12px;
-	background-color: #f9f9f9;
-	border: 1px solid #D0D0D0;
-	color: #002166;
-	display: block;
-	margin: 14px 0 14px 0;
-	padding: 12px 10px 12px 10px;
+
+
+@-webkit-keyframes square {
+
+  0% { background-position: 0 0; }
+
+  25% { background-position: 100% 0; }
+
+  50% { background-position: 100% 100%; }
+
+  75% { background-position: 0 100%; }
+
+  100% { background-position: 0 0; }
+
 }
 
-#container {
-	margin: 10px;
-	border: 1px solid #D0D0D0;
-	box-shadow: 0 0 8px #D0D0D0;
+
+
+@-ms-keyframes square {
+
+  0% { background-position: 0 0; }
+
+  25% { background-position: 100% 0; }
+
+  50% { background-position: 100% 100%; }
+
+  75% { background-position: 0 100%; }
+
+  100% { background-position: 0 0; }
+
 }
 
-p {
-	margin: 12px 15px 12px 15px;
+
+
+@keyframes square {
+
+  0% { background-position: 0 0; }
+
+  25% { background-position: 100% 0; }
+
+  50% { background-position: 100% 100%; }
+
+  75% { background-position: 0 100%; }
+
+  100% { background-position: 0 0; }
+
 }
 </style>
 </head>
 <body>
-	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
-	</div>
+<header class="navbar navbar-inverse navbar-fixed-top wet-asphalt">
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="index"><img src="../assets/img/header_12_congreso.png" alt="logo" width="270px"></a>
+</div>
+<div class="collapse navbar-collapse">
+<ul class="nav navbar-nav navbar-right">
+<li class="active"><a href="index">Inicio</a></li>
+                <li>
+                    <a href="#" target="_blank" title="Programa">Programa</a>
+                </li>
+                <li>
+                    <a href="inicio/registro" title="Registro">Registro</a>
+                </li>
+                <li>
+                    <a href="formatos/convocatoria_congreso12.pdf"  target="_blank" title="Convocatoria">Convocatoria</a>
+                </li>
+                <li>
+                    <a href="formatos/lineamientos_congreso12.pdf"  target="_blank" title="Lineamientos">Lineamientos</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Memorias  <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                        <a href="//mega.nz/#!BdBVRabT!AixHRsv2ITgaju2DEAOkjDRLKSTI74VJN5q8o7AlTbE"  target="_blank" title="Memoria 10 congreso ISSN">Memoria 10 Congreso ISSN</a>
+                        </li>
+                    <li>
+                        <a href="//mega.nz/#!tVJkHKTY!AN3KqNweeY3xXq4M_N2URfixpij5SvP7zrF2BoXjVeA"  target="_blank" title="Memoria 11 congreso ISSN">Memoria 11 Congreso ISSN</a>
+                    </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="inicio/contacto" title="Contacto">Contacto</a>
+                </li>
+                <li>
+                    <a href="login" title="Login">Inicio de Sesión</a>
+                </li>
+</ul>
+</div>
+</div>
+</header>
+<section id="error" class="container">
+   <div class="page-404">
+    <p class="text-404">404</p>
+<h2>Oops, a ocurrido un error al intentar acceder a la pagina solicitada.</h2>
+<a class="btn btn-success" href="index">REGRESA A LA PAGINA PRINCIPAL</a>
+  </div>
+
+</section>
+
+<div class="section-divider">
+    <div class="col-xs-2 col-sm-2 col-md-2  azul"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2  morado"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2  amarillo"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2  vino"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2  verde"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2  magenta"></div>
+</div>
+<section id="bottom" class="wet-asphalt-footer">
+<div class="container">
+<div class="row">
+<div class="col-md-3 col-sm-6">
+<ul class="pull-left" style="list-style: none;">
+  <li>
+       <center><img src="../assets/images/logo_foot.png"  height="125px" alt="Michoacán"></center>
+  </li>
+</ul>
+</div>
+<div class="col-md-3 col-sm-6">
+   <ul class="pull-left" style="font-size:13px;list-style: none;">
+        <li><h3>Ubicación</h3><br>Calz. Benito Juárez # 1446 <br> Col. Villa Universidad<br> Morelia, Michoacán, México</li>
+    </ul>
+</div>
+<div class="col-md-3 col-sm-6">
+<ul class="pull-left" style="font-size:13px;list-style: none;">
+    <li><h3>Teléfonos</h3><br>
+        <i class="fa fa-phone" aria-hidden="true"></i> 01 (443) 314-9907<br>
+        <i class="fa fa-phone" aria-hidden="true"></i> 01 (443) 324-8607<br>
+        <i class="fa fa-phone" aria-hidden="true"></i> 01 (443) 324-9113
+    </li>
+</ul>
+</div>
+<div class="col-md-3 col-sm-6">
+<ul class="pull-left" style="list-style: none;">
+    <li>
+        <center><img src="../assets/images/logo_estaenti_foot.png" width="120" height="72" alt="Michoacán"></center>
+    </li>
+    <br>
+    <li>
+        <center><img src="../assets/images/logo_sicdet_grises.png" width="270" height="60" alt="Michoacán"></center>
+    </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<footer id="footer" class="midnight-blue">
+<div class="container">
+<div class="row">
+<div class="col-sm-8">
+© <?php echo date("Y") ?>, Desarrollado por la Secretaría de Innovación, Ciencia y Desarrollo Tecnológico | <a href="http://michoacan.gob.mx/" target="_blank">Gobierno del Estado de Michoacán 2015 - 2021</a>
+<!-- Programado por Joel Álvarez | CODEELAB.COM -->
+</div>
+<div class="col-sm-4">
+<ul class="pull-right">
+        <li><i class="fa fa-twitter" aria-hidden="true"></i><a href="https://twitter.com/SICDETmichoacan/" data-toggle='tooltip' data-placement='bottom' title="Twitter" target="_blank"><span class="label">Twitter</span></a></li>
+        <li><i class="fa fa-facebook" aria-hidden="true"></i><a href="https://www.facebook.com/SICDET/" data-toggle='tooltip' data-placement='bottom' title="Facebook" target="_blank"><span class="label">Facebook</span></a></li>
+        <li><i class="fa fa-instagram" aria-hidden="true"></i><a href="https://www.instagram.com/GobMichoacan/" data-toggle='tooltip' data-placement='bottom' title="Instagram" target="_blank"><span class="label">Instagram</span></a></li>
+        <li><i class="fa fa-youtube" aria-hidden="true"></i><a href="https://www.youtube.com/channel/UC_uaIRgMrAl91qewRt17v5g" data-toggle='tooltip' data-placement='bottom' title="Youtube" target="_blank"><span class="label">Youtube</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+<script src="../assets/js/jquery.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/bootstrapValidator.min.js"></script>
+<script src="../assets/js/jquery.prettyPhoto.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/funciones.js"></script>
+<script src="../assets/js/jquery.dataTables.min.js"></script>
+<script src="../assets/js/dataTables.responsive.min.js"></script>
+<script src="../assets/js/dataTables.bootstrap.js"></script>
+<script src="../assets/js/ajax.js"></script>
+<script src="../assets/js/zxcvbn.js"></script>
+
 </body>
 </html>
