@@ -3,12 +3,12 @@
 $config['useragent']        = 'CodeIgniter';              // Mail engine switcher: 'CodeIgniter' or 'PHPMailer'
 $config['protocol']         = 'smtp';                   // 'mail', 'sendmail', or 'smtp'
 $config['mailpath']         = '/usr/sbin/sendmail';
-$config['smtp_host']        = 'smtp.gmail.com';
-$config['smtp_user']        = 'informatica.cecti@gmail.com';
-$config['smtp_pass']        = 'sicdet2016';
+$config['smtp_host']        = 'mail.sicdet.org';
+$config['smtp_user']        = 'congreso@sicdet.org';
+$config['smtp_pass']        = 'congreso17*';
 $config['smtp_port']        = 25;
 $config['smtp_timeout']     = 30;                       // (in seconds)
-$config['smtp_crypto']      = 'ssl';                       // '' or 'tls' or 'ssl'
+$config['smtp_crypto']      = 'tls';                       // '' or 'tls' or 'ssl'
 $config['smtp_debug']       = 0;                        // PHPMailer's SMTP debug info level: 0 = off, 1 = commands, 2 = commands and data, 3 = as 2 plus connection status, 4 = low level data output.
 $config['smtp_auto_tls']    = true;                     // Whether to enable TLS encryption automatically if a server supports it, even if `smtp_crypto` is not set to 'tls'.
 $config['smtp_conn_options'] = array();                 // SMTP connection options, an array passed to the function stream_context_create() when connecting via SMTP.

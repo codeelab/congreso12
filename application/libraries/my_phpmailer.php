@@ -5,9 +5,7 @@ class My_phpmailer {
 public function My_phpmailer()
 {
     require_once('PHPMailer/PHPMailerAutoload.php');
+    require_once('PHPMailer/class.phpmailer.php');
 }
 }
-
-
-
 ?>

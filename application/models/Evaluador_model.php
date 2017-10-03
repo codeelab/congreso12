@@ -47,39 +47,24 @@ function get_area_tematica(){
       return $consulta->result();
     }
 
-    public function evaluar($id_ponencias,$evaluar="NULL",$status_id="NULL"){
-        if($evaluar=="NULL"){
-            $consulta=$this->db->query("SELECT id_ponencias, status_id FROM ponencias WHERE id_ponencias=$id_ponencias");
-            return $consulta->result();
-        }else{
-          $consulta=$this->db->query("
-              UPDATE ponencias SET status_id='$status_id' WHERE id_ponencias=$id_ponencias;
-                  ");
-          if($consulta==true){
-              return true;
-          }else{
-              return false;
-          }
-        }
-    }
+
+  function obtenerPonente($id)
+  {
+    $this->db->where('id_ponencias',$id);
+    $query = $this->db->get('ponencias');
+    if($query->num_rows() > 0) return $query;
+    else return false;
+  }
 
 
-
-    public function editar($id_ponencias,$editar="NULL",$status_id="NULL"){
-        if($editar=="NULL"){
-            $consulta=$this->db->query("SELECT id_ponencias, status_id FROM ponencias WHERE id_ponencias=$id_ponencias");
-            return $consulta->result();
-        }else{
-          $consulta=$this->db->query("
-              UPDATE ponencias SET status_id='$status_id' WHERE id_ponencias=$id_ponencias;
-                  ");
-          if($consulta==true){
-              return true;
-          }else{
-              return false;
-          }
-        }
-    }
+  function evaluar($id,$data){
+    $datos = array(
+      'status_id' => $data['status_id']
+    );
+    $this->db->where('id_ponencias',$id);
+    $query = $this->db->update('ponencias',$datos);
+    redirect('evaluador/listado');
+  }
 
 
 function get_status_id(){
@@ -126,5 +111,19 @@ htmlspecialchars($row->status, ENT_QUOTES);
             return FALSE;
           }
     }
+
+
+    public function alerta()
+    {
+        $this->db->select('*');
+        $this->db->from('alertas');
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0 ) {
+            return $query->result();
+        }
+    }
+
+
 
 }

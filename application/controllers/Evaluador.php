@@ -10,15 +10,16 @@ class Evaluador extends MY_Controller {
     {
         parent::__construct();
         $this->load->model('Evaluador_model');
-        $this->load->library("session");
+        $this->load->library(array('session','user_agent'));
         $this->load->helper('url');
     }
 
     public function index()
     {
+        $data['alert'] = $this->Evaluador_model->alerta();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view("evaluador/index");
+        $this->load->view("evaluador/index",$data);
         $this->load->view("theme/footer");
     }
 
@@ -34,32 +35,25 @@ class Evaluador extends MY_Controller {
     }
 
     //le paso por la url un parametro
-    public function evaluar($id_ponencias){
-        if(is_numeric($id_ponencias)){
-          $datos["evaluar"]=$this->Evaluador_model->evaluar($id_ponencias);
-          $datos["estado"]=$this->Evaluador_model->get_status_id();
-          $this->load->view("theme/header");
-          $this->load->view("theme/menu");
-          $this->load->view("evaluador/evaluar",$datos);
-          $this->load->view("theme/footer");
-          if($this->input->post("submit")){
-                $evaluar=$this->Evaluador_model->evaluar(
-                        $id_ponencias,
-                        $this->input->post("submit"),
-                        $this->input->post("status_id")
-                        );
-                if($evaluar==true){
-                    //Sesion de una sola ejecución
-                    $this->session->set_flashdata('correcto', 'Usuario modificado correctamente');
-                }else{
-                    $this->session->set_flashdata('incorrecto', 'Usuario modificado correctamente');
-                }
-                redirect('evaluador/listado');
-            }
-        }else{
-            redirect('evaluador/listado');
-        }
+    public function evaluar()
+    {
+        $data['id'] =  $this->uri->segment(3);
+        $data['ponent'] = $this->Evaluador_model->obtenerPonente($data['id']);
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view("evaluador/evaluar",$data);
+        $this->load->view("theme/footer");
     }
+
+    public function evaluando()
+    {
+
+        $data = array(
+            'status_id' => $this->input->post('status_id')
+        );
+        $this->Evaluador_model->evaluar($this->uri->segment(3),$data);
+    }
+
 
     public function aprobado()
     {
@@ -72,31 +66,14 @@ class Evaluador extends MY_Controller {
     }
 
     //le paso por la url un parametro
-    public function editar($id_ponencias){
-        if(is_numeric($id_ponencias)){
-          $datos["editar"]=$this->Evaluador_model->editar($id_ponencias);
-          $datos["estado"]=$this->Evaluador_model->get_status_id();
-          $this->load->view("theme/header");
-          $this->load->view("theme/menu");
-          $this->load->view("evaluador/editar",$datos);
-          $this->load->view("theme/footer");
-          if($this->input->post("submit")){
-                $editar=$this->Evaluador_model->editar(
-                        $id_ponencias,
-                        $this->input->post("submit"),
-                        $this->input->post("status_id")
-                        );
-                if($editar==true){
-                    //Sesion de una sola ejecución
-                    $this->session->set_flashdata('correcto', 'Usuario modificado correctamente');
-                }else{
-                    $this->session->set_flashdata('incorrecto', 'Usuario modificado correctamente');
-                }
-                redirect('evaluador/aprobado');
-            }
-        }else{
-            redirect('evaluador/aprobado');
-        }
+    public function editar()
+    {
+        $data['id'] =  $this->uri->segment(3);
+        $data['ponent'] = $this->Evaluador_model->obtenerPonente($data['id']);
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view("evaluador/editar",$data);
+        $this->load->view("theme/footer");
     }
 
     public function constancia()

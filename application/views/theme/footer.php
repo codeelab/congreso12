@@ -62,17 +62,21 @@
 </div>
 </div>
 </footer>
-<script src="<?php echo base_url();?>assets/js/jquery.js"></script>
-<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/bootstrapValidator.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/jquery.prettyPhoto.js"></script>
-<script src="<?php echo base_url();?>assets/js/main.js"></script>
-<script src="<?php echo base_url();?>assets/js/funciones.js"></script>
-<script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/dataTables.responsive.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/dataTables.bootstrap.js"></script>
-<script src="<?php echo base_url();?>assets/js/ajax.js"></script>
-<script src="<?php echo base_url();?>assets/js/zxcvbn.js"></script>
+<script src="<?=base_url();?>assets/js/jquery.js"></script>
+<script src="<?=base_url();?>assets/js/bootstrap.min.js"></script>
+<script src="<?=base_url();?>assets/js/bootstrapValidator.min.js"></script>
+<script src="<?=base_url();?>assets/js/jquery.prettyPhoto.js"></script>
+<script src="<?=base_url();?>assets/js/main.js"></script>
+<script src="<?=base_url();?>assets/js/funciones.js"></script>
+<script src="<?=base_url();?>assets/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url();?>assets/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url();?>assets/js/dataTables.bootstrap.js"></script>
+<script src="<?=base_url();?>assets/js/ajax.js"></script>
+<script src="<?=base_url();?>assets/js/zxcvbn.js"></script>
+<script src="<?=base_url();?>assets/js/jquery-ui.min.js"></script>
+<script src="<?=base_url();?>assets/js/jQuery.print.js"></script>
+
+
   <script type="application/ld+json">
 {
   "@context": "http://schema.org",
@@ -101,6 +105,17 @@
   }
   }]
 }
+</script>
+<script>
+/*
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101856448-1', 'auto');
+  ga('send', 'pageview');
+*/
 </script>
 
 </body>

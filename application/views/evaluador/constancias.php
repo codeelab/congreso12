@@ -1,4 +1,6 @@
 <?php
+
+
 $pdf=new Fpdf_multicell();
         foreach($datos->result() as $row){
             $nombre = $row->nombre .' '.$row->a_paterno .' '.$row->a_materno;

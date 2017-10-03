@@ -33,5 +33,17 @@ function get_area($id_usuarios = false)
         }
     }
 
+    public function alerta()
+    {
+        $this->db->select('*');
+        $this->db->from('alertas');
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0 ) {
+            return $query->result();
+        }
+    }
+
+
 
 }

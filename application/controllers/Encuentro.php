@@ -10,35 +10,24 @@ class Encuentro extends MY_Controller {
     {
         parent::__construct();
         $this->load->model('Encuentro_model');
-        $this->load->library('session','pagination');
+        $this->load->library(array('session','pagination','user_agent'));
         $this->load->helper('url','form');
     }
 
     public function index()
     {
+        $data['alert'] = $this->Encuentro_model->alerta();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view("encuentro/index");
+        $this->load->view("encuentro/index",$data);
         $this->load->view("theme/footer");
     }
 
     public function listado()
     {
-        $pages=5; //Número de registros mostrados por páginas
-        $this->load->library('pagination'); //Cargamos la librería de paginación
-        /* URL a la que se desea agregar la paginación*/
-        $config['base_url'] = base_url().'encuentro/listado/';
-        $config['total_rows'] = $this->Encuentro_model->get_total_ponencias();//calcula el número de filas
-        $config['per_page'] = $pages; //Número de registros mostrados por páginas
-        $config['num_links'] = 20; //Número de links mostrados en la paginación
-        $config['first_link'] = 'Primera';//primer link
-        $config['last_link'] = 'Última';//último link
-        $config["uri_segment"] = 3;//el segmento de la paginación
-        $config['next_link'] = 'Siguiente';//siguiente link
-        $config['prev_link'] = 'Anterior';//anterior link
-        $this->pagination->initialize($config); //inicializamos la paginación
-        /* Se obtienen los registros a mostrar*/
-        $data['ponencias'] = $this->Encuentro_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
+        $id = $this->uri->segment(3);
+        $data['ponencias'] = $this->Encuentro_model->list_ponencias();
+        $data['ponencias_eva'] = $this->Encuentro_model->lista_evaluados_apro($id);
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view("encuentro/listado_trabajos",$data);
@@ -48,20 +37,7 @@ class Encuentro extends MY_Controller {
     //le paso por la url un parametro
     public function evaluar($id_ponencias){
         if(is_numeric($id_ponencias)){
-        $pages=5; //Número de registros mostrados por páginas
-        $this->load->library('pagination'); //Cargamos la librería de paginación
-        /* URL a la que se desea agregar la paginación*/
-        $config['base_url'] = base_url().'encuentro/listado/';
-        $config['total_rows'] = $this->Encuentro_model->get_total_ponencias();//calcula el número de filas
-        $config['per_page'] = $pages; //Número de registros mostrados por páginas
-        $config['num_links'] = 20; //Número de links mostrados en la paginación
-        $config['first_link'] = 'Primera';//primer link
-        $config['last_link'] = 'Última';//último link
-        $config["uri_segment"] = 3;//el segmento de la paginación
-        $config['next_link'] = 'Siguiente';//siguiente link
-        $config['prev_link'] = 'Anterior';//anterior link
-        $this->pagination->initialize($config); //inicializamos la paginación
-          $datos['ponencias'] = $this->Encuentro_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
+          $datos['ponenciass'] = $this->Encuentro_model->lista_ponencias($this->uri->segment(3));
           $datos["evaluar"] = $this->Encuentro_model->evaluar($id_ponencias);
           $this->load->helper('form');
           $this->load->view("theme/header");
@@ -89,21 +65,7 @@ class Encuentro extends MY_Controller {
 
     public function aprobado()
     {
-        $pages=5; //Número de registros mostrados por páginas
-        $this->load->library('pagination'); //Cargamos la librería de paginación
-        /* URL a la que se desea agregar la paginación*/
-        $config['base_url'] = base_url().'encuentro/aprobado/';
-        $config['total_rows'] = $this->Encuentro_model->get_total_ponencias();//calcula el número de filas
-        $config['per_page'] = $pages; //Número de registros mostrados por páginas
-        $config['num_links'] = 20; //Número de links mostrados en la paginación
-        $config['first_link'] = 'Primera';//primer link
-        $config['last_link'] = 'Última';//último link
-        $config["uri_segment"] = 3;//el segmento de la paginación
-        $config['next_link'] = 'Siguiente';//siguiente link
-        $config['prev_link'] = 'Anterior';//anterior link
-        $this->pagination->initialize($config); //inicializamos la paginación
-        /* Se obtienen los registros a mostrar*/
-        $data['ponencias'] = $this->Encuentro_model->list_ponencias(1,$config['per_page'],$this->uri->segment(3));
+        $data['ponencias_apro'] = $this->Encuentro_model->list_ponencias_apro();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view("encuentro/listado_aprobados",$data);
@@ -158,7 +120,7 @@ class Encuentro extends MY_Controller {
     {
         /* Se obtienen los registros a mostrar*/
         $id=$this->uri->segment(3);
-        $data['datos']=$this->db->query("SELECT nombre, a_paterno, a_materno FROM usuarios WHERE id_usuarios=$id");
+        $data['datos']=$this->db->query("SELECT nombre, a_paterno, a_materno FROM usuarios WHERE id_usuarios =$id");
         $this->load->view("encuentro/constancias",$data);
     }
 
@@ -171,13 +133,6 @@ class Encuentro extends MY_Controller {
          if (isset($datos)) {
             $evaluador_id   = $datos['evaluador_id'];
             $ponencia_id    = $datos['ponencia_id'];
-            $ponente        = $datos['ponente'];
-            $correo         = $datos['correo'];
-            $nivel          = $datos['nivel'];
-            $titulo         = $datos['titulo'];
-            $modalidad      = $datos['modalidad'];
-            $mesa           = $datos['mesa'];
-            $status         = $datos['status'];
             $calificacion_1 = $datos['calificacion_1'];
             $calificacion_2 = $datos['calificacion_2'];
             $calificacion_3 = $datos['calificacion_3'];
@@ -186,11 +141,13 @@ class Encuentro extends MY_Controller {
             $calificacion_6 = $datos['calificacion_6'];
             $calificacion_7 = $datos['calificacion_7'];
             $calificacion_8 = $datos['calificacion_8'];
+            $calificacion_9 = $datos['calificacion_9'];
+            $promedio       = $datos['promedio'];
             $status_id      = $datos['status_id'];
 
-            $this->Encuentro_model->inserta_evaluacion($evaluador_id,$ponencia_id,$ponente,$correo,$nivel,$titulo,$modalidad,$mesa,$status,$calificacion_1,$calificacion_2,$calificacion_3,$calificacion_4,$calificacion_5,$calificacion_6,$calificacion_7,$calificacion_8,$status_id);
+            $this->Encuentro_model->inserta_evaluacion($evaluador_id,$ponencia_id,$calificacion_1,$calificacion_2,$calificacion_3,$calificacion_4,$calificacion_5,$calificacion_6,$calificacion_7,$calificacion_8,$calificacion_9,$promedio,$status_id);
 
-            redirect("encuentro/aprobado");
+            redirect("encuentro/listado");
 
          }
 

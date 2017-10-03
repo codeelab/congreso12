@@ -4,6 +4,31 @@
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
 
+if(!$user)
+{
+  redirect('login','refresh');
+  exit();
+}
+
+//Validamos si es el path principal ? , si lo es deje accesar desde url
+        if ($this->uri->uri_string()) {
+            //Carga Libraria User_agent
+            $this->load->library('user_agent');
+            //Verifica si llega desde un enlace
+            if ($this->agent->referrer()) {
+                //Busca si el enlace llega de una URL diferente
+                $post = strpos($this->agent->referrer(), base_url());
+                if ($post === FALSE) {
+                    //Podemos aqui crear un mensaje antes de redirigir que informe
+                    redirect(base_url());
+                }
+            }
+            //Si no se llega desde un enlace se redirecciona al inicio
+            else {
+                //Podemos aqui crear un mensaje antes de redirigir que informe
+                redirect(base_url());
+            }
+        }
 ?>
 
 <section id="title" class="emerald">
@@ -47,55 +72,30 @@
  </thead>
  <tbody>
  <?php
+
+
+
+
 if($ponencias !== FALSE) {
             foreach ($ponencias as $row) {
 
-            if ($row->status === 'Enviado') {
-                   $estado = "<h4><span class='label label-info'>Enviado</span></h4>";
-              } else if ($row->status === 'Aceptado') {
-                   $estado = "<h4><span class='label label-success'>Aprobado</span></h4>";
-             } else if ($row->status === 'No aceptado') {
-                   $estado = "<h4><span class='label label-danger'>No aprobado</span></h4>";
-             } else {
-                   $estado = "<h4><span class='label label-default'>Cancelado</span></h4>";
-             }
-
-            if (file_exists($row->archivo_resumen) !=" ") {
-                $resumen = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
-            }else{
-                $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
-            }
-
-            if (file_exists($row->archivo_extenso) !=" ") {
-                $extenso = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
-            }else{
-                $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
-            }
-
-
-            if ($row->status === 'Enviado') {
                echo "<tr>
-               <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span><h4></td>
-               <td>$estado</td>
+              <td><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-$row->id_ponencias</span></td>
+               <td><span class='label label-success'>$row->status</span></td>
                <td>$row->autor</td>
                <td>$row->titulo</td>
                <td>$row->nombre_trabajo</td>
                <td>$row->nombre_tem</td>
-               <td>$resumen</td>
-               <td>$extenso</td>
+               <td><a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td>
+               <td><a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td>
                <td><a href='" . base_url() . "encuentro/evaluar/$row->id_ponencias'><button type='button' class='btn btn-success'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a></td>";
-              }
-           }
+          }
+
+
 }
 ?>
  </tbody>
  </table>
- <ul class="pagination">
-  <?php
-    /* Se imprimen los números de página */
-    echo $this->pagination->create_links();
-  ?>
-</ul>
 </div>
 </div>
 

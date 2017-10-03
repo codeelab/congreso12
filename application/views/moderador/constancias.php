@@ -3,9 +3,34 @@
   $nombre = $this->session->userdata('nombre');
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
+  $nombres = $nombre .' '.$a_paterno .' '.$a_materno;
 
+if(!$user)
+{
+  redirect('login','refresh');
+  exit();
+}
+
+//Validamos si es el path principal ? , si lo es deje accesar desde url
+        if ($this->uri->uri_string()) {
+            //Carga Libraria User_agent
+            $this->load->library('user_agent');
+            //Verifica si llega desde un enlace
+            if ($this->agent->referrer()) {
+                //Busca si el enlace llega de una URL diferente
+                $post = strpos($this->agent->referrer(), base_url());
+                if ($post === FALSE) {
+                    //Podemos aqui crear un mensaje antes de redirigir que informe
+                    redirect(base_url());
+                }
+            }
+            //Si no se llega desde un enlace se redirecciona al inicio
+            else {
+                //Podemos aqui crear un mensaje antes de redirigir que informe
+                redirect(base_url());
+            }
+        }
 ?>
-
 <section id="title" class="emerald">
 <div class="container">
 <div class="row">
@@ -46,20 +71,14 @@
  <?php
     foreach ($pdf as $row) {
 
-      if ($row->id_usuarios === $user) {
-
-        $moderador = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
-
         echo "<tr>
-               <td><h4><span class='label label-default'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-RE-$row->id_usuarios</span></h4></td>
+               <td><span class='label label-default span-enviado'><i class='fa fa-ticket' aria-hidden='true'></i>  CECTI-MO-$row->id_usuarios</span></td>
                <td>Moderador</td>
-               <td>$moderador</td>
+               <td>$nombres</td>
                <td>$row->nombre_sala</td>
                <td>$row->nombre_mesa</td>
-               <td><a href='" . base_url() . "moderador/constancia/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$moderador'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td></td>";
+               <td><a href='" . base_url() . "moderador/constancia/$row->id_usuarios' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$nombres'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a></td></td>";
       }
-
-    }
 ?>
  </tbody>
  </table>

@@ -10,18 +10,18 @@ class Ponente extends MY_Controller {
        {
             parent::__construct();
             $this->load->model('Ponentes_model');
-            $this->load->library('session');
+            $this->load->library(array('session','user_agent'));
             $this->load->helper('url');
        }
 
-	public function index()
-	{
+    public function index()
+    {
         $data['alert'] = $this->Ponentes_model->alerta();
-		$this->load->view("theme/header");
+        $this->load->view("theme/header");
         $this->load->view("theme/menu");
-		$this->load->view("ponente/index",$data);
-		$this->load->view("theme/footer");
-	}
+        $this->load->view("ponente/index",$data);
+        $this->load->view("theme/footer");
+    }
 
     public function trabajo()
     {
@@ -38,7 +38,9 @@ class Ponente extends MY_Controller {
     public function extenso()
     {
         // cargamos  la interfaz y le enviamos los datos
-        $data['lista'] = $this->Ponentes_model->list_extenso(1,$this->uri->segment(3));
+        $data['alert'] = $this->Ponentes_model->alerta();
+        $data['lista'] = $this->Ponentes_model->ponenciasId($this->uri->segment(3));
+        $data['checar'] = $this->Ponentes_model->verificarPonencia($this->uri->segment(3));
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view("ponente/registro_extenso",$data);
@@ -53,6 +55,12 @@ class Ponente extends MY_Controller {
         $this->load->view("ponente/listado_trabajos",$data);
         $this->load->view("theme/footer");
     }
+
+    public function ticket()
+    {
+        $this->load->view("ponente/ticket");
+    }
+
 
     public function registro_trabajo() {
 
@@ -72,8 +80,7 @@ class Ponente extends MY_Controller {
         $file_info = $this->upload->data();
 
         if (!$this->upload->do_upload()) {
-            echo "error";
-            echo "" . $this->upload->display_errors();
+            echo "<html> <script>alert(\"El archivo sha superado el limite permitido 5mb, intente con un archivo más pequeño.\"); window.location='" . base_url() . "ponente/trabajo/';</script></html>";
         } else {
             $ponencias = $this->db->query("SELECT * FROM ponencias WHERE id_ponencias=$id");
             $row = $ponencias->row();
@@ -100,7 +107,7 @@ class Ponente extends MY_Controller {
         $config['id_upload'] = "$id";
         $config['upload_path'] = 'upload_ext/';
         $config['allowed_types'] = 'pdf';
-        $config['max_size'] = '5000';
+        $config['max_size'] = '50000';
         $config['field_name'] = "userfile";
         $config['overwrite'] = TRUE;
         $this->load->library('upload', $config);
@@ -111,7 +118,7 @@ class Ponente extends MY_Controller {
             echo "Error al subir el archivo, verifique que el tamaño del mismo sea menor a 5M";
             echo "" . $this->upload->display_errors();
         } else {
-            $ponencias = $this->db->query("SELECT id_ponencias, fecha_extenso, archivo_extenso, mesa_id FROM ponencias WHERE id_ponencias=$id");
+            $ponencias = $this->db->query("SELECT * FROM ponencias WHERE id_ponencias=$id");
             $row = $ponencias->row();
             $fuente = $file_info['full_path'];
             $ext = $file_info['file_ext'];
@@ -123,9 +130,9 @@ class Ponente extends MY_Controller {
             } else {
                 $data['archivo_extenso'] = $destino_db;
             }
-
-            $query = $this->db->query("UPDATE ponencias SET fecha_extenso='{$fecha}', archivo_extenso='{$destino_db}'  WHERE id_ponencias = '{$id}' ");
-            echo "<html> <script>alert(\"El Extenso se ha guardado exitosamente\"); window.location='" . base_url() . "ponente/listado/';</script></html>";
+            $this->db->where('id_ponencias', $id);
+            $this->db->update('ponencias', $data);           
+            echo "<html> <script>alert(\"El Extenso se ha guardado exitosamente\"); window.location='" . base_url() . "ponente/index/';</script></html>";
         }
     }
 
@@ -189,7 +196,7 @@ class Ponente extends MY_Controller {
     {
         /* Se obtienen los registros a mostrar*/
         $id=$this->uri->segment(3);
-        $data['datos']=$this->db->query("SELECT autor, titulo FROM ponencias WHERE id_ponencias=$id");
+        $data['datos']=$this->db->query("SELECT autor, nombre_tem, titulo FROM ponencias INNER JOIN area_tematica ON id_tematica = mesa_id WHERE id_ponencias =$id");
         $this->load->view("ponente/constancia_autor",$data);
     }
 
@@ -197,7 +204,8 @@ class Ponente extends MY_Controller {
     {
         /* Se obtienen los registros a mostrar*/
         $id=$this->uri->segment(3);
-        $data['datos']=$this->db->query("SELECT coautores, titulo FROM ponencias WHERE id_ponencias=$id");
+        //$data['datos'] = $this->Ponentes_model->ConstanciaCoautor(1);
+        $data['datos']=$this->db->query("SELECT coautores, nombre_tem, titulo FROM ponencias INNER JOIN area_tematica ON id_tematica = mesa_id WHERE id_ponencias =$id");
         $this->load->view("ponente/constancia_coautor",$data);
     }
 
@@ -205,7 +213,7 @@ class Ponente extends MY_Controller {
     {
         /* Se obtienen los registros a mostrar*/
         $id=$this->uri->segment(3);
-        $data['datos']=$this->db->query("SELECT asesor, titulo FROM ponencias WHERE id_ponencias=$id");
+        $data['datos']=$this->db->query("SELECT asesor, nombre_tem, titulo FROM ponencias INNER JOIN area_tematica ON id_tematica = mesa_id WHERE id_ponencias =$id");
         $this->load->view("ponente/constancia_asesor",$data);
     }
 

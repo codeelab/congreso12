@@ -12,7 +12,7 @@ class Relator extends MY_Controller {
        {
             parent::__construct();
             $this->load->model('Relator_model');
-            $this->load->library("session");
+            $this->load->library(array('session','user_agent'));
             $this->load->helper('url');
 
        }

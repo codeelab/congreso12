@@ -70,13 +70,13 @@ class PHPMailer
      * The From email address for the message.
      * @var string
      */
-    public $From = 'informatica.cecti@gmail.com';
+    public $From = 'root@localhost';
 
     /**
      * The From name of the message.
      * @var string
      */
-    public $FromName = 'SICDET 2017';
+    public $FromName = 'Root User';
 
     /**
      * The Sender email (Return-Path) of the message.
@@ -226,15 +226,14 @@ class PHPMailer
      * Hosts will be tried in order.
      * @var string
      */
-    //public $Host = 'localhost';
-    public $Host = 'ssl://smtp.gmail.com';
+    public $Host = 'localhost';
 
     /**
      * The default SMTP server port.
      * @var integer
      * @TODO Why is this needed when the SMTP class takes care of it?
      */
-    public $Port = 465;
+    public $Port = 25;
 
     /**
      * The SMTP HELO of the message.
@@ -258,7 +257,7 @@ class PHPMailer
      * Be aware that in PHP >= 5.6 this requires that the server's certificates are valid.
      * @var boolean
      */
-    public $SMTPAutoTLS = true;
+    public $SMTPAutoTLS = false;
 
     /**
      * Whether to use SMTP authentication.
@@ -267,7 +266,7 @@ class PHPMailer
      * @see PHPMailer::$Username
      * @see PHPMailer::$Password
      */
-    public $SMTPAuth = TRUE;
+    public $SMTPAuth = false;
 
     /**
      * Options array passed to stream_context_create when connecting via SMTP.
@@ -279,13 +278,13 @@ class PHPMailer
      * SMTP username.
      * @var string
      */
-    public $Username = 'informatica.cecti@gmail.com';
+    public $Username = '';
 
     /**
      * SMTP password.
      * @var string
      */
-    public $Password = 'sicdet2016';
+    public $Password = '';
 
     /**
      * SMTP auth type.
@@ -441,9 +440,9 @@ class PHPMailer
      *
      * Parameters:
      *   boolean $result        result of the send action
-     *   string  $to            email address of the recipient
-     *   string  $cc            cc email addresses
-     *   string  $bcc           bcc email addresses
+     *   array   $to            email addresses of the recipients
+     *   array   $cc            cc email addresses
+     *   array   $bcc           bcc email addresses
      *   string  $subject       the subject
      *   string  $body          the email body
      *   string  $from          email address of sender
@@ -1623,7 +1622,7 @@ class PHPMailer
 
         foreach ($hosts as $hostentry) {
             $hostinfo = array();
-            if (!preg_match('/^((ssl|tls):\/\/)*([a-zA-Z0-9\.-]*):?([0-9]*)$/', trim($hostentry), $hostinfo)) {
+            if (!preg_match('/^((ssl|tls):\/\/)*([a-zA-Z0-9:\[\]\.-]*):?([0-9]*)$/', trim($hostentry), $hostinfo)) {
                 // Not a valid host entry
                 continue;
             }
@@ -2025,10 +2024,7 @@ class PHPMailer
     {
         $result = '';
 
-        if ($this->MessageDate == '') {
-            $this->MessageDate = self::rfcDate();
-        }
-        $result .= $this->headerLine('Date', $this->MessageDate);
+        $result .= $this->headerLine('Date', $this->MessageDate == '' ? self::rfcDate() : $this->MessageDate);
 
         // To be created automatically by mail()
         if ($this->SingleTo) {

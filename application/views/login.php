@@ -20,7 +20,7 @@
         <div class="col-sm-12 nav-tab-holder">
         <ul class="nav nav-tabs row" role="tablist">
           <li role="presentation" class="active col-sm-6"><a href="#ingreso" aria-controls="ingreso" role="tab" data-toggle="tab">Ingreso</a></li>
-          <li role="presentation" class="col-sm-6"><a href="#recuperar" aria-controls="recuperar" role="tab" data-toggle="tab">Recuperar Cuenta</a></li>
+          <!-- <li role="presentation" class="col-sm-6"><a href="#recuperar" aria-controls="recuperar" role="tab" data-toggle="tab">Recuperar Cuenta</a></li> -->
         </ul>
         </div>
       </div>
@@ -65,7 +65,7 @@
                 <h3 class="text-center"><i class="fa fa-users"></i>
                     Acceso a usuarios registrados en el <br>Congreso Estatal de Ciencia, Tecnología e Innovación <?=date('Y')?>
                 </h3>
-                <?=form_open(base_url().'login/new_user')?>
+                <?=form_open(base_url().'login/acceso')?>
                    <div class="form-group">
                         <label for="usuario" class="col-sm-2 control-label">Usuario</label>
                     <div class="col-sm-10">
@@ -95,31 +95,6 @@
         </div>
         <!-- end of home -->
 
-      <div role="tabpanel" class="tab-pane" id="recuperar">
-        <div class="row">
 
-          <div class="col-sm-12 mobile-pull">
-            <article role="login" class='signup form-horizontal'>
-              <h3 class="text-center"><i class="fa fa-lock"></i> Recuperación de Contraseña</h3>
-              <?=form_open(base_url().'login/request_password')?>
-              <form class="signup">
-                  <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Correo</label>
-                    <div class="col-sm-10">
-                  <input type="email" class="form-control" placeholder="Correo electrónico" name="email" id="email" value="<?php echo set_value('email')?>">
-                </div>
-                </div>
-
-                <div class="form-group">
-                <div class="col-sm-12">
-                  <input type="submit" class="btn btn-success btn-block"  value="SUBMIT">
-                </div>
-                </div>
-              <?php echo form_close(); ?>
-            </article>
-          </div>
-
-        </div>
-      </div>
   </div>
 </section>

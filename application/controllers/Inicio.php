@@ -5,20 +5,20 @@ class Inicio extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Inicio_model');
+        $this->load->model(array('Inicio_model'));
         $this->load->helper(array('url','form','security'));
-        $this->load->library(array('form_validation','session','TCpdf'));
+        $this->load->library(array('form_validation','session','pdf'));
         $this->load->database('default');
     }
 
 
-	public function index()
-	{
+    public function index()
+    {
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view('inicio');
         $this->load->view("theme/footer");
-	}
+    }
 
     public function contacto()
     {
@@ -28,18 +28,17 @@ class Inicio extends CI_Controller {
         $this->load->view("theme/footer");
     }
 
-    public function registros($show_error = false)
+    public function registros()
     {
-        $data['error'] = $show_error;
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view('registro',$data);
+        $this->load->view('registro');
         $this->load->view("theme/footer");
     }
 
-    public function registro($show_error = false)
+    public function registro()
     {
-        $data['error'] = $show_error;
+       $data['alert'] = $this->Inicio_model->alerta();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view('registro',$data);
@@ -267,7 +266,6 @@ public function bar(){
 
                 //GENERADOR DE PDF EN CORREO
                 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                $pdf->AddPage();
                 $nombres = $nombre .' '.$paterno .' '.$materno;
                 $registro = "000".$id_usuarios."";
                 $acceso = $_POST['puesto'];
@@ -281,6 +279,37 @@ public function bar(){
                         \nStatus: \n".$status."
                         ";
 
+
+                $pdf->AddPage();
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/correo_ponente.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(60,70);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->SetXY(89,77);
+                $pdf->SetFont('dejavusans', '', 11, '', true);
+                $pdf->Write(50, 'Líneamientos Generales', 'http://sicdet.org/congreso_ciencia/formatos/Lineamientos_congreso12.pdf');
+                $pdf->SetFont('dejavusans', '', 12, '', true);
+                $pdf->SetXY(40,174);
+                $pdf->writeHTML($user, true, false, true, false, '');
+                $pdf->SetXY(40,180);
+                $pdf->writeHTML($pa, true, false, true, false, '');
+
+
+
+                $pdf->AddPage();
                 // get the current page break margin
                 $bMargin = $pdf->getBreakMargin();
                 // get current auto-page-break mode
@@ -310,48 +339,9 @@ public function bar(){
                 $pdf->SetXY(39,95);
                 $pdf->writeHTML($nombres, true, false, true, false, '');
                 $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
-                $pdflisto = $pdf->Output('','S');
+                $pdflisto = $pdf->Output();
 
-
-            //Enviar Correo Electrónico
-            $this->load->library('My_PHPMailer');
-            $this->load->model('Enviar_correo');
-            $mail = new PHPMailer();
-            $mail->SMTPAuth   = true; // enabled SMTP authentication
-            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
-            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
-            $mail->Port       = 465;                   // SMTP port to connect to GMail
-            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
-            $mail->Password   = "sicdet2016";            // password in GMail
-            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
-            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
-            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
-            $mail->Debugoutput = 'html';
-            $mail->IsHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $datos['username'] = $user;
-            $datos['password'] = $pa;
-            $datos['nombre'] = $nombre;
-            $datos['a_paterno'] = $paterno;
-            $datos['a_materno'] = $materno;
-            $mail->Subject = "Credenciales de Acceso XII CECTI";
-            $mail->Body = $this->Enviar_correo->registro_ponentes($datos);
-            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
-            $mail->AltBody = "Credenciales de Acceso XII CECTI";
-            $correo_destino = $_POST['email'];
-            if (strlen($correo_destino) > 5) {
-                $mail->AddAddress($correo_destino, $_POST['nombre']);
-            }
-
-            if (!$mail->Send()) {
-                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
-                show_error("Error en el envío: " . $mail->ErrorInfo);
-            } else {
-                $data["message"] = "¡Mensaje enviado correctamente!";
-                //show_error("Si se envió");
-            }
-
-             $this->login();
+             
         }
 
 
@@ -375,7 +365,6 @@ public function bar(){
 
                 //GENERADOR DE PDF EN CORREO
                 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                $pdf->AddPage();
                 $nombres = $nombre .' '.$paterno .' '.$materno;
                 $registro = "000".$id_usuarios."";
                 $acceso = $_POST['puesto'];
@@ -389,6 +378,37 @@ public function bar(){
                         \nStatus: \n".$status."
                         ";
 
+
+                $pdf->AddPage();
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/correo_evaluador.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(62,70);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->SetXY(89,77);
+                $pdf->SetFont('dejavusans', '', 11, '', true);
+                $pdf->Write(50, 'Líneamientos Generales', 'http://sicdet.org/congreso_ciencia/formatos/Lineamientos_congreso12.pdf');
+                $pdf->SetFont('dejavusans', '', 12, '', true);
+                $pdf->SetXY(40,174);
+                $pdf->writeHTML($user, true, false, true, false, '');
+                $pdf->SetXY(40,180);
+                $pdf->writeHTML($pa, true, false, true, false, '');
+
+
+
+                $pdf->AddPage();
                 // get the current page break margin
                 $bMargin = $pdf->getBreakMargin();
                 // get current auto-page-break mode
@@ -418,48 +438,9 @@ public function bar(){
                 $pdf->SetXY(39,95);
                 $pdf->writeHTML($nombres, true, false, true, false, '');
                 $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
-                $pdflisto = $pdf->Output('','S');
+                $pdflisto = $pdf->Output();
 
-
-            //Enviar Correo Electrónico
-            $this->load->library('My_PHPMailer');
-            $this->load->model('Enviar_correo');
-            $mail = new PHPMailer();
-            $mail->SMTPAuth   = true; // enabled SMTP authentication
-            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
-            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
-            $mail->Port       = 465;                   // SMTP port to connect to GMail
-            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
-            $mail->Password   = "sicdet2016";            // password in GMail
-            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
-            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
-            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
-            $mail->Debugoutput = 'html';
-            $mail->IsHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $datos['username'] = $user;
-            $datos['password'] = $pa;
-            $datos['nombre'] = $nombre;
-            $datos['a_paterno'] = $paterno;
-            $datos['a_materno'] = $materno;
-            $mail->Subject = "Credenciales de Acceso XII CECTI";
-            $mail->Body = $this->Enviar_correo->registro_evaluador($datos);
-            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
-            $mail->AltBody = "Credenciales de Acceso XII CECTI";
-            $correo_destino = $_POST['email'];
-            if (strlen($correo_destino) > 5) {
-                $mail->AddAddress($correo_destino, $_POST['nombre']);
-            }
-
-            if (!$mail->Send()) {
-                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
-                show_error("Error en el envío: " . $mail->ErrorInfo);
-            } else {
-                $data["message"] = "¡Mensaje enviado correctamente!";
-                //show_error("Si se envió");
-            }
-
-             $this->login();
+             
         }
 
     function registro_moderador() {
@@ -482,7 +463,6 @@ public function bar(){
 
                 //GENERADOR DE PDF EN CORREO
                 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                $pdf->AddPage();
                 $nombres = $nombre .' '.$paterno .' '.$materno;
                 $registro = "000".$id_usuarios."";
                 $acceso = $_POST['puesto'];
@@ -496,6 +476,37 @@ public function bar(){
                         \nStatus: \n".$status."
                         ";
 
+
+                $pdf->AddPage();
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/correo_moderador.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(65,70);
+                $pdf->writeHTML($usuario, true, false, true, false, '');
+                $pdf->SetXY(89,77);
+                $pdf->SetFont('dejavusans', '', 11, '', true);
+                $pdf->Write(50, 'Líneamientos Generales', 'http://sicdet.org/congreso_ciencia/formatos/Lineamientos_congreso12.pdf');
+                $pdf->SetFont('dejavusans', '', 12, '', true);
+                $pdf->SetXY(40,174);
+                $pdf->writeHTML($username, true, false, true, false, '');
+                $pdf->SetXY(40,180);
+                $pdf->writeHTML($pass, true, false, true, false, '');
+
+
+
+                $pdf->AddPage();
                 // get the current page break margin
                 $bMargin = $pdf->getBreakMargin();
                 // get current auto-page-break mode
@@ -525,48 +536,9 @@ public function bar(){
                 $pdf->SetXY(39,95);
                 $pdf->writeHTML($nombres, true, false, true, false, '');
                 $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
-                $pdflisto = $pdf->Output('','S');
+                $pdflisto = $pdf->Output();
 
-
-            //Enviar Correo Electrónico
-            $this->load->library('My_PHPMailer');
-            $this->load->model('Enviar_correo');
-            $mail = new PHPMailer();
-            $mail->SMTPAuth   = true; // enabled SMTP authentication
-            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
-            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
-            $mail->Port       = 465;                   // SMTP port to connect to GMail
-            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
-            $mail->Password   = "sicdet2016";            // password in GMail
-            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
-            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
-            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
-            $mail->Debugoutput = 'html';
-            $mail->IsHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $datos['username'] = $user;
-            $datos['password'] = $pa;
-            $datos['nombre'] = $nombre;
-            $datos['a_paterno'] = $paterno;
-            $datos['a_materno'] = $materno;
-            $mail->Subject = "Credenciales de Acceso XII CECTI";
-            $mail->Body = $this->Enviar_correo->registro_moderador($datos);
-            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
-            $mail->AltBody = "Credenciales de Acceso XII CECTI";
-            $correo_destino = $_POST['email'];
-            if (strlen($correo_destino) > 5) {
-                $mail->AddAddress($correo_destino, $_POST['nombre']);
-            }
-
-            if (!$mail->Send()) {
-                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
-                show_error("Error en el envío: " . $mail->ErrorInfo);
-            } else {
-                $data["message"] = "¡Mensaje enviado correctamente!";
-                //show_error("Si se envió");
-            }
-
-             $this->login();
+             
         }
 
 
@@ -590,7 +562,6 @@ public function bar(){
 
                 //GENERADOR DE PDF EN CORREO
                 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                $pdf->AddPage();
                 $nombres = $nombre .' '.$paterno .' '.$materno;
                 $registro = "000".$id_usuarios."";
                 $acceso = $_POST['puesto'];
@@ -604,6 +575,37 @@ public function bar(){
                         \nStatus: \n".$status."
                         ";
 
+
+                $pdf->AddPage();
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/correo_relator.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(55,70);
+                $pdf->writeHTML($usuario, true, false, true, false, '');
+                $pdf->SetXY(89,77);
+                $pdf->SetFont('dejavusans', '', 11, '', true);
+                $pdf->Write(50, 'Líneamientos Generales', 'http://sicdet.org/congreso_ciencia/formatos/Lineamientos_congreso12.pdf');
+                $pdf->SetFont('dejavusans', '', 12, '', true);
+                $pdf->SetXY(40,174);
+                $pdf->writeHTML($username, true, false, true, false, '');
+                $pdf->SetXY(40,180);
+                $pdf->writeHTML($pass, true, false, true, false, '');
+
+
+
+                $pdf->AddPage();
                 // get the current page break margin
                 $bMargin = $pdf->getBreakMargin();
                 // get current auto-page-break mode
@@ -633,50 +635,10 @@ public function bar(){
                 $pdf->SetXY(39,95);
                 $pdf->writeHTML($nombres, true, false, true, false, '');
                 $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
-                $pdflisto = $pdf->Output('','S');
+                $pdflisto = $pdf->Output();
 
-
-            //Enviar Correo Electrónico
-            $this->load->library('My_PHPMailer');
-            $this->load->model('Enviar_correo');
-            $mail = new PHPMailer();
-            $mail->SMTPAuth   = true; // enabled SMTP authentication
-            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
-            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
-            $mail->Port       = 465;                   // SMTP port to connect to GMail
-            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
-            $mail->Password   = "sicdet2016";            // password in GMail
-            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
-            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
-            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
-            $mail->Debugoutput = 'html';
-            $mail->IsHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $datos['username'] = $user;
-            $datos['password'] = $pa;
-            $datos['nombre'] = $nombre;
-            $datos['a_paterno'] = $paterno;
-            $datos['a_materno'] = $materno;
-            $mail->Subject = "Credenciales de Acceso XII CECTI";
-            $mail->Body = $this->Enviar_correo->registro_relator($datos);
-            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
-            $mail->AltBody = "Credenciales de Acceso XII CECTI";
-            $correo_destino = $_POST['email'];
-            if (strlen($correo_destino) > 5) {
-                $mail->AddAddress($correo_destino, $_POST['nombre']);
-            }
-
-            if (!$mail->Send()) {
-                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
-                show_error("Error en el envío: " . $mail->ErrorInfo);
-            } else {
-                $data["message"] = "¡Mensaje enviado correctamente!";
-                //show_error("Si se envió");
-            }
-
-             $this->login();
+             
         }
-
 
     function registro_logistico() {
 
@@ -695,10 +657,8 @@ public function bar(){
            $id_usuarios = $this->db->insert_id();
            $this->db->query("UPDATE usuarios SET username='{$_POST['username']}',  password='{$_POST['password']}', token='$token' WHERE id_usuarios='$id_usuarios'");
 
-
                 //GENERADOR DE PDF EN CORREO
                 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                $pdf->AddPage();
                 $nombres = $nombre .' '.$paterno .' '.$materno;
                 $registro = "000".$id_usuarios."";
                 $acceso = $_POST['puesto'];
@@ -712,6 +672,37 @@ public function bar(){
                         \nStatus: \n".$status."
                         ";
 
+
+                $pdf->AddPage();
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/correo_apoyo.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(55,70);
+                $pdf->writeHTML($usuario, true, false, true, false, '');
+                $pdf->SetXY(89,77);
+                $pdf->SetFont('dejavusans', '', 11, '', true);
+                $pdf->Write(50, 'Líneamientos Generales', 'http://sicdet.org/congreso_ciencia/formatos/Lineamientos_congreso12.pdf');
+                $pdf->SetFont('dejavusans', '', 12, '', true);
+                $pdf->SetXY(40,174);
+                $pdf->writeHTML($username, true, false, true, false, '');
+                $pdf->SetXY(40,180);
+                $pdf->writeHTML($pass, true, false, true, false, '');
+
+
+
+                $pdf->AddPage();
                 // get the current page break margin
                 $bMargin = $pdf->getBreakMargin();
                 // get current auto-page-break mode
@@ -741,48 +732,9 @@ public function bar(){
                 $pdf->SetXY(39,95);
                 $pdf->writeHTML($nombres, true, false, true, false, '');
                 $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
-                $pdflisto = $pdf->Output('','S');
+                $pdflisto = $pdf->Output();
 
-
-            //Enviar Correo Electrónico
-            $this->load->library('My_PHPMailer');
-            $this->load->model('Enviar_correo');
-            $mail = new PHPMailer();
-            $mail->SMTPAuth   = true; // enabled SMTP authentication
-            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
-            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
-            $mail->Port       = 465;                   // SMTP port to connect to GMail
-            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
-            $mail->Password   = "sicdet2016";            // password in GMail
-            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
-            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
-            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
-            $mail->Debugoutput = 'html';
-            $mail->IsHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $datos['username'] = $user;
-            $datos['password'] = $pa;
-            $datos['nombre'] = $nombre;
-            $datos['a_paterno'] = $paterno;
-            $datos['a_materno'] = $materno;
-            $mail->Subject = "Credenciales de Acceso XII CECTI";
-            $mail->Body = $this->Enviar_correo->registro_logistico($datos);
-            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
-            $mail->AltBody = "Credenciales de Acceso XII CECTI";
-            $correo_destino = $_POST['email'];
-            if (strlen($correo_destino) > 5) {
-                $mail->AddAddress($correo_destino, $_POST['nombre']);
-            }
-
-            if (!$mail->Send()) {
-                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
-                show_error("Error en el envío: " . $mail->ErrorInfo);
-            } else {
-                $data["message"] = "¡Mensaje enviado correctamente!";
-                //show_error("Si se envió");
-            }
-
-             $this->login();
+             
         }
 
     function registro_asistente() {
@@ -805,7 +757,6 @@ public function bar(){
 
                 //GENERADOR DE PDF EN CORREO
                 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-                $pdf->AddPage();
                 $nombres = $nombre .' '.$paterno .' '.$materno;
                 $registro = "000".$id_usuarios."";
                 $acceso = $_POST['puesto'];
@@ -819,6 +770,37 @@ public function bar(){
                         \nStatus: \n".$status."
                         ";
 
+
+                $pdf->AddPage();
+                // get the current page break margin
+                $bMargin = $pdf->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $pdf->getAutoPageBreak();
+                // disable auto-page-break
+                $pdf->SetAutoPageBreak(false, 0);
+                // set bacground image
+                $pdf->Image('assets/images/correo_asistente.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $pdf->setPageMark();
+                // set style for barcode
+                $pdf->SetFont('dejavusans', '', 14, '', true);
+                $pdf->SetTextColor(70,70,72);
+                $pdf->SetXY(42,70);
+                $pdf->writeHTML($nombres, true, false, true, false, '');
+                $pdf->SetXY(89,77);
+                $pdf->SetFont('dejavusans', '', 11, '', true);
+                $pdf->Write(50, 'Líneamientos Generales', 'http://sicdet.org/congreso_ciencia/formatos/Lineamientos_congreso12.pdf');
+                $pdf->SetFont('dejavusans', '', 12, '', true);
+                $pdf->SetXY(40,174);
+                $pdf->writeHTML($user, true, false, true, false, '');
+                $pdf->SetXY(40,180);
+                $pdf->writeHTML($pa, true, false, true, false, '');
+
+
+
+                $pdf->AddPage();
                 // get the current page break margin
                 $bMargin = $pdf->getBreakMargin();
                 // get current auto-page-break mode
@@ -848,50 +830,8 @@ public function bar(){
                 $pdf->SetXY(39,95);
                 $pdf->writeHTML($nombres, true, false, true, false, '');
                 $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
-                $pdflisto = $pdf->Output('','S');
-
-
-            //Enviar Correo Electrónico
-            $this->load->library('My_PHPMailer');
-            $this->load->model('Enviar_correo');
-            $mail = new PHPMailer();
-            $mail->SMTPAuth   = true; // enabled SMTP authentication
-            $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
-            $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
-            $mail->Port       = 465;                   // SMTP port to connect to GMail
-            $mail->Username   = "informatica.cecti@gmail.com";  // user email address
-            $mail->Password   = "sicdet2016";            // password in GMail
-            $mail->IsSMTP(); // establecemos que utilizaremos SMTP
-            $mail->SetFrom('informatica.cecti@gmail.com', 'Consejo Estatal de Ciencia, Tecnología e Innovación');  //Quien envía el correo
-            $mail->AddReplyTo("informatica.cecti@gmail.com", "Consejo Estatal de Ciencia, Tecnología e Innovación");  //A quien debe ir dirigida la respuesta
-            $mail->Debugoutput = 'html';
-            $mail->IsHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $datos['username'] = $user;
-            $datos['password'] = $pa;
-            $datos['nombre'] = $nombre;
-            $datos['a_paterno'] = $paterno;
-            $datos['a_materno'] = $materno;
-            $mail->Subject = "Credenciales de Acceso XII CECTI";
-            $mail->Body = $this->Enviar_correo->registro_asistente($datos);
-            $mail->addStringAttachment($pdflisto,"REGISTRO"."-".$id_usuarios.".pdf");
-            $mail->AltBody = "Credenciales de Acceso XII CECTI";
-            $correo_destino = $_POST['email'];
-            if (strlen($correo_destino) > 5) {
-                $mail->AddAddress($correo_destino, $_POST['nombre']);
-            }
-
-            if (!$mail->Send()) {
-                $data["message"] = "Ocurrio un error en el envío: " . $mail->ErrorInfo;
-                show_error("Error en el envío: " . $mail->ErrorInfo);
-            } else {
-                $data["message"] = "¡Mensaje enviado correctamente!";
-                //show_error("Si se envió");
-            }
-
-             $this->login();
+                $pdflisto = $pdf->Output();
         }
-
 
 
 }

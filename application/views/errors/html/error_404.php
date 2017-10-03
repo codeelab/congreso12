@@ -12,14 +12,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <meta name="Generator" content="Secretaría de Innovación, Ciencia y Desarrollo Tecnológico"/>
 <link type="image/vnd.microsoft.icon" rel="shortcut icon" href="../assets/img/favicon.ico">
 <meta name="robots" content="index, follow"/>
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="../assets/css/bootstrapValidator.min.css" rel="stylesheet">
-<link href="../assets/css/prettyPhoto.css" rel="stylesheet">
-<link href="../assets/css/animate.css" rel="stylesheet">
-<link href="../assets/css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../assets/css/dataTables.responsive.css" rel="stylesheet">
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/css/bootstrapValidator.min.css" rel="stylesheet">
+<link href="assets/css/prettyPhoto.css" rel="stylesheet">
+<link href="assets/css/animate.css" rel="stylesheet">
+<link href="assets/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="assets/css/dataTables.responsive.css" rel="stylesheet">
 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-<link href="../assets/css/main.css" rel="stylesheet">
+<link href="assets/css/main.css" rel="stylesheet">
 <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
     <script src="assets/js/respond.min.js"></script>
@@ -149,7 +149,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="index"><img src="../assets/img/header_12_congreso.png" alt="logo" width="270px"></a>
+<a class="navbar-brand" href="index"><img src="assets/img/header_12_congreso.png" alt="logo" width="270px"></a>
 </div>
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav navbar-right">
@@ -191,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <div class="page-404">
     <p class="text-404">404</p>
 <h2>Oops, a ocurrido un error al intentar acceder a la pagina solicitada.</h2>
-<a class="btn btn-success" href="index">REGRESA A LA PAGINA PRINCIPAL</a>
+<a class="btn btn-success" href="http://sicdet.org/congreso_ciencia/">REGRESA A LA PAGINA PRINCIPAL</a>
   </div>
 
 </section>
@@ -210,7 +210,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="col-md-3 col-sm-6">
 <ul class="pull-left" style="list-style: none;">
   <li>
-       <center><img src="../assets/images/logo_foot.png"  height="125px" alt="Michoacán"></center>
+       <center><img src="assets/images/logo_foot.png"  height="125px" alt="Michoacán"></center>
   </li>
 </ul>
 </div>
@@ -231,11 +231,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="col-md-3 col-sm-6">
 <ul class="pull-left" style="list-style: none;">
     <li>
-        <center><img src="../assets/images/logo_estaenti_foot.png" width="120" height="72" alt="Michoacán"></center>
+        <center><img src="assets/images/logo_estaenti_foot.png" width="120" height="72" alt="Michoacán"></center>
     </li>
     <br>
     <li>
-        <center><img src="../assets/images/logo_sicdet_grises.png" width="270" height="60" alt="Michoacán"></center>
+        <center><img src="assets/images/logo_sicdet_grises.png" width="270" height="60" alt="Michoacán"></center>
     </li>
 </ul>
 </div>
@@ -260,17 +260,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 </div>
 </footer>
-<script src="../assets/js/jquery.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/bootstrapValidator.min.js"></script>
-<script src="../assets/js/jquery.prettyPhoto.js"></script>
-<script src="../assets/js/main.js"></script>
-<script src="../assets/js/funciones.js"></script>
-<script src="../assets/js/jquery.dataTables.min.js"></script>
-<script src="../assets/js/dataTables.responsive.min.js"></script>
-<script src="../assets/js/dataTables.bootstrap.js"></script>
-<script src="../assets/js/ajax.js"></script>
-<script src="../assets/js/zxcvbn.js"></script>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrapValidator.min.js"></script>
+<script src="assets/js/jquery.prettyPhoto.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/funciones.js"></script>
+<script src="assets/js/jquery.dataTables.min.js"></script>
+<script src="assets/js/dataTables.responsive.min.js"></script>
+<script src="assets/js/dataTables.bootstrap.js"></script>
+<script src="assets/js/ajax.js"></script>
+<script src="assets/js/zxcvbn.js"></script>
 
 </body>
 </html>

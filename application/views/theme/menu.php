@@ -1,4 +1,4 @@
-<header class="navbar navbar-inverse navbar-fixed-top wet-asphalt">
+<header class="navbar navbar-inverse navbar-fixed-top wet-asphalt"><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
 <div class="container">
 <div class="navbar-header">
 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,10 +18,10 @@
                     <a href="<?php echo base_url(); ?>inicio/registro" title="Registro">Registro</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>formatos/convocatoria_congreso12.pdf"  target="_blank" title="Convocatoria">Convocatoria</a>
+                    <a href="<?php echo base_url(); ?>formatos/Convocatoria_congreso12.pdf"  target="_blank" title="Convocatoria">Convocatoria</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>formatos/lineamientos_congreso12.pdf"  target="_blank" title="Lineamientos">Lineamientos</a>
+                    <a href="<?php echo base_url(); ?>formatos/Lineamientos_congreso12.pdf"  target="_blank" title="Lineamientos">Lineamientos</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Memorias  <i class="fa fa-angle-down" aria-hidden="true"></i></a>

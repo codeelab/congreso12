@@ -28,7 +28,7 @@
 <div class="col-sm-6">
 <div class="carousel-content centered">
 <h2 class="animation animated-item-1" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">XII Congreso Estatal de Ciencia, Tecnología e Innovación </h2>
-<p class="animation animated-item-2" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">Morelia, Michoacán - Marzo 2017</p>
+<p class="animation animated-item-2" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">Morelia, Michoacán - Junio 2017</p>
 </div>
 </div>
 
@@ -94,7 +94,7 @@
 <div class="col-sm-6">
 <div class="carousel-content centered">
 <h2 class="animation animated-item-1" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">6to. Encuentro de Jóvenes Investigadores del Estado de Michoacán.</h2>
-<p class="animation animated-item-2" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">Morelia, Michoacán - Marzo 2017</p>
+<p class="animation animated-item-2" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">Morelia, Michoacán - Junio 2017</p>
 </div>
 </div>
 
@@ -194,7 +194,7 @@
 <div class="col-sm-6">
 <div class="carousel-content centered">
 <h2 class="animation animated-item-1" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">Investigación, Desarrollo y Prototipos.</h2>
-<p class="animation animated-item-2" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">Morelia, Michoacán - Marzo 2017</p>
+<p class="animation animated-item-2" style="color:#fff;font-family: adobe-garamond-pro, serif;font-style: normal;font-weight: 400;">Morelia, Michoacán - Junio 2017</p>
 </div>
 </div>
 </div>

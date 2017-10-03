@@ -4,6 +4,31 @@
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
 
+if(!$user)
+{
+  redirect('login','refresh');
+  exit();
+}
+
+//Validamos si es el path principal ? , si lo es deje accesar desde url
+        if ($this->uri->uri_string()) {
+            //Carga Libraria User_agent
+            $this->load->library('user_agent');
+            //Verifica si llega desde un enlace
+            if ($this->agent->referrer()) {
+                //Busca si el enlace llega de una URL diferente
+                $post = strpos($this->agent->referrer(), base_url());
+                if ($post === FALSE) {
+                    //Podemos aqui crear un mensaje antes de redirigir que informe
+                    redirect(base_url());
+                }
+            }
+            //Si no se llega desde un enlace se redirecciona al inicio
+            else {
+                //Podemos aqui crear un mensaje antes de redirigir que informe
+                redirect(base_url());
+            }
+        }
 ?>
 
 <section id="title" class="emerald">
@@ -67,13 +92,13 @@ if($ponencias !== FALSE) {
             if (empty($row->archivo_resumen)) {
                 $resumen = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
-                $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
+                $resumen = "<a href='" . base_url() . "{$row->archivo_resumen}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->titulo'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
             if (empty($row->archivo_extenso)) {
                 $extenso = "<a><button type='button' class='btn btn-warning' data-toggle='tooltip' data-placement='bottom' title='No existe archivo'><i class='fa fa-exclamation-circle' aria-hidden='true'></i></button></a>";
             }else{
-                $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->autor'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
+                $extenso = "<a href='" . base_url() . "{$row->archivo_extenso}' target='_blank'><button type='button' class='btn btn-danger' data-toggle='tooltip' data-placement='bottom' title='$row->titulo'><i class='fa fa-file-pdf-o' aria-hidden='true'></i></button></a>";
             }
 
                echo "<tr>

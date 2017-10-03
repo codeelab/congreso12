@@ -12,7 +12,7 @@ class Logistico extends MY_Controller {
        {
             parent::__construct();
             $this->load->model('Logistico_model');
-            $this->load->library("session");
+            $this->load->library(array('session','user_agent'));
             $this->load->helper('url');
 
        }

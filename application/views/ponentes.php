@@ -14,7 +14,7 @@
 <section id="contact-page" class="container">
 
 <?php $atrib = array('name' => 'form1', 'id' => 'registro');
-echo form_open('inicio/registro_ponente', $atrib); ?>
+echo form_open('inicio/register', $atrib); ?>
         <div class="row">
             <div class="col-md-4">
                 <label class="form-text" for="nombre">Nombre</label>
@@ -47,14 +47,14 @@ echo form_open('inicio/registro_ponente', $atrib); ?>
                 $options = array ('' => 'Elija estado de procedencia');
                 foreach($estados as $estado)
                     $options[$estado->id_estado] = $estado->nombre_est;
-                echo form_dropdown('estado', $options, '', 'class="form-control" id="estado" name="estado"');
+                echo form_dropdown('estado', $options, ' ', 'class="form-control" id="estado" name="estado"');
                 ?>
             </div>
             <div class="col-md-4">
                 <label class="form-text" for="municipio">Municipio</label>
                  <?php
                     $options = array(''=>'Elija un estado');
-                    echo form_dropdown('municipio', $options, '', 'class="form-control" id="municipio" name="municipio"');
+                    echo form_dropdown('municipio', $options, ' ', 'class="form-control" id="municipio" name="municipio" ');
                 ?>
             </div>
         </div>

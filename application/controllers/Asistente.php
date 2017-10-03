@@ -6,22 +6,22 @@
  */
 class Asistente extends MY_Controller {
 
-       //protected $access = array("Admin", "Evaluador");
 
        public function __construct()
        {
             parent::__construct();
             $this->load->model('Asistente_model');
-            $this->load->library("session");
+            $this->load->library(array('session','user_agent'));
             $this->load->helper('url');
 
        }
 
     public function index()
     {
+        $data['alert'] = $this->Asistente_model->alerta();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view("asistente/index");
+        $this->load->view("asistente/index",$data);
         $this->load->view("theme/footer");
     }
 

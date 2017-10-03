@@ -1,14 +1,37 @@
 <?php
 
-  $user = $this->session->userdata('id_usuarios');
-  $nombre = $this->session->userdata('nombre');
-  $a_paterno = $this->session->userdata('a_paterno');
-  $a_materno = $this->session->userdata('a_materno');
+    $user = $this->session->userdata('id_usuarios');
+    $nombre = $this->session->userdata('nombre');
+    $a_paterno = $this->session->userdata('a_paterno');
+    $a_materno = $this->session->userdata('a_materno');
+    $mesa = $this->session->userdata('mesa');
 
-  $actual = date('d') . '/' . date('m') . '/' . date('y');
+if(!$user)
+{
+  redirect('login','refresh');
+  exit();
+}
 
-  $FIR = "17/04/2017";
-  $FCR = "14/05/2017";
+
+
+  $actual = date('Y') . '-' . date('m') . '-' . date('d');
+
+  foreach ($alert as $rows) {
+    //Para los avisos de subida de resumen y cierre del módulo a todos los ponentes
+    $FIR = $rows->fecha_inicio_resumen;
+    $FCR = $rows->fecha_cierre_resumen;
+    //Para los avisos de estado a todos los ponentes aprobados
+    $FIA = $rows->fecha_inicio_estado;
+    $FCA = $rows->fecha_cierre_estado;
+    //Para los avisos de subida de extensos y cierre del módulo a todos los ponentes aprobados
+    $FIE = $rows->fecha_inicio_extenso;
+    $FCE = $rows->fecha_cierre_extenso;
+    //Para los avisos de CONSTANCIAS a todos los ponentes aprobados
+    $FIC = $rows->fecha_inicio_constancia;
+    $FCC = $rows->fecha_cierre_constancia;
+  }
+
+
 
 ?>
 
@@ -29,26 +52,30 @@
 </section>
 <section id="pricing">
 <div class="container">
-<?php if($FCR > $actual): ?>
-  <!-- Función texto sólo para alerta de resúmen -->
-  <div class='alert alert-info' role='alert'><p class='lead'>Los horarios, fechas y ponencias seran visualizadas durante los días del <b>Congreso Estatal de Ciencia y Desarrollo Tecnólogico <?=date('Y')?></b>, del <b>26 de octubre del 2017</b> al <b>29 de octubre del 2017</b>. Le sugerimos estar en el horario y mesa asignada con media hora de anticipación.</p></div>
-
-
-<?php else: ?>
+    <?php if($FCR > $actual && $actual < $FIA): ?>
     <!-- Función texto sólo para alerta de resúmen -->
-    <div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, se ha habilitado su <b>Constancia</b> de participación del XII Congreso Estatal de Ciencia, Innovación y Desarrollo Tecnólogico <?=date('Y');?></p></div>
+    <div class='alert alert-info' role='alert'><p class='lead'>La fecha límite para subir el resumen a la plataforma será el día <b>25 de agosto</b>. Por lo cual el Inicio de las evaluaciones es a partir del día <b>28 de agosto</b>.</p></div>
+
+   <?php elseif ($FIA >= $actual && $actual < $FIE): ?>
+    <!-- Función texto sólo para alerta de resúmen -->
+    <div class='alert alert-warning' role='alert'><p class='lead'>Del 28 de Agosto al 01 de Septiembre se deben realizar las evaluaciones de la mesa asignada y cambiar el estatus de <b>ENVIADO</b> a <b>ACEPTADO</b> o <b>NO ACEPTADO</b>.</p></div>
+
+    <?php else: ?>
+    <!-- Función texto sólo para alerta de resúmen -->
+    <div class='alert alert-success' role='alert'><p class='lead'>Estimado Evaluador del 6to Encuentro de Jovenes Investigadores del Estado de Michoacán, su constancia de participación podrá ser descargada a partir del día <b>7 de Octubre 2017 y hasta el 28 de Febrero 2018</b> en ésta plataforma.</p></div>
 
 <?php endif ?>
 
 <div class="gap"></div>
 <div id="pricing-table" class="row">
 
+
 <?php if ($FCR > $actual): ?>
 
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan2 featured'>
 <li class='plan-name'>
-<h4>Ponencias Asignadas</h4>
+<p>Ponencias Asignadas</p>
 </li>
 <li class='plan-price'>
 <div>
@@ -65,7 +92,7 @@
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan3'>
 <li class='plan-name'>
-<h4>Horarios</h4>
+<p>Horarios</p>
 </li>
 <li class='plan-price'>
 <div>
@@ -85,7 +112,7 @@
 <div class='col-md-3 col-xs-6'>
 <ul class='plan plan3'>
 <li class='plan-name'>
-<h4>Constancias</h4>
+<p>Constancias</p>
 </li>
 <li class='plan-price'>
 <div>
@@ -93,7 +120,7 @@
 </div>
 </li>
 <li class='plan-action'>
-<a href='constancias' class='btn btn-outlined btn-white' data-wow-delay='0.7s'><i class='fa fa-download' aria-hidden='true'></i>   Descargas</a>
+<a href='<?php echo base_url(); ?>moderador/constancias' class='btn btn-outlined btn-white' data-wow-delay='0.7s'><i class='fa fa-download' aria-hidden='true'></i>   Descargas</a>
 </li>
 </ul>
 </div>

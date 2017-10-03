@@ -1,18 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Created by JetBrains PhpStorm.
- * User: isra
- * Date: 19/01/13
- * Time: 18:51
- * To change this template use File | Settings | File Templates.
- */
+
 class Login extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->model('login_model');
-        $this->load->library(array('session','form_validation','email'));
+        $this->load->library(array('session','form_validation','email','user_agent'));
         $this->load->helper(array('url','form'));
         $this->load->database('default');
     }
@@ -21,41 +15,47 @@ class Login extends CI_Controller
     {
         switch ($this->session->userdata('puesto')) {
             case '':
-                $this->load->library('recaptcha');
                 $data['token'] = $this->token();
                 $this->load->view("theme/header");
                 $this->load->view("theme/menu");
                 $this->load->view('login',$data);
                 $this->load->view("theme/footer");
                 break;
-            case 'administrador':
-                redirect(base_url().'ad/index');
+            case '1':
+                redirect(base_url().'admin/index');
                 break;
-            case 'ponente':
+            case '2':
                 redirect(base_url().'ponente/index');
                 break;
-            case 'evaluador':
+            case '3':
                 redirect(base_url().'evaluador/index');
                 break;
-            case 'encuentro':
-                redirect(base_url().'encuentro/index');
-                break;
-            case 'relator':
-                redirect(base_url().'relator/index');
-                break;
-            case 'moderador':
+            case '4':
                 redirect(base_url().'moderador/index');
                 break;
-            case 'logistico':
+            case '5':
+                redirect(base_url().'relator/index');
+                break;
+            case '6':
                 redirect(base_url().'logistico/index');
                 break;
-            case 'asistente':
+            case '7':
                 redirect(base_url().'asistente/index');
                 break;
+            case '8':
+                redirect(base_url().'organizador/index');
+                break;
+            case '9':
+                redirect(base_url().'encuentro/index');
+                break;
+            case '10':
+                redirect(base_url().'apoyo/index');
+                break;
             default:
+                $data['token'] = $this->token();
                 $this->load->view("theme/header");
                 $this->load->view("theme/menu");
-                $this->load->view('login');
+                $this->load->view('login',$data);
                 $this->load->view("theme/footer");
                 break;
         }
@@ -63,19 +63,19 @@ class Login extends CI_Controller
 
     public function token()
     {
-        $token = md5(uniqid(rand(),true));
+        $token = sha1(uniqid(rand(),true));
         $this->session->set_userdata('token',$token);
         return $token;
     }
 
-    public function new_user()
+    public function acceso()
     {
         $this->load->library('form_validation');
 
         if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))
         {
             $this->form_validation->set_rules('username', 'Nombre de Usuario', 'required|trim|max_length[150]|xss_clean');
-            $this->form_validation->set_rules('password', 'Contraseña', 'required|trim|min_length[1]|max_length[150]|xss_clean');
+            $this->form_validation->set_rules('password', 'Contraseña', 'required|trim|min_length[5]|max_length[150]|xss_clean');
 
 
                 $this->form_validation->set_message('required', '%s requerido');
@@ -110,7 +110,6 @@ class Login extends CI_Controller
                     $this->index();
                 }else {
                      $this->session->set_flashdata('correcto', 'Usuario registrado correctamente!');
-                    //$this->session->set_flashdata('error','Captcha requerido');
                     redirect('login');
         }
             }
@@ -122,7 +121,8 @@ class Login extends CI_Controller
 
     public function salir()
     {
-        $this->session->unset_userdata();
+        $array_sesiones = array('user' => '', 'nombre' => '', 'a_paterno' => '', 'a_materno' => '');
+        $this->session->unset_userdata($array_sesiones);
         $this->session->sess_destroy();
         redirect("login");
     }

@@ -1,22 +1,50 @@
 <?php
-$pdf=new Fpdf_multicell();
-        foreach($datos->result() as $row){
-            if ($row->asesor === $row->asesor) {
-                $pdf->AddPage('L');
-                $pdf->SetAutoPageBreak(false);
-                $pdf->Image('assets/images/constancia_2016.jpg',5,5, 270);
-                $pdf->SetXY(40,90);
-                $pdf->SetFont('Times','B',25);
-                $pdf->Cell(200,25,"$row->asesor",0,1,'C');
-                $pdf->SetFont('Times','',12);
-                $pdf->Cell(150,1,"$row->titulo",0,1,'C');
-                $pdf->SetXY(40,100);
-                $pdf->SetFont('Times','B',14);
-                $pdf->SetXY(0,207);
-                $pdf->SetFont('Times','',10);
-        }else
-        show_error("No hay registros que coincidan");
+
+ob_start();
+
+    foreach ($datos->result() as $row)
+    {
+          $asesor = $row->asesor;
+          $titulo = $row->titulo;
+          $mesa = $row->nombre_tem;
     }
-        $pdf->Output();
+
+    $buscar = array("\\", "¨", "º", "-", "~",
+             "#", "@", "|", "!", "\"",
+             "·", "$", "%", "&", "/",
+             "(", ")", "?", "'", "¡",
+             "¿", "[", "^", "`", "]",
+             "+", "}", "{", "¨", "´",
+             ">", "< ", ";", ":",".");
+
+    $repl = ',';
+
+    $remplazar = str_replace($buscar, $repl, $asesor);
+
+    $ex = explode($repl,$remplazar);
+
+   $ads =  count($ex);
+
+    if ($ads === 1) {
+       include('includes/asesor/1.php');
+    }else if($ads === 2){
+        include('includes/asesor/2.php');
+    }else if($ads === 3){
+        include('includes/asesor/3.php');
+    }else if($ads === 4){
+        include('includes/asesor/4.php');
+    }else if($ads === 5){
+        include('includes/asesor/5.php');
+    }else if($ads === 6){
+        include('includes/asesor/6.php');
+    }else if($ads === 7){
+        include('includes/asesor/7.php');
+    }else if($ads === 8){
+        include('includes/asesor/8.php');
+    }else{
+        echo 'NO EXISTEN DATOS EN EL SISTEMA';
+    }
+
+
 
 ?>

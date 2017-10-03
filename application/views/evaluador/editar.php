@@ -3,6 +3,32 @@
   $nombre = $this->session->userdata('nombre');
   $a_paterno = $this->session->userdata('a_paterno');
   $a_materno = $this->session->userdata('a_materno');
+
+if(!$user)
+{
+  redirect('login','refresh');
+  exit();
+}
+
+//Validamos si es el path principal ? , si lo es deje accesar desde url
+        if ($this->uri->uri_string()) {
+            //Carga Libraria User_agent
+            $this->load->library('user_agent');
+            //Verifica si llega desde un enlace
+            if ($this->agent->referrer()) {
+                //Busca si el enlace llega de una URL diferente
+                $post = strpos($this->agent->referrer(), base_url());
+                if ($post === FALSE) {
+                    //Podemos aqui crear un mensaje antes de redirigir que informe
+                    redirect(base_url());
+                }
+            }
+            //Si no se llega desde un enlace se redirecciona al inicio
+            else {
+                //Podemos aqui crear un mensaje antes de redirigir que informe
+                redirect(base_url());
+            }
+        }
 ?>
 
 <section id="title" class="emerald">
@@ -28,33 +54,24 @@
 <hr>
 <div class="row">
 <div class="col-md-12">
-<?php
-//Si existen las sesiones flasdata que se muestren
-if($this->session->flashdata('correcto'))
-  echo '<div class="alert alert-success" role="alert">';
-   echo $this->session->flashdata('correcto');
-  echo '</div>';
 
-if($this->session->flashdata('incorrecto'))
-  echo '<div class="alert alert-danger" role="alert">';
-   echo $this->session->flashdata('incorrecto');
-  echo '</div>';
-?>
-<form action="" method="post">
-<?php foreach ($editar as $row):?>
+<?=  form_open("/evaluador/evaluando/".$id) ?>
+
   <div class="form-group">
     <label for="">Elija el Estado del proyecto</label>
     <select class="form-control" id="status_id" name="status_id">
-<option value="0">------</option>
+<option value="0">-------</option>
+<option value="2">Aceptado</option>
 <option value="3">No aceptado</option>
+<option value="4">Cancelado</option>
 </select>
 </div>
   <button type="submit" name="submit" value="Evaluar" class="btn btn-default">Enviar</button>
-<?php endforeach;?>
+
 </form>
 <hr>
 <br>
-<a href="<?php echo base_url(); ?>evaluador/aprobado"><button type="button" class="btn btn-primary btn-lg btn-block">Regresar al listado</button></a>
+<a href="<?php echo base_url(); ?>evaluador/listado"><button type="button" class="btn btn-outlined btn-info btn-lg btn-block" data-wow-delay="0.7s" data-wow-delay="0.7s">Regresar al listado</button></a>
 
 </div>
 </div>

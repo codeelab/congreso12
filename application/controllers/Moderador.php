@@ -12,16 +12,17 @@ class Moderador extends MY_Controller {
        {
             parent::__construct();
             $this->load->model('Moderador_model');
-            $this->load->library("session");
+            $this->load->library(array('session','user_agent'));
             $this->load->helper('url');
 
        }
 
     public function index()
     {
+        $data['alert'] = $this->Moderador_model->alerta();
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
-        $this->load->view("moderador/index");
+        $this->load->view("moderador/index",$data);
         $this->load->view("theme/footer");
     }
 
@@ -60,8 +61,17 @@ class Moderador extends MY_Controller {
     public function constancia()
     {
         /* Se obtienen los registros a mostrar*/
-        $id=$this->uri->segment(3);
+        $id = $this->uri->segment(3);
         $data['datos']=$this->db->query("SELECT id_usuarios, nombre, a_paterno, a_materno FROM usuarios WHERE id_usuarios=$id");
         $this->load->view("moderador/constancia_moderador",$data);
     }
+
+
+
+
+
+
+
+
+
 }

@@ -1,21 +1,39 @@
 <?php
-$pdf=new Fpdf_multicell();
-        foreach($datos->result() as $row){
-            $nombre = $row->nombre .' '.$row->a_paterno .' '.$row->a_materno;
-            if ($row->nombre === $row->nombre) {
-                $pdf->AddPage('L');
-                $pdf->SetAutoPageBreak(false);
-                $pdf->Image('assets/images/constancia_2016.jpg',5,5, 270);
-                $pdf->SetXY(40,90);
-                $pdf->SetFont('Times','B',25);
-                $pdf->Cell(200,25,"$nombre",0,1,'C');
-                $pdf->SetXY(40,100);
-                $pdf->SetFont('Times','B',14);
-                $pdf->SetXY(0,207);
-                $pdf->SetFont('Times','',10);
-        }else
-        show_error("No hay registros que coincidan");
+    foreach ($datos->result() as $row) {
+          $evaluador = $row->nombre.' '.$row->a_paterno.' '.$row->a_materno;
     }
-        $pdf->Output();
+        // create new PDF document
+        $pdf = new TCPDF('L', PDF_UNIT, 'A4', true, 'UTF-8', false);
+        $pdf->SetTitle("constancia.pdf");
+        // remove default header/footer
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        // set margins
+        $pdf->SetMargins(10, PDF_MARGIN_TOP, 10);
+        // set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        // set image scale factor
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-?>
+
+        $pdf->AddPage();
+        // disable auto-page-break
+        $pdf->SetAutoPageBreak(false, 0);
+        // set bacground image
+        $pdf->Image('assets/constancias/constancia.jpg', 0, 0, 297, 210, '', '', '', false, 300, '', false, false, 0);
+        // set JPEG quality
+        $pdf->setJPEGQuality(100);
+        // set the starting point for the page content
+        $pdf->setPageMark();
+
+        $pdf->SetTextColor(73,66,73);
+        $pdf->SetFont('dejavusans','',25);
+        $pdf->SetXY(30,89);
+        $pdf->setCellPaddings(45);
+        $html = '<p style="text-align: left; vertical-align:bottom;">'.$evaluador.'</p>';
+        $pdf->writeHTML($html, true, 0, true, true);
+
+
+        $pdf->Output("constancia.pdf");
+
+ ?>

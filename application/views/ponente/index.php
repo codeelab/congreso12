@@ -11,6 +11,25 @@ if(!$user)
   exit();
 }
 
+//Validamos si es el path principal ? , si lo es deje accesar desde url
+        if ($this->uri->uri_string()) {
+            //Carga Libraria User_agent
+            $this->load->library('user_agent');
+            //Verifica si llega desde un enlace
+            if ($this->agent->referrer()) {
+                //Busca si el enlace llega de una URL diferente
+                $post = strpos($this->agent->referrer(), base_url());
+                if ($post === FALSE) {
+                    //Podemos aqui crear un mensaje antes de redirigir que informe
+                    redirect(base_url());
+                }
+            }
+            //Si no se llega desde un enlace se redirecciona al inicio
+            else {
+                //Podemos aqui crear un mensaje antes de redirigir que informe
+                redirect(base_url());
+            }
+        }
 
   $actual = date('Y') . '-' . date('m') . '-' . date('d');
 
@@ -28,12 +47,6 @@ if(!$user)
     $FIC = $rows->fecha_inicio_constancia;
     $FCC = $rows->fecha_cierre_constancia;
   }
-
-    //Para los avisos de cierre de extensos
-    $FIEA = "2017-04-22";
-    $FCEA = "2017-04-23";
-
-
 
 ?>
 
@@ -55,33 +68,53 @@ if(!$user)
 <section id="pricing">
 <div class="container">
 
-<?php if($FCR > $actual && $actual < $FIA): ?>
-  <!-- Función texto sólo para alerta de resúmen -->
-  <div class='alert alert-info' role='alert'><p class='lead'>La fecha límite para subir el resumen será el día <b>28 de Julio</b>. BAJO NINGUNA CIRCUNSTANCIA SE CONCEDERAN PRORROGAS O EXCEPCIONES EN LOS TIEMPOS Y FORMAS DE RECEPCIÓN DE TRABAJOS (Apartado A8 de los <a href="<?php base_url() ?>../formatos/lineamientos_congreso12.pdf" target="_blank">Lineamientos Generales</a>).</p></div>
-
-  <?php elseif ($actual >= $FIA && $actual < $FIE): ?>
+    <?php if($FCR > $actual && $actual < $FIA): ?>
     <!-- Función texto sólo para alerta de resúmen -->
-    <div class='alert alert-warning' role='alert'><p class='lead'>Del 14 al 18 de Agosto se actualizará el estatus de <b>ENVIADO</b> a <b>ACEPTADO</b> o <b>NO ACEPTADO</b>. Las resoluciones del Comité Científico son inapelables.</p></div>
+    <div class='alert alert-info' role='alert'><p class='lead'>Con el fin de enriquecer el 12vo Congreso Estatal de Ciencia, Tecnología e Innovación y por decisión unánime del Comité Organizador, se otorgan <b>dos semanas de prórroga en los tiempos de recepción de trabajos</b>, por lo que la fecha límite para subir el resumen a la plataforma será el día <b>25 de agosto</b>.</p></div>
 
-  <?php elseif($actual > $FIE && $actual <= $FCE): ?>
+    <?php elseif ($actual >= $FIA && $actual < $FIE): ?>
+    <!-- Función texto sólo para alerta de resúmen -->
+    <div class='alert alert-warning' role='alert'><p class='lead'>Del 28 de Agosto al 13 de Septiembre se actualizará el estatus de <b>ENVIADO</b> a <b>APROBADO</b> o <b>NO APROBADO</b>. Las resoluciones del Comité Científico son inapelables.</p></div>
+    <div class='alert alert-info' role='alert'><p class='lead' style="font-size: 16px;">En caso de que tu trabajo haya sido aprobado para exponerse en el 12 CECTI, la subida de extenso se habilitará a partir del <b> 14 de septiembre</b>.</p></div>
+
+    <?php elseif($actual > $FIE && $actual <= $FCE): ?>
     <!-- Función texto sólo para alerta de extenso -->
-    <div class='alert alert-info' role='alert'><p class='lead'>El trabajo en extenso deberá subirse del <b>28 de Agosto al 22 de Septiembre</b>. BAJO NINGUNA CIRCUNSTANCIA SE PRESENTARAN EN LAS MESAS DE TRABAJO, PONENCIAS QUE NO HAYAN ENVIADO SU TRABAJO EN EXTENSO. De igual forma no serán incluidos en las memorias.</p></div>
+    <div class='alert alert-info' role='alert'><p class='lead'>El trabajo en extenso deberá subirse del <b>15 al 22 de Septiembre</b>. BAJO NINGUNA CIRCUNSTANCIA SE PRESENTARAN EN LAS MESAS DE TRABAJO, PONENCIAS QUE NO HAYAN ENVIADO SU TRABAJO EN EXTENSO. De igual forma no serán incluidos en las memorias.</p></div>
 
     <div class='alert alert-warning' role='alert'><p class='lead'>
-    <p class="lead" style="font-size: 14px;">Las presentaciones deberán prepararse en archivos *.pptx (MS Office Power Point versión 2007 o superior) y serán enviados sin excepción, al correo electrónico congreso.ciencia@gmail.com, adjuntando nombre, folio y mesa, a más tardar el 22 de septiembre. Por seguridad de la información los organizadores y participantes <b>NO SE RECIBIRÁN PRESENTACIONES EN MEMORIAS USB O DISCOS EXTERNOS LOS DÍAS DEL EVENTO.</b></p></div>
+    <p class="lead" style="font-size: 14px;">Las presentaciones deberán prepararse en archivos *.pptx (MS Office Power Point versión 2010 o superior) y serán enviados sin excepción, al correo electrónico congreso.ciencia@gmail.com, adjuntando nombre, folio y mesa, a más tardar el 29 de septiembre. Por seguridad de la información,<b> NO SE RECIBIRÁN PRESENTACIONES EN MEMORIAS USB O DISCOS EXTERNOS LOS DÍAS DEL EVENTO.</b></p></div>
 
-  <?php elseif($actual > $FIEA && $actual <= $FCEA): ?>
+    <?php elseif($actual > $FCE && $actual <= $FIC): ?>
     <div class='alert alert-danger' role='alert'><p class='lead'>Estimado participante, la fecha l&iacute;mite para subir tu <b>Extenso</b> ha finalizado agradecemos tu participaci&oacute;n. <br>Los horarios y mesas de las ponencias serán notificados, <b>EL PONENTE DEBERÁ ESTAR AL HORA DE INICIO DE LA MESA ASIGNADO</b>.</p></div>
 
-<?php else: ?>
+    <?php else: ?>
     <!-- Función texto sólo para alerta de resúmen -->
-    <div class='alert alert-success' role='alert'><p class='lead'>Las constancias podrán ser descargadas a partir del día <b>23 de Octubre 2017 y hasta el 23 de Enero 2018</b> en ésta plataforma.</p></div>
+    <div class='alert alert-success' role='alert'><p class='lead'>Las constancias podrán ser descargadas a partir del día <b>23 de Octubre 2017 y hasta el 28 de Febrero 2018</b> en ésta plataforma.</p></div>
 
 <?php endif ?>
 <div class="gap"></div>
 <div id="pricing-table" class="row">
 
-<?php if($actual > $FIR && $actual <= $FCE): ?>
+
+<div class="col-md-3 col-xs-6">
+<ul class="plan plan1">
+<li class="plan-name">
+<h3>Ticket Evento</h3>
+</li>
+<li class="plan-price">
+<div>
+<span class="price"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></span>
+</div>
+</li>
+<li class="plan-action">
+<a href="ticket" target="_blank" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
+</li>
+</ul>
+</div>
+
+
+
+<?php if($actual > $FIR && $actual <= $FCR): ?>
 <div class="col-md-3 col-xs-6">
 <ul class="plan plan1">
 <li class="plan-name">
@@ -94,9 +127,30 @@ if(!$user)
 </li>
 <li class="plan-action">
 <a href="<?php base_url() ?>../formatos/formato_resumen.docx" target="_blank" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Formato Resumen</a>
+<a href="<?php base_url() ?>../formatos/guia_resumen_congreso_12.pdf" target="_blank" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Guía Resumen</a>
+<a href="<?php base_url() ?>../formatos/guia_cartel_congreso_12.pdf" target="_blank" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Guía Cartel</a>
 </li>
 </ul>
 </div>
+<?php endif ?>
+
+<?php if($actual > $FIE && $actual <= $FCE): ?>
+        <div class="col-md-3 col-xs-6">
+        <ul class="plan plan1">
+        <li class="plan-name">
+        <h3>Plantillas</h3>
+        </li>
+        <li class="plan-price">
+        <div>
+        <span class="price"><i class="fa fa-file-word-o fa-2x" aria-hidden="true"></i></span>
+        </div>
+        </li>
+        <li class="plan-action">
+        <a href="<?php base_url() ?>../formatos/guia_final_congreso_12.pdf" target="_blank" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>   Guía Extenso</a>
+        <a href="<?php base_url() ?>../formatos/Power_Point_12_Congreso.pptx" target="_blank" class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class="fa fa-download" aria-hidden="true"></i>  Formato de presentación</a>
+        </li>
+        </ul>
+        </div>
 <?php endif ?>
 
 
@@ -121,22 +175,22 @@ if(!$user)
 
 
 
-<?php if($actual > $FIE && $actual <= $FCE): ?>
-    <div class='col-md-3 col-xs-6'>
-    <ul class='plan plan2 featured'>
-    <li class='plan-name'>
-    <h3>Registrar Extenso</h3>
-    </li>
-    <li class='plan-price'>
-    <div>
-    <span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
-    </div>
-    </li>
-    <li class='plan-action'>
-    <a href='extenso' class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class='fa fa-edit' aria-hidden='true'></i>   Registro</a>
-    </li>
-    </ul>
-    </div>
+<?php if($actual > $FIE && $actual <= $FCR): ?>
+        <div class='col-md-3 col-xs-6'>
+        <ul class='plan plan2 featured'>
+        <li class='plan-name'>
+        <h3>Registrar Extenso</h3>
+        </li>
+        <li class='plan-price'>
+        <div>
+        <span class='price'><i class='fa fa-file-text-o fa-2x' aria-hidden='true'></i></span>
+        </div>
+        </li>
+        <li class='plan-action'>
+        <a href='extenso/<?=$user;?>' class="btn btn-outlined btn-white" data-wow-delay="0.7s"><i class='fa fa-edit' aria-hidden='true'></i>   Registro</a>
+        </li>
+        </ul>
+        </div>
 <?php endif ?>
 
 

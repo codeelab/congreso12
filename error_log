@@ -1,0 +1,10 @@
+[27-Jun-2017 12:26:03 America/Chicago] PHP Warning:  POST Content-Length of 35249851 bytes exceeds the limit of 33554432 bytes in Unknown on line 0
+[27-Jun-2017 12:37:40 America/Chicago] PHP Warning:  POST Content-Length of 35249851 bytes exceeds the limit of 33554432 bytes in Unknown on line 0
+[27-Jun-2017 12:45:52 America/Chicago] PHP Warning:  POST Content-Length of 35249851 bytes exceeds the limit of 33554432 bytes in Unknown on line 0
+[28-Jun-2017 09:44:58 America/Chicago] PHP Fatal error:  Class 'SMTP' not found in /home/sicdetor/public_html/congreso_ciencia/application/libraries/PHPMailer/class.phpmailer.php on line 1520
+[29-Jun-2017 09:48:11 America/Chicago] PHP Fatal error:  Class 'SMTP' not found in /home/sicdetor/public_html/congreso_ciencia/application/libraries/PHPMailer/class.phpmailer.php on line 1520
+[29-Jun-2017 09:51:53 America/Chicago] PHP Fatal error:  Class 'PHPMailer' not found in /home/sicdetor/public_html/congreso_ciencia/application/controllers/Inicio.php on line 319
+[29-Jun-2017 11:07:14 America/Chicago] PHP Fatal error:  Class 'SMTP' not found in /home/sicdetor/public_html/congreso_ciencia/application/libraries/PHPMailer/class.phpmailer.php on line 1520
+[29-Jun-2017 11:09:20 America/Chicago] PHP Fatal error:  Class 'SMTP' not found in /home/sicdetor/public_html/congreso_ciencia/application/libraries/PHPMailer/class.phpmailer.php on line 1520
+[03-Jul-2017 18:10:50 America/Chicago] PHP Parse error:  syntax error, unexpected '000' (T_LNUMBER) in /home/sicdetor/public_html/congreso_ciencia/application/controllers/Inicio.php on line 248
+[04-Jul-2017 09:50:49 America/Chicago] PHP Fatal error:  Call to undefined function base_url() in /home/sicdetor/public_html/congreso_ciencia/application/views/errors/html/error_404.php on line 15

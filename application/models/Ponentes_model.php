@@ -81,13 +81,13 @@ htmlspecialchars($row->nombre_tem, ENT_QUOTES);
     {
         if($id_ponencias === false)
         {
-            $this->db->select('u.username,u.nombre,u.a_paterno,u.a_materno,p.id_ponencias,p.titulo,p.autor,p.coautores,p.asesor,p.titulo, s.status, p.archivo_resumen, p.archivo_extenso, p.mesa_id, t.nombre_trabajo');
+            $this->db->select('p.usuario_id,u.username,u.nombre,u.a_paterno,u.a_materno,p.id_ponencias,p.titulo,p.autor,p.coautores,p.asesor,p.titulo, s.status, p.archivo_resumen, p.archivo_extenso, p.mesa_id, t.nombre_trabajo');
             $this->db->from('usuarios u');
             $this->db->join('ponencias p', 'u.id_usuarios = p.usuario_id');
             $this->db->join('status s', 'p.status_id = s.id_status');
             $this->db->join('tipo t', 'p.tipo_trabajo_id = t.id_tipo');
         }else{
-            $this->db->select('u.username,u.nombre,u.a_paterno,u.a_materno,p.id_ponencias,p.titulo,p.autor,p.coautores,p.asesor,p.titulo, s.status, p.archivo_resumen, p.archivo_extenso, p.mesa_id, t.nombre_trabajo');
+            $this->db->select('p.usuario_id,u.username,u.nombre,u.a_paterno,u.a_materno,p.id_ponencias,p.titulo,p.autor,p.coautores,p.asesor,p.titulo, s.status, p.archivo_resumen, p.archivo_extenso, p.mesa_id, t.nombre_trabajo');
             $this->db->from('usuarios u');
             $this->db->join('ponencias p', 'u.id_usuarios = p.usuario_id');
             $this->db->join('status s', 'p.status_id = s.id_status');
@@ -184,10 +184,23 @@ htmlspecialchars($row->nombre_tem, ENT_QUOTES);
         $this->db->from('alertas');
 
         $query = $this->db->get();
-        if ($query->num_rows() > 0 ) {
+        if ($query->num_rows() > 0 )
+        {
             return $query->result();
         }
     }
+
+
+    public function verificarPonencia($id_usuarios = false)
+    {
+       $consulta = $this->db->query("SELECT status_id FROM ponencias WHERE usuario_id = $id_usuarios");
+        if($consulta->num_rows() > 0 )
+        {
+            return $consulta->result();
+        }
+    }
+
+
 
 
 }
