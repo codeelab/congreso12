@@ -52,51 +52,104 @@ if(!$user)
 </div>
 </section>
 
-<section id="career" class="container">
-<div class="center">
-<h2>MODIFICACIÓN DE INFORMACIÓN</h2>
-</div>
-<hr>
-<div class="row">
-<div class="col-md-12">
+<section id="pricing">
+<div class="container">
 
-<form>
-<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-<?php
-if($mod !== FALSE){
-  foreach ($mod as $row)
-  {
-    echo "
-        <div class='row'>
-            <div class='col-md-4'>
-                <label class='form-text' for='nombre'>Autor (es)</label>
-                <input type='text' class='form-control' id='autor' name='autor' value='$row->autor'>
-            </div>
-            <div class='col-md-4'>
-                <label class='form-text' for='a_paterno'>Coautor (es)</label>
-                <input type='text' class='form-control' id='coautores' name='coautores' value='$row->coautores'>
-            </div>
-            <div class='col-md-4'>
-                <label class='form-text' for='a_paterno'>Asesor (es)</label>
-                <input type='text' class='form-control' id='asesor' name='asesor' value='$row->asesor'>
-            </div>
-        </div>
 
-        <div class='row'>
-            <div class='col-md-9'>
-                <label class='form-text' for='nombre'>Titulo del proyecto</label>
-                <input type='text' class='form-control' id='titulo' name='titulo' value='$row->titulo'>
-            </div>
-        </div>
-      <input type='hidden' name='usuario_id' id='usuario_id' value='$row->usuario_id'>
-      ";
+<div class="gap"></div>
+<div id="pricing-table" class="row">
 
-  }
+<?php if($mod_user !== FALSE){
+
+foreach ($mod_user as $v){
+
+               echo "
+                <div class='col-md-6 col-xs-6'>
+                <ul class='plan plan1'>
+                <li class='plan-name'>
+                <h3>Ajuste de Usuario</h3>
+                </li>
+                <li class='plan-price'>
+                <div>
+                <span class='price'><i class='fa fa-edit fa-2x' aria-hidden='true'></i></span>
+                </div>
+                </li>
+                <li class='plan-action'>
+                <a href='" . base_url() . "apoyo/mod_user/$v->id_usuarios' class='btn btn-outlined btn-white' data-wow-delay='0.7s'><i class='fa fa-angle-double-right' aria-hidden='true'></i> Acceso</a>
+                </li>
+                </ul>
+                </div>
+               ";
+           }
 }else{
-  echo "NO EXISTEN PONENCIA DE ESTE USUARIO";
+               echo "
+                <div class='col-md-6 col-xs-6'>
+                <ul class='plan featured plan1'>
+                <li class='plan-name'>
+                <h3>No existen datos</h3>
+                </li>
+                <li class='plan-price'>
+                <div>
+                <span class='price'><i class='fa fa-edit fa-2x' aria-hidden='true'></i></span>
+                </div>
+                </li>
+                <li class='plan-action'>
+                <a class='btn btn-outlined btn-white' data-wow-delay='0.7s'><i class='fa fa-angle-double-right' aria-hidden='true'></i> x </a>
+                </li>
+                </ul>
+                </div>
+               ";
 }
 ?>
-</form>
+
+
+
+
+
+
+<?php if($mods !== FALSE){
+
+foreach ($mods as $v){
+
+               echo "
+                <div class='col-md-6 col-xs-6'>
+                <ul class='plan plan1'>
+                <li class='plan-name'>
+                <h3>Ajuste de Ponencia</h3>
+                <p style='font-size: 17px;'>$v->titulo</p>
+                </li>
+                <li class='plan-action'>
+                <a href='" . base_url() . "apoyo/mod_ponencia/$v->id_ponencias' class='btn btn-outlined btn-white' data-wow-delay='0.7s'><i class='fa fa-angle-double-right' aria-hidden='true'></i> Acceso</a>
+                </li>
+                </ul>
+                </div>
+               ";
+           }
+}else{
+               echo "
+                <div class='col-md-6 col-xs-6'>
+                <ul class='plan featured plan1'>
+                <li class='plan-name'>
+                <h3>No existen datos</h3>
+                </li>
+                <li class='plan-price'>
+                <div>
+                <span class='price'><i class='fa fa-edit fa-2x' aria-hidden='true'></i></span>
+                </div>
+                </li>
+                <li class='plan-action'>
+                <a class='btn btn-outlined btn-white' data-wow-delay='0.7s'><i class='fa fa-angle-double-right' aria-hidden='true'></i> x </a>
+                </li>
+                </ul>
+                </div>
+               ";
+}
+?>
+
+
+
+
+
 <hr>
 <br>
 <a href="<?php echo base_url(); ?>apoyo/correccion"><button type="button"  class="btn btn-outlined btn-theme btn-md btn-block" data-wow-delay="0.7s">Regresar al listado</button></a>
@@ -104,5 +157,4 @@ if($mod !== FALSE){
 </div>
 </div>
 
-</div>
 </section>

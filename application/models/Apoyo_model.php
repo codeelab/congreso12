@@ -125,15 +125,51 @@ function listado_tickets()
     }
 
 
-    function modificacion($id_usuarios)
+    function ponencia($id_usuarios)
     {
-        $query = $this->db->query("SELECT id_ponencias, usuario_id, titulo, autor, coautores, asesor FROM ponencias WHERE usuario_id = $id_usuarios");
+        $query = $this->db->query("SELECT id_ponencias, usuario_id, titulo, autor, coautores, asesor FROM ponencias WHERE  status_id = 2 AND usuario_id = $id_usuarios");
         if($query->num_rows() > 0 )
           {
             return $query->result();
           }else{
             return false;
           }
+    }
+
+
+    function modificacion($id_usuarios)
+    {
+        $query = $this->db->query("SELECT id_ponencias, usuario_id, titulo, autor, coautores, asesor FROM ponencias WHERE  status_id = 2 AND usuario_id = $id_usuarios");
+        if($query->num_rows() > 0 )
+          {
+            return $query->result();
+          }else{
+            return false;
+          }
+    }
+
+
+
+    function usuario($id_usuarios)
+    {
+        $query = $this->db->query("SELECT id_usuarios, nombre, a_paterno, a_materno FROM usuarios WHERE id_usuarios = $id_usuarios");
+        if($query->num_rows() > 0 )
+          {
+            return $query->result();
+          }else{
+            return false;
+          }
+    }
+
+
+
+    function modificacion_user($id_usuarios)
+    {
+        $sql = $this->db->query("
+          SELECT id_usuarios, nombre, a_paterno, a_materno FROM usuarios WHERE id_usuarios = '$id_usuarios'
+          ");
+            return $sql->result();
+
     }
 
 

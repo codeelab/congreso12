@@ -150,7 +150,8 @@ class Apoyo extends MY_Controller {
     public function mod()
     {
         $id_usuarios               = $this->uri->segment(3);
-        $data['mod']               = $this->Apoyo_model->modificacion($id_usuarios);
+        $data['mods']              = $this->Apoyo_model->ponencia($id_usuarios);
+        $data['mod_user']          = $this->Apoyo_model->usuario($id_usuarios);
         $this->load->view("theme/header");
         $this->load->view("theme/menu");
         $this->load->view("apoyo/editar",$data);
@@ -158,38 +159,78 @@ class Apoyo extends MY_Controller {
     }
 
 
-    public function actualizar()
+    public function mod_user()
     {
-         $this->form_validation->set_rules('autor','autor','trim|required|xss_clean');
-         $this->form_validation->set_rules('coatures','coatures','trim|required|xss_clean');
-         $this->form_validation->set_rules('asesor','asesor','trim|required|xss_clean');
-         $this->form_validation->set_rules('titulo','titulo','trim|required|xss_clean');
+        $id_usuarios               = $this->uri->segment(3);
+        $data['mod_user']          = $this->Apoyo_model->modificacion_user($id_usuarios);
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view("apoyo/usuario",$data);
+        $this->load->view("theme/footer");
+    }
 
-         //validamos que se introduzcan los campos requeridos con la función de ci required
-         $this->form_validation->set_message('required', 'Campo %s es obligatorio');
+    public function mod_ponencia()
+    {
+        $id_usuarios               = $this->uri->segment(3);
+        $data['mod']               = $this->Apoyo_model->modificacion($id_usuarios);
+        $this->load->view("theme/header");
+        $this->load->view("theme/menu");
+        $this->load->view("apoyo/ponencia",$data);
+        $this->load->view("theme/footer");
+    }
 
-         if (!$this->form_validation->run())
-         {
-         //si no pasamos la validación volvemos al formulario mostrando los errores
-         $this->mod();
-         }
-         //si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
-         else
-         {
-             $usuario_id = $this->uri->segment(3);
-             $datos = array(
-                        "titulo" => $titulo,
-                        "autor" => $autor,
-                        "coautores" => $coautores,
-                        "asesor" => $asesor,
-                    );
-             $this->Apoyo_model->editar($usuario_id,$datos);
-         }
 
+
+    public function actualizar_usuario()
+    {
+        $id         = $this->input->post('id_usuarios');
+        $nombre     = $this->input->post('nombre');
+        $paterno    = $this->input->post('a_paterno');
+        $materno    = $this->input->post('a_materno');
+
+        $this->db->query("
+            UPDATE usuarios SET
+            nombre = '$nombre',
+            a_paterno = '$paterno',
+            a_materno = '$materno'
+            WHERE id_usuarios = '$id'
+        ");
+
+        redirect('apoyo/mod/'.$id);
 
     }
 
 
+    public function actualizar_ponencia()
+    {
+        $id         = $this->input->post('usuario_id');
+        $autor      = $this->input->post('autor');
+        $coautor    = $this->input->post('coautor');
+        $asesor     = $this->input->post('asesor');
+        $titulo     = $this->input->post('titulo');
+
+        $this->db->query("
+            UPDATE ponencias SET
+            autor       = '$nombre',
+            coautores   = '$paterno',
+            asesor      = '$materno',
+            titulo      = '$titulo'
+            WHERE id_ponencias = '$id'
+        ");
+
+        redirect('apoyo/mod/'.$id);
+
+    }
+
+
+
+
+
+
+    private function token()
+    {
+        return sha1(uniqid(rand(),true));
+    }
 
     function newregistro()
     {
@@ -261,7 +302,7 @@ class Apoyo extends MY_Controller {
         // disable auto-page-break
         $pdf->SetAutoPageBreak(false, 0);
         // set bacground image
-        $pdf->Image('assets/images/ticket_ponente_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+        $pdf->Image('assets/images/ticket_asistente_12_congreso.jpg', 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
         // restore auto-page-break status
         $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
         // set the starting point for the page content
@@ -283,12 +324,22 @@ class Apoyo extends MY_Controller {
         $pdf->SetXY(39,95);
         $pdf->writeHTML($nombres, true, false, true, false, '');
         $pdf->write2DBarcode($info, 'QRCODE,H', 138, 91, 59, 52, $style, 'N');
-        $pdflisto = $pdf->Output();
+        $listo = $pdf->Output('Folio-000'.$id_usuarios.'.pdf','D');
+
 
     }
 
 
+function check_username_availablity()
+{
+    $this->load->model('Inicio_model');
+    $get_result = $this->Inicio_model->check_username_availablity();
 
+    if(!$get_result )
+    echo '<span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i>    Este nombre de usuario ya existe ¿Quieres volver a intentarlo?.</span>';
+    else
+    echo '<span class="text-success"><i class="fa fa-check" aria-hidden="true"></i>   ¡Disponible!</span>';
+}
 
 
 
